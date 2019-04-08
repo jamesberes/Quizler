@@ -67,5 +67,10 @@ namespace Capstone.Controllers
             card.DeckID = deckID;
             return View(card);
         }
+
+        public IActionResult EditDeck(int deckId) //todo: Finish method
+        {
+            return View();
+        }
     }
 }
