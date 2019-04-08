@@ -9,7 +9,7 @@ namespace Capstone.Models.DALs
     {
         string ConnectionString { get; }
 
-        bool AddCardToDeck(int deckID, Card card);
+        bool AddCardToDeck(/*int deckID, */Card card);
         List<Card> GetCardsByDeckId(int deckId);
     }
 }

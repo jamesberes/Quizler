@@ -17,7 +17,7 @@ namespace Capstone.Models.DALs
             ConnectionString = connectionString;
         }
 
-        public bool AddCardToDeck(int deckID, Card card)
+        public bool AddCardToDeck(/*int deckID, */Card card)
         {
             bool output;
 
@@ -30,7 +30,7 @@ namespace Capstone.Models.DALs
                 cmd.Parameters.AddWithValue("@back", card.Back);
                 cmd.Parameters.AddWithValue("@img", card.ImageURL);
                 cmd.Parameters.AddWithValue("@card_order", card.CardOrder);
-                cmd.Parameters.AddWithValue("@deck_id", deckID);
+                cmd.Parameters.AddWithValue("@deck_id", card.DeckID/*deckID*/);
 
                 try
                 {
