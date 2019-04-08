@@ -11,7 +11,7 @@ namespace Capstone.Models.DALs
         private string connectionString;
         private ICardDAL cardSqlDAL;
 
-        private const string sql_CreateDeck = @"insert into decks (name, user, description) values (@name, @user, @description);";
+        private const string sql_CreateDeck = @"insert into decks (name, users_id, description) values (@name, @user, @description); SELECT CAST(SCOPE_IDENTITY() as int);";
         private const string sql_GetDeckById = @"SELECT * FROM decks WHERE id = @id";
         //private const string sql_GetRandomDeck = "";
         //private const string sql_GetDecksbyUserId = "";
@@ -24,9 +24,9 @@ namespace Capstone.Models.DALs
         }
 
         //bool CreateDeck();
-        public bool CreateDeck(Deck newDeck)
+        public int CreateDeck(Deck newDeck)
         {
-            bool result = false;
+            int result = 0;
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -39,15 +39,15 @@ namespace Capstone.Models.DALs
                     cmd.Parameters.AddWithValue("@user", newDeck.UserId);
                     cmd.Parameters.AddWithValue("@description", newDeck.Description);
 
-                    int alteredRows = cmd.ExecuteNonQuery();
+                    newDeck.Id = (int)cmd.ExecuteScalar();
 
-                    if (alteredRows > 0)
+                    if (newDeck.Id > 0)
                     {
-                        result = true;
+                        result = newDeck.Id;
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
 
             }

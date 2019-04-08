@@ -34,6 +34,7 @@ namespace Capstone
             //Dependency injections
             string connectionString = Configuration.GetConnectionString("Default");
             services.AddScoped<ICardDAL, CardSqlDAL>(c => new CardSqlDAL(connectionString));
+            services.AddScoped<IDeckDAL, DeckSqlDAL>(c => new DeckSqlDAL(connectionString));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

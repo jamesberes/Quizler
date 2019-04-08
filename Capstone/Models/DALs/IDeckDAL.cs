@@ -7,7 +7,7 @@ namespace Capstone.Models.DALs
 {
     public interface IDeckDAL
     {
-        bool CreateDeck(Deck newDeck);
+        int CreateDeck(Deck newDeck);
         //Deck GetRandomDeck();
         Deck GetDeckById(int deckId);
         //List<Deck> GetDecksbyUserId();

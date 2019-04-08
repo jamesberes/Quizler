@@ -32,7 +32,8 @@ namespace Capstone.Controllers
         [HttpPost]
         public IActionResult CreateDeck(Deck newDeck)
         {
-            if (decksSqlDAL.CreateDeck(newDeck))
+            int deckId = decksSqlDAL.CreateDeck(newDeck);
+            if (deckId != 0)
             {
                 newDeck.Cards = new List<Card>();
                 return RedirectToAction("ViewDeck", new { deckId = newDeck.Id });
