@@ -3,9 +3,9 @@ USE master;
 GO
 
 ---- Delete the FlashCards Database (IF EXISTS)
---IF (EXISTS(select * from sys.databases where name='FlashCards'))
---	DROP DATABASE FlashCards;
---GO
+IF (EXISTS(select * from sys.databases where name='FlashCards'))
+	DROP DATABASE FlashCards;
+GO
 
 ---- Create a new FlashCards Database
 CREATE DATABASE FlashCards;
