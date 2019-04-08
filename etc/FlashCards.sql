@@ -42,10 +42,10 @@ create table cards
 create table users
 (
 	id int primary key identity(1,1),
-	display_name varchar(50) null,
-	email varchar(50) not null,
-	password varchar(50) not null,
-	salt varchar(50) not null,
+	display_name varchar(max) null,
+	email varchar(max) not null,
+	password varchar(max) not null,
+	salt varchar(max) not null,
 	is_admin bit default(0) not null
 );
 
