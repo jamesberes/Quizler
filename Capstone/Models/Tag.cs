@@ -7,7 +7,7 @@ namespace Capstone.Models
 {
     public class Tag
     {
-        public int ID { get; set; }
+        public int IP { get; set; }
 
         public string Name { get; set; }
 
