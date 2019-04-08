@@ -54,10 +54,9 @@ namespace Capstone.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddCard(Card newCard/*, int deckId*/)
+        public IActionResult AddCard(Card newCard)
         {
-            /*newCard.DeckID = deckId;*/
-            cardSqlDAL.AddCardToDeck(/*newCard.DeckID, */newCard);
+            cardSqlDAL.AddCardToDeck(newCard);
             return RedirectToAction("ViewDeck", new { deckId = newCard.DeckID });
         }
 
