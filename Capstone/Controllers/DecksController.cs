@@ -11,10 +11,12 @@ namespace Capstone.Controllers
     public class DecksController : Controller
     {
         private IDeckDAL decksSqlDAL;
+        private ICardDAL cardSqlDAL;
 
-        public DecksController(IDeckDAL decksSqlDAL)
+        public DecksController(IDeckDAL decksSqlDAL, ICardDAL cardSqlDAL)
         {
             this.decksSqlDAL = decksSqlDAL;
+            this.cardSqlDAL = cardSqlDAL;
         }
 
         public IActionResult Index(int userId = 1)
@@ -49,6 +51,22 @@ namespace Capstone.Controllers
         {
             Deck deck = decksSqlDAL.GetDeckById(deckId);
             return View(deck);
+        }
+
+        [HttpPost]
+        public IActionResult AddCard(Card newCard, int deckId)
+        {
+            newCard.DeckID = deckId;
+            cardSqlDAL.AddCardToDeck(newCard.DeckID, newCard);
+            return RedirectToAction("ViewDeck", new { deckId = newCard.DeckID });
+        }
+
+        [HttpGet]
+        public IActionResult AddCard(int deckID)
+        {
+            Card card = new Card();
+            card.DeckID = deckID;
+            return View(card);
         }
     }
 }

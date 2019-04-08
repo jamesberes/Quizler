@@ -13,10 +13,10 @@ namespace Capstone.Models
 
         public string Back { get; set; }
 
-        public string ImageURL { get; set; }
+        public string ImageURL { get; set; } = "";
 
         public int DeckID { get; set; }
 
-        public int CardOrder { get; set; }
+        public int CardOrder { get; set; } = 1;
     }
 }
