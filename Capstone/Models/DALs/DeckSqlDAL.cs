@@ -14,7 +14,7 @@ namespace Capstone.Models.DALs
         private const string sql_CreateDeck = @"insert into decks (name, users_id, description) values (@name, @user, @description); SELECT CAST(SCOPE_IDENTITY() as int);";
         private const string sql_GetDeckById = @"SELECT * FROM decks WHERE id = @id";
         //private const string sql_GetRandomDeck = "";
-        //private const string sql_GetDecksbyUserId = "";
+        private const string sql_GetDecksbyUserId = @"SELECT * FROM decks WHERE users_id = @userId";
 
 
         public DeckSqlDAL(string connectionString)
@@ -93,7 +93,44 @@ namespace Capstone.Models.DALs
             return result;
         }
 
-        //Deck GetRandomDeck();
         //List<Deck> GetDecksbyUserId();
+        public List<Deck> GetDecksbyUserId(int userId)
+        {
+            List<Deck> result = new List<Deck>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql_GetDecksbyUserId, conn);
+                    cmd.Parameters.AddWithValue("@userId", userId);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Deck deck = new Deck
+                        {
+                            Id = Convert.ToInt32(reader["id"]),
+                            Name = Convert.ToString(reader["name"]),
+                            DateCreated = Convert.ToDateTime(reader["date_created"]),
+                            PublicDeck = Convert.ToBoolean(reader["is_public"]),
+                            UserId = Convert.ToInt32(reader["users_id"]),
+                            ForReview = Convert.ToBoolean(reader["for_review"]),
+                            Description = Convert.ToString(reader["description"])
+                        };
+
+                        result.Add(deck);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                List<Deck> deck = new List<Deck>();
+            }
+            return result;
+        }
+
+        //Deck GetRandomDeck();
     }
 }

@@ -52,9 +52,19 @@
         <dd>
             @Html.DisplayFor(model => model.Description)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Cards)
+        </dt>
+        @foreach (var card in Model.Cards)
+        {
+            <dd>
+                @card.Front
+            </dd>
+        }
+
     </dl>
 </div>
 <div>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" asp-route-userId="@(Model.UserId)">Back to List</a>
 </div>

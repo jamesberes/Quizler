@@ -10,6 +10,6 @@ namespace Capstone.Models.DALs
         int CreateDeck(Deck newDeck);
         //Deck GetRandomDeck();
         Deck GetDeckById(int deckId);
-        //List<Deck> GetDecksbyUserId();
+        List<Deck> GetDecksbyUserId(int userId);
     }
 }

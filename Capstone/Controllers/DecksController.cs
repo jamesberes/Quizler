@@ -17,9 +17,10 @@ namespace Capstone.Controllers
             this.decksSqlDAL = decksSqlDAL;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int userId = 1)
         {
-            return View();
+            List<Deck> decks = decksSqlDAL.GetDecksbyUserId(userId);
+            return View(decks);
         }
 
         [HttpGet]
