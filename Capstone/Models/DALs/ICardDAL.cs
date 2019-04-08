@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Capstone.Models.DALs
 {
-    interface ICardDAL
+    public interface ICardDAL
     {
         string ConnectionString { get; }
 
