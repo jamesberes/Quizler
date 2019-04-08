@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Capstone.Models
 {
-    public class DeckModel
+    public class Deck
     {
         public int Id { get; set; }
 
@@ -20,5 +20,7 @@ namespace Capstone.Models
         public bool ForReview { get; set; }
 
         public string Description { get; set; }
+
+        public List<Card> Cards { get; set; }
     }
 }
