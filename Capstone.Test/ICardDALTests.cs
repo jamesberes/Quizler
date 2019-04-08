@@ -20,7 +20,10 @@ namespace Capstone.Test
             ICardDAL dal = new CardSqlDAL(connectionString);
             
             //Add a test deck
-            using(S)
+            using(SqlConnection conn = new SqlConnection(connectionString))
+            {
+
+            }
         }
 
         [TestCleanup]
