@@ -9,7 +9,7 @@ namespace Capstone.Models.DALs
     public class DeckSqlDAL : IDeckDAL
     {
         private string connectionString;
-        //private ICardDAL = new cardSqlDAL(connectionString);
+        private ICardDAL cardSqlDAL;
 
         private const string sql_CreateDeck = @"insert into decks (name, user, description) values (@name, @user, @description);";
         private const string sql_GetDeckById = @"SELECT * FROM decks WHERE id = @id";
@@ -20,6 +20,7 @@ namespace Capstone.Models.DALs
         public DeckSqlDAL(string connectionString)
         {
             this.connectionString = connectionString;
+            cardSqlDAL = new CardSqlDAL(connectionString);
         }
 
         //bool CreateDeck();
@@ -77,7 +78,7 @@ namespace Capstone.Models.DALs
                             PublicDeck = Convert.ToBoolean(reader["is_public"]),
                             UserId = Convert.ToInt32(reader["users_id"]),
                             ForReview = Convert.ToBoolean(reader["for_review"]),
-                            Description = Convert.ToString(reader["description"])
+                            Description = Convert.ToString(reader["description"])                            
                         };
 
                         result = deck;
@@ -87,8 +88,9 @@ namespace Capstone.Models.DALs
             }
             catch (SqlException ex)
             {
-                Deck deck = new Deck();
+                //Deck deck = new Deck();
             }
+            return result;
         }
 
         //Deck GetRandomDeck();

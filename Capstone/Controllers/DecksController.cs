@@ -45,8 +45,7 @@ namespace Capstone.Controllers
 
         public IActionResult ViewDeck(int deckId)
         {
-            DeckViewModel dvm = new DeckViewModel();
-            deck = decksSqlDAL.GetDeckById(deckId);
+            Deck deck = decksSqlDAL.GetDeckById(deckId);
             return View(deck);
         }
     }
