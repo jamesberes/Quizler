@@ -30,14 +30,14 @@ namespace Capstone.Models.DALs
                 cmd.Parameters.AddWithValue("@back", card.Back);
                 cmd.Parameters.AddWithValue("@img", card.ImageURL);
                 cmd.Parameters.AddWithValue("@card_order", card.CardOrder);
-                cmd.Parameters.AddWithValue("@deck_id", card.DeckID);
+                cmd.Parameters.AddWithValue("@deck_id", deckID);
 
                 try
                 {
                     cmd.ExecuteNonQuery();
                     output = true;
                 }
-                catch
+                catch(Exception e)
                 {
                     output = false;
                 }

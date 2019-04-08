@@ -14,7 +14,7 @@ namespace Capstone.Models
         public DateTime DateCreated { get; set; }
 
         public bool PublicDeck { get; set; }
-
+        
         public int UserId { get; set; } = 1;
 
         public bool ForReview { get; set; }
