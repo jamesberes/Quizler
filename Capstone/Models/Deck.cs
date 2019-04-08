@@ -15,7 +15,7 @@ namespace Capstone.Models
 
         public bool PublicDeck { get; set; }
 
-        public string User { get; set; }
+        public int UserId { get; set; }
 
         public bool ForReview { get; set; }
 

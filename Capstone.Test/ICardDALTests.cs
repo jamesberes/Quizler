@@ -3,26 +3,49 @@ using System.Transactions;
 using Capstone.Models.DALs;
 using Capstone.Models;
 using System.Data.SqlClient;
+using System;
 
 namespace Capstone.Test
 {
     [TestClass]
-    class ICardDALTests
+    public class ICardDALTests
     {
         string connectionString = "Data Source=.\\sqlexpress;Initial Catalog=FlashCards;Integrated Security=True";
         TransactionScope tran;
+        ICardDAL dal;
+        int testDeckId;
 
 
         [TestInitialize]
         public void Initialize()
         {
             tran = new TransactionScope();
-            ICardDAL dal = new CardSqlDAL(connectionString);
+            dal = new CardSqlDAL(connectionString);
             
             //Add a test deck
             using(SqlConnection conn = new SqlConnection(connectionString))
             {
+                conn.Open();
 
+                Deck test = new Deck()
+                {
+                    Name = "Test Deck",
+                    Description = "Test Decription",
+                    DateCreated = DateTime.Now,
+                    PublicDeck = false,
+                    ForReview = false,
+                    UserId = 1
+                };
+
+                SqlCommand cmd = new SqlCommand("INSERT INTO decks (name, description, date_created, is_public, for_review, users_id) VALUES (@name, @desc, @date_created, @is_public, @for_review, @user_id); SELECT CAST(SCOPE_IDENTITY() as int);", conn);
+                cmd.Parameters.AddWithValue("@name", test.Name);
+                cmd.Parameters.AddWithValue("@desc", test.Description);
+                cmd.Parameters.AddWithValue("@date_created", test.DateCreated);
+                cmd.Parameters.AddWithValue("@is_public", test.PublicDeck);
+                cmd.Parameters.AddWithValue("@for_review", test.ForReview);
+                cmd.Parameters.AddWithValue("@user_id", test.UserId);
+
+                testDeckId = (int)cmd.ExecuteScalar();
             }
         }
 
@@ -41,7 +64,12 @@ namespace Capstone.Test
                 Back = "testBack",
                 CardOrder = 1,
                 DeckID = 1,
+                ImageURL = ""
             };
+
+            bool result = dal.AddCardToDeck(testDeckId, card);
+
+            Assert.AreEqual(true, result);
         }
     }
 }
