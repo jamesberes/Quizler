@@ -54,6 +54,9 @@
         </dd>
     </dl>
 </div>
+
+<a asp-action="AddCard" asp-route-deckId="@Model.Id">Add a card to this deck</a>
+
 <div>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     <a asp-action="Index">Back to List</a>
