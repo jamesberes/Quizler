@@ -30,7 +30,7 @@ namespace Capstone
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            //Dependency injection
+            //Dependency injections
             string connectionString = Configuration.GetConnectionString("Default");
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
