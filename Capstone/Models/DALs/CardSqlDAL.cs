@@ -126,7 +126,7 @@ namespace Capstone.Models.DALs
 
         public bool DeleteCard(int cardId)
         {
-            bool output = false;
+            bool output;
 
             try
             {
@@ -148,10 +148,10 @@ namespace Capstone.Models.DALs
                     }
                 }
             }
-            catch (Exception)
+            catch
             {
 
-                throw;
+                output = false;
             }
 
             return output;

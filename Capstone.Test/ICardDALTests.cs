@@ -4,6 +4,7 @@ using Capstone.Models.DALs;
 using Capstone.Models;
 using System.Data.SqlClient;
 using System;
+using System.Collections.Generic;
 
 namespace Capstone.Test
 {
@@ -119,6 +120,61 @@ namespace Capstone.Test
             Assert.AreEqual(card.Id, result.Id);
             Assert.AreEqual(card.DeckId, result.DeckId);
 
+        }
+
+        [TestMethod]
+        public void GetCardByDeckIdShouldReturnCorrectCards()
+        {
+            List<Card> cards = new List<Card>();
+
+            Card card = new Card()
+            {
+                Front = "testFront",
+                Back = "testBack",
+                CardOrder = 1,
+                DeckId = testDeckId,
+                ImageURL = "",
+            };
+
+            cards.Add(card);
+            dal.AddCardToDeck(card);
+
+            card = new Card()
+            {
+                Front = "testFront 2",
+                Back = "testBack 2",
+                CardOrder = 2,
+                DeckId = testDeckId,
+                ImageURL = "",
+            };
+
+            cards.Add(card);
+            dal.AddCardToDeck(card);
+
+            List<Card> result = dal.GetCardsByDeckId(testDeckId);
+
+            Assert.AreEqual(cards[0].Front, result[0].Front);
+            Assert.AreEqual(cards[0].Id, result[0].Id);
+            Assert.AreEqual(cards[1].Front, result[1].Front);
+            Assert.AreEqual(cards[1].Id, result[1].Id);
+        }
+
+        [TestMethod]
+        public void DeleteCardTests()
+        {
+            Card card = new Card()
+            {
+                Front = "testFront",
+                Back = "testBack",
+                CardOrder = 1,
+                DeckId = testDeckId,
+                ImageURL = "",
+            };
+
+            card = dal.AddCardToDeck(card);
+
+            Assert.AreEqual(false, dal.DeleteCard(card.Id + 1), "Result should be false because the test card should be the highest Id currently in the database");
+            Assert.AreEqual(true, dal.DeleteCard(card.Id));
         }
     }
 }
