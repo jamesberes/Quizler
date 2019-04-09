@@ -56,20 +56,36 @@ namespace Capstone.Test
         }
 
         [TestMethod]
-        public void AddCardToDeckShouldReturnTrueIfSuccessful()
+        public void AddCardToDeckShouldReturnCardWithID()
+        {
+            Card card = new Card()
+            {
+                ID = 0,
+                Front = "testFront",
+                Back = "testBack",
+                CardOrder = 1,
+                DeckID = testDeckId,
+                ImageURL = ""
+            };
+
+            card = dal.AddCardToDeck(card);
+
+            Assert.AreNotEqual(0, card.ID);
+        }
+
+        [TestMethod]
+        public void UpdateCardShouldReturnTrueIfSuccessful()
         {
             Card card = new Card()
             {
                 Front = "testFront",
                 Back = "testBack",
                 CardOrder = 1,
-                DeckID = 1,
+                DeckID = testDeckId,
                 ImageURL = ""
             };
 
-            bool result = dal.AddCardToDeck(testDeckId, card);
-
-            Assert.AreEqual(true, result);
+            bool result = dal.UpdateCard(card);
         }
     }
 }

@@ -9,17 +9,18 @@ namespace Capstone.Models.DALs
     public class CardSqlDAL : ICardDAL
     {
         public string ConnectionString { get; }
-        private string SQL_AddCardToDeck = "INSERT INTO cards (front, back, img, card_order, deck_id) VALUES (@front, @back, @img, @card_order, @deck_id);";
+        private const string SQL_AddCardToDeck = "INSERT INTO cards (front, back, img, card_order, deck_id) VALUES (@front, @back, @img, @card_order, @deck_id); SELECT CAST(SCOPE_IDENTITY() AS INT);";
         private const string sql_GetCardsByDeckId = @"Select * FROM cards WHERE deck_id = @deckId;";
+        private const string SQL_UpdateCard = "UPDATE cards SET front = @front, back = @back, img = @img WHERE id = @id;";
 
         public CardSqlDAL(string connectionString)
         {
             ConnectionString = connectionString;
         }
 
-        public bool AddCardToDeck(Card card)
+        public Card AddCardToDeck(Card card)
         {
-            bool output;
+            Card output = card;
 
             using (SqlConnection conn = new SqlConnection(ConnectionString))
             {
@@ -34,12 +35,11 @@ namespace Capstone.Models.DALs
 
                 try
                 {
-                    cmd.ExecuteNonQuery();
-                    output = true;
+                    card.ID = (int)cmd.ExecuteScalar();
                 }
                 catch(Exception e)
                 {
-                    output = false;
+                    output = new Card();
                 }
             }
             return output;
@@ -81,6 +81,31 @@ namespace Capstone.Models.DALs
 
             return result;
 
+        }
+
+        public bool UpdateCard(Card updatedCard)
+        {
+            bool output;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(ConnectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(SQL_UpdateCard, conn);
+                    cmd.Parameters.AddWithValue("@front", updatedCard.Front);
+                    cmd.Parameters.AddWithValue("@back", updatedCard.Back);
+                    cmd.Parameters.AddWithValue("@img", updatedCard.ImageURL);
+                }
+                output = true;
+            }
+            catch (Exception e)
+            {
+                output = false;
+            }
+
+            return output;
         }
     }
 }
