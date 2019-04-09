@@ -9,11 +9,12 @@ namespace Capstone.Models.DALs
     public class CardSqlDAL : ICardDAL
     {
         public string ConnectionString { get; }
-        private const string SQL_AddCardToDeck = "INSERT INTO cards (front, back, img, card_order, deck_id) VALUES (@front, @back, @img, @card_order, @deck_id); SELECT CAST(SCOPE_IDENTITY() AS INT);";
+
+        private const string sql_AddCardToDeck = "INSERT INTO cards (front, back, img, card_order, deck_id) VALUES (@front, @back, @img, @card_order, @deck_id); SELECT CAST(SCOPE_IDENTITY() AS INT);";
         private const string sql_GetCardsByDeckId = @"Select * FROM cards WHERE deck_id = @deckId ORDER BY card_order;";
-        private const string SQL_UpdateCard = "UPDATE cards SET front = @front, back = @back, img = @img, card_order = @order WHERE id = @id;";
-        private const string SQL_GetCardById = "SELECT * FROM cards WHERE id = @id;";
-        private const string SQL_DeleteCard = "DELETE FROM cards WHERE id = @id";
+        private const string sql_UpdateCard = "UPDATE cards SET front = @front, back = @back, img = @img, card_order = @order WHERE id = @id;";
+        private const string sql_GetCardById = "SELECT * FROM cards WHERE id = @id;";
+        private const string sql_DeleteCard = "DELETE FROM cards WHERE id = @id";
 
         public CardSqlDAL(string connectionString)
         {
@@ -28,7 +29,7 @@ namespace Capstone.Models.DALs
             {
                 conn.Open();
 
-                SqlCommand cmd = new SqlCommand(SQL_AddCardToDeck, conn);
+                SqlCommand cmd = new SqlCommand(sql_AddCardToDeck, conn);
                 cmd.Parameters.AddWithValue("@front", card.Front);
                 cmd.Parameters.AddWithValue("@back", card.Back);
                 cmd.Parameters.AddWithValue("@img", card.ImageURL);
@@ -89,13 +90,14 @@ namespace Capstone.Models.DALs
         {
             Card output;
 
-            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            try
             {
-                conn.Open();
-
-                try
+                using (SqlConnection conn = new SqlConnection(ConnectionString))
                 {
-                    SqlCommand cmd = new SqlCommand(SQL_UpdateCard, conn);
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql_UpdateCard, conn);
+
                     cmd.Parameters.AddWithValue("@front", updatedCard.Front);
                     cmd.Parameters.AddWithValue("@back", updatedCard.Back);
                     cmd.Parameters.AddWithValue("@img", updatedCard.ImageURL);
@@ -112,14 +114,15 @@ namespace Capstone.Models.DALs
                         output = null;
                     }
                 }
-                catch
-                {
-                    output = null;
-                }
             }
-
+            catch (Exception e)
+            {
+                output = null;
+            }
             return output;
         }
+
+
 
         public bool DeleteCard(int cardId)
         {
@@ -131,7 +134,7 @@ namespace Capstone.Models.DALs
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand(SQL_DeleteCard, conn);
+                    SqlCommand cmd = new SqlCommand(sql_DeleteCard, conn);
                     cmd.Parameters.AddWithValue("@id", cardId);
 
                     int numRowsChanged = cmd.ExecuteNonQuery();
@@ -164,7 +167,7 @@ namespace Capstone.Models.DALs
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand(SQL_GetCardById, conn);
+                    SqlCommand cmd = new SqlCommand(sql_GetCardById, conn);
                     cmd.Parameters.AddWithValue("@id", cardId);
 
                     SqlDataReader reader = cmd.ExecuteReader();

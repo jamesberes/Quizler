@@ -75,11 +75,11 @@
 
 <hr />
 
-<a asp-action="AddCard" asp-route-deckId="@Model.Id">Add a card to this deck</a>
 
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index" asp-route-userId="@(Model.UserId)">Back to List</a>
+    <a asp-action="EditDeck" asp-route-deckId="@(Model.Id)">Edit Deck</a> |
+    <a asp-action="AddCard" asp-route-deckId="@Model.Id">Add a card to this deck</a> |
+    <a asp-action="Index" asp-route-userId="@(Model.UserId)">Back to Decks</a>
 </div>
 
 <script src="~/js/Decks/ViewDeck.js"></script>

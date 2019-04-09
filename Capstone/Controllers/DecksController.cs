@@ -112,9 +112,18 @@ namespace Capstone.Controllers
             }
         }
 
-        public IActionResult EditDeck(int deckId) //todo: Finish method
+        [HttpGet]
+        public IActionResult EditDeck(int deckId)
         {
-            return View();
+            Deck deck = decksSqlDAL.GetDeckById(deckId);
+            return View(deck);
+        }
+
+        [HttpPost]
+        public IActionResult EditDeck(Deck updatedDeck)
+        {
+            decksSqlDAL.UpdateDeck(updatedDeck);
+            return RedirectToAction("ViewDeck", new { deckId = updatedDeck.Id });
         }
     }
 }
