@@ -68,10 +68,17 @@ namespace Capstone.Controllers
             return View(card);
         }
 
-        [HttpGet]
-        public IActionResult UpdateCard(int cardID)
+        [HttpPost]
+        public IActionResult UpdateCard(Card updatedCard)
         {
-            Card card = cardSqlDAL.GetCardById(cardID);
+            cardSqlDAL.UpdateCard(updatedCard);
+            return RedirectToAction("ViewDeck", new { deckId = updatedCard.DeckID });
+        }
+
+        [HttpGet]
+        public IActionResult UpdateCard(int cardId)
+        {
+            Card card = cardSqlDAL.GetCardById(cardId);
             return View(card);
         }
 

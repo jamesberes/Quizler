@@ -57,10 +57,10 @@
         </dt>
         @foreach (var card in Model.Cards)
         {
-            <dd>
-                @card.Front
-            </dd>
-            <a></a>
+        <dd>
+            @card.Front
+            <a asp-action="UpdateCard" asp-route-cardId="@card.ID">Update Card</a>
+        </dd>
         }
 
     </dl>
