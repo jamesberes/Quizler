@@ -1,0 +1,46 @@
+﻿.decks {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+a.deck-link {
+    text-decoration: none;
+    color: inherit;
+    margin: 1.5% 2.5%;
+}
+
+a.deck-link:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+a.deck-link:active {
+    text-decoration: none;
+    color: inherit;
+}
+
+div.deck {
+    width: 20vw;
+    height: 25vw;
+    background-color: lightgray;
+    border-radius: 15px;
+    text-align: center;
+    cursor: pointer;
+}
+
+div.deck h1 {
+    padding-top: 20%;
+    padding-bottom: 8%;
+    font-size: 3.5vw;
+}
+
+div.deck p {
+    font-size: 1.5vw;
+    text-decoration: none;
+}
+
+hidden {
+    display: none;
+    opacity: 0;
+}
