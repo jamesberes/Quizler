@@ -100,21 +100,14 @@ namespace Capstone.Models.DALs
                 cmd.Parameters.AddWithValue("@id", updatedCard.Id);
                 cmd.Parameters.AddWithValue("@order", updatedCard.CardOrder);
 
-                try
+                int numRowsChanged = cmd.ExecuteNonQuery();
+                if (numRowsChanged > 0)
                 {
-                    int numRowsChanged = cmd.ExecuteNonQuery();
-                    if (numRowsChanged > 0)
-                    {
-                        output = updatedCard;
-                    }
-                    else
-                    {
-                        output = new Card();
-                    }
+                    output = updatedCard;
                 }
-                catch (Exception e)
+                else
                 {
-                    output = new Card();
+                    output = null;
                 }
             }
 
