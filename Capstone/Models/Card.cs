@@ -23,5 +23,8 @@ namespace Capstone.Models
         public int DeckId { get; set; }
 
         public int CardOrder { get; set; } = 1;
+
+        [Display(Name = @"Search tags")]
+        public List<Tag> Tags { get; set; }
     }
 }

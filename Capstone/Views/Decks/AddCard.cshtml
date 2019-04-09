@@ -22,6 +22,13 @@
                 <input asp-for="Back" class="form-control" />
                 <span asp-validation-for="Back" class="text-danger"></span>
             </div>
+            <div id="tags" class="form-group">
+                <label asp-for="Tags" class="control-label"></label>
+                <input asp-for="Tags[0]" class="form-control" />
+                <span asp-validation-for="Tags" class="text-danger"></span>
+            </div>
+            <button id="AddNewTag">Add Another Tag</button>
+
             <input type="hidden" asp-for="CardOrder" />
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
@@ -37,3 +44,5 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script src="~/js/Decks/AddCard.js"></script>
