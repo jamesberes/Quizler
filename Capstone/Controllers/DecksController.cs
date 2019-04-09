@@ -65,14 +65,21 @@ namespace Capstone.Controllers
         {
             Card card = new Card();
             card.DeckId = deckID;
+            card.CardOrder = decksSqlDAL.GetNextCardOrder(deckID);
             return View(card);
         }
 
         [HttpPost]
         public IActionResult UpdateCard(Card updatedCard)
         {
-            cardSqlDAL.UpdateCard(updatedCard);
-            return RedirectToAction("ViewDeck", new { deckId = updatedCard.DeckId });
+            if(cardSqlDAL.UpdateCard(updatedCard) == null)
+            {
+                return View("Error");
+            }
+            else
+            {
+                return RedirectToAction("ViewDeck", new { deckId = updatedCard.DeckId });
+            }
         }
 
         [HttpGet]

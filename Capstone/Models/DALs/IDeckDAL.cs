@@ -12,5 +12,6 @@ namespace Capstone.Models.DALs
         Deck GetDeckById(int deckId);
         List<Deck> GetDecksbyUserId(int userId);
         Deck UpdateDeck(Deck updatedDeck);
+        int GetNextCardOrder(int deckId);
     }
 }
