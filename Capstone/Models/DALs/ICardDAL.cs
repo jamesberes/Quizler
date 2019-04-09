@@ -9,9 +9,10 @@ namespace Capstone.Models.DALs
     {
         string ConnectionString { get; }
 
-        Card AddCardToDeck(/*int deckID, */Card card);
+        Card AddCardToDeck(Card card);
         List<Card> GetCardsByDeckId(int deckId);
         Card UpdateCard(Card updatedCard);
         Card GetCardById(int cardId);
+        bool DeleteCard(int cardId);
     }
 }

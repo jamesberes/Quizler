@@ -8,7 +8,7 @@ namespace Capstone.Models
 {
     public class Card
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         [Display(Name = "Front of Card")]
         [Required(ErrorMessage = "Please put something on the front of the card")]
@@ -20,7 +20,7 @@ namespace Capstone.Models
 
         public string ImageURL { get; set; } = "";
 
-        public int DeckID { get; set; }
+        public int DeckId { get; set; }
 
         public int CardOrder { get; set; } = 1;
     }

@@ -33,11 +33,11 @@ namespace Capstone.Models.DALs
                 cmd.Parameters.AddWithValue("@back", card.Back);
                 cmd.Parameters.AddWithValue("@img", card.ImageURL);
                 cmd.Parameters.AddWithValue("@card_order", card.CardOrder);
-                cmd.Parameters.AddWithValue("@deck_id", card.DeckID);
+                cmd.Parameters.AddWithValue("@deck_id", card.DeckId);
 
                 try
                 {
-                    card.ID = (int)cmd.ExecuteScalar();
+                    card.Id = (int)cmd.ExecuteScalar();
                 }
                 catch (Exception e)
                 {
@@ -64,11 +64,11 @@ namespace Capstone.Models.DALs
                     {
                         Card card = new Card
                         {
-                            ID = Convert.ToInt32(reader["id"]),
+                            Id = Convert.ToInt32(reader["id"]),
                             Front = Convert.ToString(reader["front"]),
                             Back = Convert.ToString(reader["back"]),
                             ImageURL = Convert.ToString(reader["img"]),
-                            DeckID = Convert.ToInt32(reader["deck_id"]),
+                            DeckId = Convert.ToInt32(reader["deck_id"]),
                             CardOrder = Convert.ToInt32(reader["card_order"])
                         };
 
@@ -97,7 +97,7 @@ namespace Capstone.Models.DALs
                 cmd.Parameters.AddWithValue("@front", updatedCard.Front);
                 cmd.Parameters.AddWithValue("@back", updatedCard.Back);
                 cmd.Parameters.AddWithValue("@img", updatedCard.ImageURL);
-                cmd.Parameters.AddWithValue("@id", updatedCard.ID);
+                cmd.Parameters.AddWithValue("@id", updatedCard.Id);
 
                 try
                 {
@@ -120,6 +120,39 @@ namespace Capstone.Models.DALs
             return output;
         }
 
+        public bool DeleteCard(int cardId)
+        {
+            bool output = false;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(ConnectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(SQL_DeleteCard, conn);
+                    cmd.Parameters.AddWithValue("@id", cardId);
+
+                    int numRowsChanged = cmd.ExecuteNonQuery();
+                    if (numRowsChanged > 0)
+                    {
+                        output = true;
+                    }
+                    else
+                    {
+                        output = false;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return output;
+        }
+
         public Card GetCardById(int cardId)
         {
             Card output = new Card();
@@ -137,11 +170,11 @@ namespace Capstone.Models.DALs
 
                     while (reader.Read())
                     {
-                        output.ID = Convert.ToInt32(reader["id"]);
+                        output.Id = Convert.ToInt32(reader["id"]);
                         output.Front = Convert.ToString(reader["front"]);
                         output.Back = Convert.ToString(reader["back"]);
                         output.ImageURL = Convert.ToString(reader["img"]);
-                        output.DeckID = Convert.ToInt32(reader["deck_id"]);
+                        output.DeckId = Convert.ToInt32(reader["deck_id"]);
                         output.CardOrder = Convert.ToInt32(reader["card_order"]);
                     }
                 }

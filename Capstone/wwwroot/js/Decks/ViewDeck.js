@@ -10,6 +10,7 @@ cards.forEach(card => {
         clickedCard.children[0].classList.toggle('hidden');
         clickedCard.children[1].classList.toggle('hidden');
         clickedCard.children[2].classList.toggle('hidden');
+        clickedCard.children[3].classList.toggle('hidden');
 
     });
 });

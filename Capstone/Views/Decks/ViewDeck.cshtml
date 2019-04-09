@@ -67,7 +67,8 @@
         <div class="card">
             <p class="front">@card.Front</p>
             <p class="back hidden">@card.Back</p>
-            <a class="hidden" asp-action="UpdateCard" asp-route-cardId="@card.ID">Update Card</a>
+            <a class="hidden" asp-action="UpdateCard" asp-route-cardId="@card.Id">Update Card</a>
+            <a class="hidden" asp-action="DeleteCard" asp-route-cardId="@card.Id">Delete Card</a>
         </div>
     }
 </div>
