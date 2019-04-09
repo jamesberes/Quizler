@@ -12,6 +12,7 @@ namespace Capstone.Models.DALs
         private const string SQL_AddCardToDeck = "INSERT INTO cards (front, back, img, card_order, deck_id) VALUES (@front, @back, @img, @card_order, @deck_id); SELECT CAST(SCOPE_IDENTITY() AS INT);";
         private const string sql_GetCardsByDeckId = @"Select * FROM cards WHERE deck_id = @deckId;";
         private const string SQL_UpdateCard = "UPDATE cards SET front = @front, back = @back, img = @img WHERE id = @id;";
+        private const string SQL_GetCardById = "SELECT * FROM cards WHERE id = @id;";
 
         public CardSqlDAL(string connectionString)
         {
@@ -115,6 +116,39 @@ namespace Capstone.Models.DALs
                 }
             }
 
+            return output;
+        }
+
+        public Card GetCardById(int cardId)
+        {
+            Card output = new Card();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(ConnectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(SQL_GetCardById, conn);
+                    cmd.Parameters.AddWithValue("@id", cardId);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        output.ID = Convert.ToInt32(reader["id"]);
+                        output.Front = Convert.ToString(reader["front"]);
+                        output.Back = Convert.ToString(reader["back"]);
+                        output.ImageURL = Convert.ToString(reader["img"]);
+                        output.DeckID = Convert.ToInt32(reader["deck_id"]);
+                        output.CardOrder = Convert.ToInt32(reader["card_order"]);
+                    }
+                }
+            }
+            catch
+            {
+                output = new Card();
+            }
             return output;
         }
     }

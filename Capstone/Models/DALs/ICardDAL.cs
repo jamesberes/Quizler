@@ -12,5 +12,6 @@ namespace Capstone.Models.DALs
         Card AddCardToDeck(/*int deckID, */Card card);
         List<Card> GetCardsByDeckId(int deckId);
         Card UpdateCard(Card updatedCard);
+        Card GetCardById(int cardId);
     }
 }

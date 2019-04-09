@@ -96,5 +96,29 @@ namespace Capstone.Test
             Assert.AreEqual("Updated Front", result.Front);
             Assert.AreEqual("Updated Back", result.Back);
         }
+
+        [TestMethod]
+        public void GetCardByIdShouldReturnCorrectCard()
+        {
+            Card card = new Card()
+            {
+                Front = "testFront",
+                Back = "testBack",
+                CardOrder = 1,
+                DeckID = testDeckId,
+                ImageURL = "",
+            };
+
+            // Get new ID
+            card = dal.AddCardToDeck(card);
+
+            Card result = dal.GetCardById(card.ID);
+
+            Assert.AreEqual(card.Front, result.Front);
+            Assert.AreEqual(card.Back, result.Back);
+            Assert.AreEqual(card.ID, result.ID);
+            Assert.AreEqual(card.DeckID, result.DeckID);
+
+        }
     }
 }
