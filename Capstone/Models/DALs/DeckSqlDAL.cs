@@ -17,7 +17,7 @@ namespace Capstone.Models.DALs
         private const string sql_GetDecksbyUserId = @"SELECT * FROM decks WHERE users_id = @userId";
         private const string sql_UpdateDeck = @"UPDATE decks SET name = @name, description = @description WHERE id = @id";
         private const string sql_GetHighestOrderNumber = "SELECT TOP 1 cards.card_order FROM decks JOIN cards on decks.id = cards.deck_id WHERE decks.id = @id ORDER BY cards.card_order DESC";
-
+        private const string sql_DeleteDeck = "delete from cards where deck_id = @deckId; delete from decks where id = @deckId;";
 
         public DeckSqlDAL(string connectionString)
         {
@@ -156,7 +156,7 @@ namespace Capstone.Models.DALs
                     }
                     else
                     {
-                        output = new Deck();
+                        output = null;
                     }
                 }
             }
@@ -197,6 +197,39 @@ namespace Capstone.Models.DALs
             {
                 // A return of -1 indicates an error
                 output = -1;
+            }
+
+            return output;
+        }
+
+        public bool DeleteDeck(int deckId)
+        {
+            bool output = false;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql_DeleteDeck, conn);
+                    cmd.Parameters.AddWithValue("@deckId", deckId);
+
+                    int numRowsChanged = cmd.ExecuteNonQuery();
+                    if (numRowsChanged > 0)
+                    {
+                        output = true;
+                    }
+                    else
+                    {
+                        output = false;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
 
             return output;
