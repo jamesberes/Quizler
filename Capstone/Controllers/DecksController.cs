@@ -57,14 +57,14 @@ namespace Capstone.Controllers
         public IActionResult AddCard(Card newCard)
         {
             cardSqlDAL.AddCardToDeck(newCard);
-            return RedirectToAction("ViewDeck", new { deckId = newCard.DeckID });
+            return RedirectToAction("ViewDeck", new { deckId = newCard.DeckId });
         }
 
         [HttpGet]
         public IActionResult AddCard(int deckID)
         {
             Card card = new Card();
-            card.DeckID = deckID;
+            card.DeckId = deckID;
             return View(card);
         }
 
@@ -72,7 +72,7 @@ namespace Capstone.Controllers
         public IActionResult UpdateCard(Card updatedCard)
         {
             cardSqlDAL.UpdateCard(updatedCard);
-            return RedirectToAction("ViewDeck", new { deckId = updatedCard.DeckID });
+            return RedirectToAction("ViewDeck", new { deckId = updatedCard.DeckId });
         }
 
         [HttpGet]
@@ -80,6 +80,29 @@ namespace Capstone.Controllers
         {
             Card card = cardSqlDAL.GetCardById(cardId);
             return View(card);
+        }
+
+
+        [HttpGet]
+        public IActionResult DeleteCard(int cardId)
+        {
+            Card card = cardSqlDAL.GetCardById(cardId);
+            return View(card);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteCard(int cardId, int DeckId )
+        {
+            bool result = cardSqlDAL.DeleteCard(cardId);
+
+            if (result)
+            {
+                return RedirectToAction("ViewDeck", new { deckId = DeckId});
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         public IActionResult EditDeck(int deckId) //todo: Finish method

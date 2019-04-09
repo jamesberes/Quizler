@@ -4,7 +4,7 @@
     ViewData["Title"] = "UpdateCard";
 }
 
-<h2>UpdateCard</h2>
+<h2>Edit Card</h2>
 
 <h4>Card</h4>
 <hr />
@@ -27,8 +27,8 @@
                 <input asp-for="CardOrder" class="form-control" />
                 <span asp-validation-for="CardOrder" class="text-danger"></span>
             </div>
-            <input type="hidden" asp-for="ID" />
-            <input type="hidden" asp-for="DeckID" />
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="DeckId" />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>

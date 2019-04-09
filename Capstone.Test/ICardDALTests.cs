@@ -60,17 +60,17 @@ namespace Capstone.Test
         {
             Card card = new Card()
             {
-                ID = 0,
+                Id = 0,
                 Front = "testFront",
                 Back = "testBack",
                 CardOrder = 1,
-                DeckID = testDeckId,
+                DeckId = testDeckId,
                 ImageURL = ""
             };
 
             card = dal.AddCardToDeck(card);
 
-            Assert.AreNotEqual(0, card.ID);
+            Assert.AreNotEqual(0, card.Id);
         }
 
         [TestMethod]
@@ -81,7 +81,7 @@ namespace Capstone.Test
                 Front = "testFront",
                 Back = "testBack",
                 CardOrder = 1,
-                DeckID = testDeckId,
+                DeckId = testDeckId,
                 ImageURL = "",
             };
 
@@ -105,19 +105,19 @@ namespace Capstone.Test
                 Front = "testFront",
                 Back = "testBack",
                 CardOrder = 1,
-                DeckID = testDeckId,
+                DeckId = testDeckId,
                 ImageURL = "",
             };
 
             // Get new ID
             card = dal.AddCardToDeck(card);
 
-            Card result = dal.GetCardById(card.ID);
+            Card result = dal.GetCardById(card.Id);
 
             Assert.AreEqual(card.Front, result.Front);
             Assert.AreEqual(card.Back, result.Back);
-            Assert.AreEqual(card.ID, result.ID);
-            Assert.AreEqual(card.DeckID, result.DeckID);
+            Assert.AreEqual(card.Id, result.Id);
+            Assert.AreEqual(card.DeckId, result.DeckId);
 
         }
     }
