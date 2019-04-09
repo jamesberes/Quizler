@@ -15,6 +15,7 @@ namespace Capstone.Models.DALs
         private const string sql_GetDeckById = @"SELECT * FROM decks WHERE id = @id";
         //private const string sql_GetRandomDeck = "";
         private const string sql_GetDecksbyUserId = @"SELECT * FROM decks WHERE users_id = @userId";
+        private const string sql_GetHighestOrderNumber = "SELECT TOP 1 cards.card_order FROM decks JOIN cards on decks.id = cards.deck_id WHERE decks.id = @id ORDER BY cards.card_order DESC";
 
 
         public DeckSqlDAL(string connectionString)
@@ -132,5 +133,38 @@ namespace Capstone.Models.DALs
         }
 
         //Deck GetRandomDeck();
+
+        public int GetNextCardOrder(int deckId)
+        {
+            // 1 by default. If there are no cards in a deck the next card would be number 1
+            int output = 1;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql_GetHighestOrderNumber, conn);
+                    cmd.Parameters.AddWithValue("@id", deckId);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        output = Convert.ToInt32(reader["card_order"]);
+                    }
+                }
+                // Add 1 to return the next card order
+                output++;
+            }
+            catch
+            {
+                // A return of -1 indicates an error
+                output = -1;
+            }
+
+            return output;
+        }
     }
 }

@@ -65,6 +65,7 @@ namespace Capstone.Controllers
         {
             Card card = new Card();
             card.DeckId = deckID;
+            card.CardOrder = decksSqlDAL.GetNextCardOrder(deckID);
             return View(card);
         }
 
