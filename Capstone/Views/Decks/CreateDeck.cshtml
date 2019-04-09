@@ -1,7 +1,7 @@
 ﻿@model Capstone.Models.Deck
 
 @{
-    ViewData["Title"] = "CreateDeck";
+    ViewData["Title"] = "Add A Deck";
 }
 
 <h2>CreateDeck</h2>
@@ -30,9 +30,9 @@
     </div>
 </div>
 
-@*<div>
-        <a asp-action="Index">Back to List</a>
-    </div>*@
+<div>
+        <a asp-action="Index">Cancel</a>
+    </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

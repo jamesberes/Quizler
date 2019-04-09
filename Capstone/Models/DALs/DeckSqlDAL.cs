@@ -15,6 +15,7 @@ namespace Capstone.Models.DALs
         private const string sql_GetDeckById = @"SELECT * FROM decks WHERE id = @id";
         //private const string sql_GetRandomDeck = "";
         private const string sql_GetDecksbyUserId = @"SELECT * FROM decks WHERE users_id = @userId";
+        private const string sql_UpdateDeck = @"UPDATE decks SET name = @name, description = @description WHERE id = @id";
 
 
         public DeckSqlDAL(string connectionString)
@@ -129,6 +130,40 @@ namespace Capstone.Models.DALs
                 List<Deck> deck = new List<Deck>();
             }
             return result;
+        }
+
+        //Modify an existing deck
+        public Deck UpdateDeck(Deck updatedDeck)
+        {
+            Deck output;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql_UpdateDeck, conn);
+                    cmd.Parameters.AddWithValue("@id", updatedDeck.Id);
+                    cmd.Parameters.AddWithValue("@name", updatedDeck.Name);
+                    cmd.Parameters.AddWithValue("@description", updatedDeck.Description);
+
+                    int numRowsChanged = cmd.ExecuteNonQuery();
+                    if (numRowsChanged > 0)
+                    {
+                        output = updatedDeck;
+                    }
+                    else
+                    {
+                        output = new Deck();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+            return output;
         }
 
         //Deck GetRandomDeck();
