@@ -93,19 +93,26 @@ namespace Capstone.Models.DALs
             {
                 conn.Open();
 
-                SqlCommand cmd = new SqlCommand(SQL_UpdateCard, conn);
-                cmd.Parameters.AddWithValue("@front", updatedCard.Front);
-                cmd.Parameters.AddWithValue("@back", updatedCard.Back);
-                cmd.Parameters.AddWithValue("@img", updatedCard.ImageURL);
-                cmd.Parameters.AddWithValue("@id", updatedCard.Id);
-                cmd.Parameters.AddWithValue("@order", updatedCard.CardOrder);
-
-                int numRowsChanged = cmd.ExecuteNonQuery();
-                if (numRowsChanged > 0)
+                try
                 {
-                    output = updatedCard;
+                    SqlCommand cmd = new SqlCommand(SQL_UpdateCard, conn);
+                    cmd.Parameters.AddWithValue("@front", updatedCard.Front);
+                    cmd.Parameters.AddWithValue("@back", updatedCard.Back);
+                    cmd.Parameters.AddWithValue("@img", updatedCard.ImageURL);
+                    cmd.Parameters.AddWithValue("@id", updatedCard.Id);
+                    cmd.Parameters.AddWithValue("@order", updatedCard.CardOrder);
+
+                    int numRowsChanged = cmd.ExecuteNonQuery();
+                    if (numRowsChanged > 0)
+                    {
+                        output = updatedCard;
+                    }
+                    else
+                    {
+                        output = null;
+                    }
                 }
-                else
+                catch
                 {
                     output = null;
                 }
