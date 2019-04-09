@@ -13,5 +13,6 @@ namespace Capstone.Models.DALs
         List<Deck> GetDecksbyUserId(int userId);
         Deck UpdateDeck(Deck updatedDeck);
         int GetNextCardOrder(int deckId);
+        bool DeleteDeck(int deckId);
     }
 }

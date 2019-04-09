@@ -122,8 +122,34 @@ namespace Capstone.Controllers
         [HttpPost]
         public IActionResult EditDeck(Deck updatedDeck)
         {
-            decksSqlDAL.UpdateDeck(updatedDeck);
-            return RedirectToAction("ViewDeck", new { deckId = updatedDeck.Id });
+            if (decksSqlDAL.UpdateDeck(updatedDeck) == null)
+            {
+                return View("Error");
+            }
+            else
+            {
+                return RedirectToAction("ViewDeck", new { deckId = updatedDeck.Id });
+            }
+        }
+
+        [HttpGet]
+        public IActionResult DeleteDeck(int deckId)
+        {
+            Deck deck = decksSqlDAL.GetDeckById(deckId);
+            return View(deck);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteDeck(int deckId, int routedUserId)
+        {
+            if (decksSqlDAL.DeleteDeck(deckId) == false)
+            {
+                return View("Error");
+            }
+            else
+            {
+                return RedirectToAction("Index", new { userId = routedUserId });
+            }
         }
     }
 }
