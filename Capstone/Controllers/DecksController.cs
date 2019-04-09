@@ -12,11 +12,13 @@ namespace Capstone.Controllers
     {
         private IDeckDAL decksSqlDAL;
         private ICardDAL cardSqlDAL;
+        private ITagDAL tagSqlDAL;
 
-        public DecksController(IDeckDAL decksSqlDAL, ICardDAL cardSqlDAL)
+        public DecksController(IDeckDAL decksSqlDAL, ICardDAL cardSqlDAL, ITagDAL tagSqlDAL)
         {
             this.decksSqlDAL = decksSqlDAL;
             this.cardSqlDAL = cardSqlDAL;
+            this.tagSqlDAL = tagSqlDAL;
         }
 
         public IActionResult Index(int userId = 1)

@@ -7,8 +7,8 @@ namespace Capstone.Models.DALs
 {
     public interface ITagDAL
     {
-        bool AddTagList(List<Tag> input);
-        bool AddTag(Tag input);
+        List<Tag> AddTagList(List<Tag> input);
+        Tag AddTag(Tag input);
         List<Tag> GetTagsForDeck(int deckId);
         List<Tag> GetTagsForCard(int cardId);
     }
