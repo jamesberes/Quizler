@@ -37,7 +37,7 @@ namespace Capstone.Models.DALs
                 {
                     card.ID = (int)cmd.ExecuteScalar();
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     output = new Card();
                 }
@@ -83,26 +83,36 @@ namespace Capstone.Models.DALs
 
         }
 
-        public bool UpdateCard(Card updatedCard)
+        public Card UpdateCard(Card updatedCard)
         {
-            bool output;
+            Card output;
 
-            try
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
             {
-                using (SqlConnection conn = new SqlConnection(ConnectionString))
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(SQL_UpdateCard, conn);
+                cmd.Parameters.AddWithValue("@front", updatedCard.Front);
+                cmd.Parameters.AddWithValue("@back", updatedCard.Back);
+                cmd.Parameters.AddWithValue("@img", updatedCard.ImageURL);
+                cmd.Parameters.AddWithValue("@id", updatedCard.ID);
+
+                try
                 {
-                    conn.Open();
-
-                    SqlCommand cmd = new SqlCommand(SQL_UpdateCard, conn);
-                    cmd.Parameters.AddWithValue("@front", updatedCard.Front);
-                    cmd.Parameters.AddWithValue("@back", updatedCard.Back);
-                    cmd.Parameters.AddWithValue("@img", updatedCard.ImageURL);
+                    int numRowsChanged = cmd.ExecuteNonQuery();
+                    if (numRowsChanged > 0)
+                    {
+                        output = updatedCard;
+                    }
+                    else
+                    {
+                        output = new Card();
+                    }
                 }
-                output = true;
-            }
-            catch (Exception e)
-            {
-                output = false;
+                catch (Exception e)
+                {
+                    output = new Card();
+                }
             }
 
             return output;

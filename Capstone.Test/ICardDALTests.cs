@@ -74,7 +74,7 @@ namespace Capstone.Test
         }
 
         [TestMethod]
-        public void UpdateCardShouldReturnTrueIfSuccessful()
+        public void UpdateCardShouldReturnUpdatedCard()
         {
             Card card = new Card()
             {
@@ -82,10 +82,19 @@ namespace Capstone.Test
                 Back = "testBack",
                 CardOrder = 1,
                 DeckID = testDeckId,
-                ImageURL = ""
+                ImageURL = "",
             };
 
-            bool result = dal.UpdateCard(card);
+            // Get new ID
+            card = dal.AddCardToDeck(card);
+
+            card.Front = "Updated Front";
+            card.Back = "Updated Back";
+
+            Card result = dal.UpdateCard(card);
+
+            Assert.AreEqual("Updated Front", result.Front);
+            Assert.AreEqual("Updated Back", result.Back);
         }
     }
 }
