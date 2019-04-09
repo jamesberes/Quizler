@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,6 +10,8 @@ namespace Capstone.Models
     {
         public int Id { get; set; }
 
+        [Display(Name = "Deck Name")]
+        [Required(ErrorMessage = "Please enter a deck name")]
         public string Name { get; set; }
 
         public DateTime DateCreated { get; set; }
@@ -19,6 +22,8 @@ namespace Capstone.Models
 
         public bool ForReview { get; set; }
 
+        [Display(Name = "Deck Description")]
+        [Required(ErrorMessage = "Please enter a description for the deck")]
         public string Description { get; set; }
 
         public List<Card> Cards { get; set; }

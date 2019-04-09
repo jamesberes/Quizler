@@ -4,9 +4,9 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>My Flashcard Decks</h2>
 <p>
-    <a asp-action="CreateDeck">Add a New Deck</a>
+    <a asp-action="CreateDeck">Create New Deck</a>
 </p>
 <table class="table">
     <thead>
@@ -61,8 +61,7 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
-                    @Html.ActionLink("View Deck", "ViewDeck", new { deckId = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    @*@Html.ActionLink("View Deck", "ViewDeck", new { deckId = item.Id }) |*@
                     <a asp-controller="decks" asp-action="ViewDeck" asp-route-deckId="@(item.Id)"><h2>View Deck</h2></a>
                 </td>
 
