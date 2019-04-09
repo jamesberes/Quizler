@@ -10,7 +10,7 @@ namespace Capstone.Models.DALs
     {
         public string ConnectionString { get; }
         private const string SQL_AddCardToDeck = "INSERT INTO cards (front, back, img, card_order, deck_id) VALUES (@front, @back, @img, @card_order, @deck_id); SELECT CAST(SCOPE_IDENTITY() AS INT);";
-        private const string sql_GetCardsByDeckId = @"Select * FROM cards WHERE deck_id = @deckId;";
+        private const string sql_GetCardsByDeckId = @"Select * FROM cards WHERE deck_id = @deckId ORDER BY card_order;";
         private const string SQL_UpdateCard = "UPDATE cards SET front = @front, back = @back, img = @img WHERE id = @id;";
         private const string SQL_GetCardById = "SELECT * FROM cards WHERE id = @id;";
         private const string SQL_DeleteCard = "DELETE FROM cards WHERE id = @id";
