@@ -33,7 +33,7 @@ namespace Capstone.Models.DALs
                     cmd.Parameters.AddWithValue("@tag", input.Name);
                     cmd.Parameters.AddWithValue("@card_id", input.CardId);
 
-                    input.Id = (int)cmd.ExecuteNonQuery();
+                    input.Id = (int)cmd.ExecuteScalar();
                     output = input;
                 }
             }
@@ -61,8 +61,7 @@ namespace Capstone.Models.DALs
                         cmd.Parameters.AddWithValue("@tag", tag.Name);
                         cmd.Parameters.AddWithValue("@card_id", tag.CardId);
 
-
-                        tag.Id = (int)cmd.ExecuteNonQuery();
+                        tag.Id = (int)cmd.ExecuteScalar();
                         output.Add(tag);
                     }
                 }
@@ -119,7 +118,7 @@ namespace Capstone.Models.DALs
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand(sql_GetTagsForCard, conn);
+                    SqlCommand cmd = new SqlCommand(sql_GetTagsForDeck, conn);
                     cmd.Parameters.AddWithValue("@id", deckId);
 
                     SqlDataReader reader = cmd.ExecuteReader();
