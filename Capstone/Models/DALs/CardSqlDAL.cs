@@ -13,6 +13,7 @@ namespace Capstone.Models.DALs
         private const string sql_GetCardsByDeckId = @"Select * FROM cards WHERE deck_id = @deckId;";
         private const string SQL_UpdateCard = "UPDATE cards SET front = @front, back = @back, img = @img WHERE id = @id;";
         private const string SQL_GetCardById = "SELECT * FROM cards WHERE id = @id;";
+        private const string SQL_DeleteCard = "DELETE FROM cards WHERE id = @id";
 
         public CardSqlDAL(string connectionString)
         {
