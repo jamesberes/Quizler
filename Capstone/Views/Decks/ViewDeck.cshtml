@@ -4,6 +4,8 @@
     ViewData["Title"] = "ViewDeck";
 }
 
+<link href="~/css/Decks/ViewDeck.css" rel="stylesheet" />
+
 <h2>ViewDeck</h2>
 
 <div>
@@ -55,17 +57,23 @@
         <dt>
             @Html.DisplayNameFor(model => model.Cards)
         </dt>
-        @foreach (var card in Model.Cards)
-        {
-        <dd>
-            @card.Front
-            <a asp-action="UpdateCard" asp-route-cardId="@card.Id">Update Card</a>
-            <a asp-action="DeleteCard" asp-route-cardId="@card.Id">Delete Card</a>
-        </dd>
-        }
-
     </dl>
 </div>
+
+<hr />
+<div class="cards">
+    @foreach (var card in Model.Cards)
+    {
+        <div class="card">
+            <p class="front">@card.Front</p>
+            <p class="back hidden">@card.Back</p>
+            <a class="hidden" asp-action="UpdateCard" asp-route-cardId="@card.Id">Update Card</a>
+            <a class="hidden" asp-action="DeleteCard" asp-route-cardId="@card.Id">Delete Card</a>
+        </div>
+    }
+</div>
+
+<hr />
 
 <a asp-action="AddCard" asp-route-deckId="@Model.Id">Add a card to this deck</a>
 
@@ -73,3 +81,5 @@
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     <a asp-action="Index" asp-route-userId="@(Model.UserId)">Back to List</a>
 </div>
+
+<script src="~/js/Decks/ViewDeck.js"></script>
