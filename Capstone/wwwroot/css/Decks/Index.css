@@ -10,15 +10,15 @@ a.deck-link {
     margin: 1.5% 2.5%;
 }
 
-a.deck-link:hover {
-    text-decoration: none;
-    color: inherit;
-}
+    a.deck-link:hover {
+        text-decoration: none;
+        color: inherit;
+    }
 
-a.deck-link:active {
-    text-decoration: none;
-    color: inherit;
-}
+    a.deck-link:active {
+        text-decoration: none;
+        color: inherit;
+    }
 
 div.deck {
     width: 20vw;
@@ -29,16 +29,20 @@ div.deck {
     cursor: pointer;
 }
 
-div.deck h1 {
-    padding-top: 20%;
-    padding-bottom: 8%;
-    font-size: 3.5vw;
-}
+    div.deck:hover {
+        background-color: lightblue;
+    }
 
-div.deck p {
-    font-size: 1.5vw;
-    text-decoration: none;
-}
+    div.deck h1 {
+        padding-top: 20%;
+        padding-bottom: 8%;
+        font-size: 3.5vw;
+    }
+
+    div.deck p {
+        font-size: 1.5vw;
+        text-decoration: none;
+    }
 
 hidden {
     display: none;

@@ -18,6 +18,10 @@ div.card {
     margin: 1.5% 2.5%;
 }
 
+div.card:hover {
+    background-color: lightblue;
+}
+
 div.card p {
     font-size: 2vw;
 }
