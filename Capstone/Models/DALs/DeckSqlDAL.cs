@@ -25,7 +25,7 @@ namespace Capstone.Models.DALs
             cardSqlDAL = new CardSqlDAL(connectionString);
         }
 
-        //bool CreateDeck();
+        //int CreateDeck();
         public int CreateDeck(Deck newDeck)
         {
             int result = 0;
