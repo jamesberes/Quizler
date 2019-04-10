@@ -11,11 +11,12 @@ namespace Capstone.Models.DALs
         public string ConnectionString { get; }
         ITagDAL tagSqlDAL;
 
-        private const string sql_AddCardToDeck = "INSERT INTO cards (front, back, img, card_order, deck_id) VALUES (@front, @back, @img, @card_order, @deck_id); SELECT CAST(SCOPE_IDENTITY() AS INT);";
+        private const string sql_AddCardToDeck = @"INSERT INTO cards (front, back, img, card_order, deck_id) VALUES (@front, @back, @img, @card_order, @deck_id); SELECT CAST(SCOPE_IDENTITY() AS INT);";
         private const string sql_GetCardsByDeckId = @"Select * FROM cards WHERE deck_id = @deckId ORDER BY card_order;";
-        private const string sql_UpdateCard = "UPDATE cards SET front = @front, back = @back, img = @img, card_order = @order WHERE id = @id;";
-        private const string sql_GetCardById = "SELECT * FROM cards WHERE id = @id;";
-        private const string sql_DeleteCard = "DELETE FROM cards WHERE id = @id";
+        private const string sql_UpdateCard = @"UPDATE cards SET front = @front, back = @back, img = @img, card_order = @order WHERE id = @id;";
+        private const string sql_GetCardById = @"SELECT * FROM cards WHERE id = @id;";
+        private const string sql_DeleteCard = @"DELETE FROM cards WHERE id = @id";
+        private const string sql_SearchForCard = @"SELECT DISTINCT(cards.id) FROM cards JOIN tags ON cards.id = tags.card_id WHERE tags.tag LIKE '%' + @tag + '%';";
 
         public CardSqlDAL(string connectionString)
         {
@@ -40,7 +41,7 @@ namespace Capstone.Models.DALs
 
                 try
                 {
-                    card.Id = (int)cmd.ExecuteScalar();
+                    output.Id = (int)cmd.ExecuteScalar();
                 }
                 catch (Exception e)
                 {
@@ -126,8 +127,6 @@ namespace Capstone.Models.DALs
             return output;
         }
 
-
-
         public bool DeleteCard(int cardId)
         {
             bool output;
@@ -191,6 +190,35 @@ namespace Capstone.Models.DALs
             catch
             {
                 output = new Card();
+            }
+            return output;
+        }
+
+        public HashSet<int> SearchForCard(Tag tag)
+        {
+            HashSet<int> output = new HashSet<int>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(ConnectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql_SearchForCard, conn);
+                    cmd.Parameters.AddWithValue("@tag", tag.Name);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Card card = new Card();
+                        output.Add(card.Id = Convert.ToInt32(reader["id"]));
+                    }
+                }
+            }
+            catch
+            {
+                output = null;
             }
             return output;
         }

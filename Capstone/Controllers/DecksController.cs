@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Capstone.Models;
 using Capstone.Models.DALs;
+using Capstone.Models.View_Models;
 
 namespace Capstone.Controllers
 {
@@ -168,6 +169,31 @@ namespace Capstone.Controllers
             newTag = tagSqlDAL.AddTag(newTag);
             Card card = cardSqlDAL.GetCardById(newTag.CardId);
             return RedirectToAction("ViewDeck", new { deckId = card.DeckId });
+        }
+
+        [HttpGet]
+        public IActionResult Search(string query)
+        {
+            SearchViewModel results = new SearchViewModel();
+
+            string[] tags = query.Split(' ', ',');
+            foreach(string tag in tags)
+            {
+                results.SearchTerms.Add(new Tag() { Name = tag.ToLower() });
+            }
+
+            HashSet<int> uniqueCardIds = new HashSet<int>();
+            foreach(Tag tag in results.SearchTerms)
+            {
+                uniqueCardIds = cardSqlDAL.SearchForCard(tag);
+            }
+
+            foreach(int id in uniqueCardIds)
+            {
+                results.SearchResults.Add(cardSqlDAL.GetCardById(id));
+            }
+
+            return View("SearchResults", results);
         }
     }
 }

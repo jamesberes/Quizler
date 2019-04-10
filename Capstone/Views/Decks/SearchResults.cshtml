@@ -1,0 +1,69 @@
+﻿@model Capstone.Models.View_Models.SearchViewModel
+
+@{
+    ViewData["Title"] = "SearchResults";
+}
+
+@{ 
+    List<Card> cards = Model.SearchResults.ToList();
+}
+
+<h2>SearchResults</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => cards[0].Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => cards[0].Front)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => cards[0].Back)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => cards[0].ImageURL)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => cards[0].DeckId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => cards[0].CardOrder)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.SearchResults) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Front)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Back)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageURL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeckId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CardOrder)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
