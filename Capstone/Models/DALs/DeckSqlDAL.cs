@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -232,6 +233,39 @@ namespace Capstone.Models.DALs
                 throw;
             }
 
+            return output;
+        }
+
+        public List<SelectListItem> GetUserDecksSelectList(int userId)
+        {
+            List<SelectListItem> output = new List<SelectListItem>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql_GetDecksbyUserId, conn);
+                    cmd.Parameters.AddWithValue("@userId", userId);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        SelectListItem deck = new SelectListItem()
+                        {
+                            Value = Convert.ToString(reader["id"]),
+                            Text = Convert.ToString(reader["name"])
+                        };
+
+                        output.Add(deck);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                output = null;
+            }
             return output;
         }
     }

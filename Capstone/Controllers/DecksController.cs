@@ -56,13 +56,6 @@ namespace Capstone.Controllers
             return View(deck);
         }
 
-        [HttpPost]
-        public IActionResult AddCard(Card newCard)
-        {
-            cardSqlDAL.AddCardToDeck(newCard);
-            return RedirectToAction("ViewDeck", new { deckId = newCard.DeckId });
-        }
-
         [HttpGet]
         public IActionResult AddCard(int deckID)
         {
@@ -70,6 +63,13 @@ namespace Capstone.Controllers
             card.DeckId = deckID;
             card.CardOrder = decksSqlDAL.GetNextCardOrder(deckID);
             return View(card);
+        }
+
+        [HttpPost]
+        public IActionResult AddCard(Card newCard)
+        {
+            cardSqlDAL.AddCardToDeck(newCard);
+            return RedirectToAction("ViewDeck", new { deckId = newCard.DeckId });
         }
 
         [HttpPost]
@@ -192,6 +192,8 @@ namespace Capstone.Controllers
             {
                 results.SearchResults.Add(cardSqlDAL.GetCardById(id));
             }
+
+            results.UserDecks = decksSqlDAL.GetUserDecksSelectList(1); //TODO: Fix so it pulls actual userID
 
             return View("SearchResults", results);
         }
