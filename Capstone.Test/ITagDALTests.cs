@@ -188,6 +188,5 @@ namespace Capstone.Test
             Assert.AreEqual(tags[1].Name, manualTagList[1].Name, "name 2");
             Assert.AreEqual(tags[1].CardId, manualTagList[1].CardId, "card id 2");
         }
-        //List<Tag> AddTagList(List<Tag> input);
     }
 }
