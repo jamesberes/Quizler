@@ -39,6 +39,7 @@
             <input type="hidden" asp-for="DeckId" />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
+                <a asp-action="ViewDeck" asp-route-deckId="@Model.DeckId">Cancel</a>
             </div>
         </form>
     </div>

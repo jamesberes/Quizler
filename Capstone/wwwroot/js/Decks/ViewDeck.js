@@ -12,6 +12,6 @@ cards.forEach(card => {
         clickedCard.children[2].classList.toggle('hidden');
         clickedCard.children[3].classList.toggle('hidden');
         clickedCard.children[4].classList.toggle('hidden');
-
+        console.log(clickedCard.children);
     });
 });
