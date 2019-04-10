@@ -153,5 +153,21 @@ namespace Capstone.Controllers
                 return RedirectToAction("Index", new { userId = routedUserId });
             }
         }
+
+        [HttpGet]
+        public IActionResult AddTag(int cardId)
+        {
+            Tag tag = new Tag();
+            tag.CardId = cardId;
+            return View(tag);
+        }
+
+        [HttpPost]
+        public IActionResult AddTag(Tag newTag)
+        {
+            newTag = tagSqlDAL.AddTag(newTag);
+            Card card = cardSqlDAL.GetCardById(newTag.CardId);
+            return RedirectToAction("ViewDeck", new { deckId = card.DeckId });
+        }
     }
 }

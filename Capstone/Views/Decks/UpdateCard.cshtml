@@ -27,6 +27,14 @@
                 <input asp-for="CardOrder" class="form-control" />
                 <span asp-validation-for="CardOrder" class="text-danger"></span>
             </div>
+            <div class="form-group tags">
+                <label asp-for="Tags" class="control-label"></label>
+                @foreach (Tag tag in Model.Tags)
+                {
+                    <input asp-for="@tag.Name" class="form-control" />
+
+                }
+            </div>
             <input type="hidden" asp-for="Id" />
             <input type="hidden" asp-for="DeckId" />
             <div class="form-group">

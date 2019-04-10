@@ -9,6 +9,7 @@ namespace Capstone.Models.DALs
     public class CardSqlDAL : ICardDAL
     {
         public string ConnectionString { get; }
+        ITagDAL tagSqlDAL;
 
         private const string sql_AddCardToDeck = "INSERT INTO cards (front, back, img, card_order, deck_id) VALUES (@front, @back, @img, @card_order, @deck_id); SELECT CAST(SCOPE_IDENTITY() AS INT);";
         private const string sql_GetCardsByDeckId = @"Select * FROM cards WHERE deck_id = @deckId ORDER BY card_order;";
@@ -19,6 +20,7 @@ namespace Capstone.Models.DALs
         public CardSqlDAL(string connectionString)
         {
             ConnectionString = connectionString;
+            tagSqlDAL = new TagSqlDAL(connectionString);
         }
 
         public Card AddCardToDeck(Card card)
@@ -72,6 +74,8 @@ namespace Capstone.Models.DALs
                             DeckId = Convert.ToInt32(reader["deck_id"]),
                             CardOrder = Convert.ToInt32(reader["card_order"])
                         };
+
+                        card.Tags = tagSqlDAL.GetTagsForCard(card.Id);
 
                         result.Add(card);
                     }
@@ -181,6 +185,7 @@ namespace Capstone.Models.DALs
                         output.DeckId = Convert.ToInt32(reader["deck_id"]);
                         output.CardOrder = Convert.ToInt32(reader["card_order"]);
                     }
+                    output.Tags = tagSqlDAL.GetTagsForCard(output.Id);
                 }
             }
             catch
