@@ -11,6 +11,7 @@ namespace Capstone.Models.View_Models
         public List<Tag> SearchTerms { get; set; }
         public HashSet<Card> SearchResults { get; set; }
         public List<SelectListItem> UserDecks { get; set; }
+        public Card Card { get; set; }
 
         public SearchViewModel()
         {

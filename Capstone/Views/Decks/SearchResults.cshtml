@@ -38,7 +38,7 @@
         @foreach (var item in Model.SearchResults)
         {
         <tr>
-            <td>
+            <td class="td-cardId">
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
@@ -57,12 +57,16 @@
                 @Html.DisplayFor(modelItem => item.CardOrder)
             </td>
             <td>
-                <form>
-                    <input type="button" value="Add Card to Deck" />
-                    @Html.DropDownList("Select which deck...", Model.UserDecks)
+
+                <form asp-action="AddCardFromSearch" method="post">
+                    <input type="submit" value="Add Card to Deck" />
+                    <input type="hidden" class="hidden-cardId" asp-for="Card.Id" />
+                    <select asp-for="Card.DeckId" asp-items="Model.UserDecks"></select>
                 </form>
             </td>
         </tr>
         }
     </tbody>
 </table>
+
+<script src="~/js/Decks/SearchResults.js"></script>

@@ -15,7 +15,7 @@ namespace Capstone.Models.DALs
         private const string sql_GetCardsByDeckId = @"Select * FROM cards WHERE deck_id = @deckId ORDER BY card_order;";
         private const string sql_UpdateCard = @"UPDATE cards SET front = @front, back = @back, img = @img, card_order = @order WHERE id = @id;";
         private const string sql_GetCardById = @"SELECT * FROM cards WHERE id = @id;";
-        private const string sql_DeleteCard = @"DELETE FROM cards WHERE id = @id";
+        private const string sql_DeleteCard = @"delete from tags where card_id = @id; DELETE FROM cards WHERE id = @id";
         private const string sql_SearchForCard = @"SELECT DISTINCT(cards.id) FROM cards JOIN tags ON cards.id = tags.card_id WHERE tags.tag LIKE '%' + @tag + '%';";
 
         public CardSqlDAL(string connectionString)
@@ -42,6 +42,11 @@ namespace Capstone.Models.DALs
                 try
                 {
                     output.Id = (int)cmd.ExecuteScalar();
+                    foreach (var tag in output.Tags)
+                    {
+                        tag.CardId = output.Id;
+                    }
+                    tagSqlDAL.AddTagList(output.Tags);
                 }
                 catch (Exception e)
                 {
