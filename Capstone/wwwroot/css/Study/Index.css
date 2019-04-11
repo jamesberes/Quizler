@@ -68,8 +68,22 @@ div#score-count {
     user-select: none;
 }
 
-.hidden {
-    
+@keyframes flippy {
+    from {
+        -webkit-transform: rotateY(0deg);
+        transform: rotateY(0deg);
+    }
+
+    to {
+        -webkit-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+    }
+}
+
+.flip {
+    animation-name: flippy;
+    animation-duration: 0.6s;
+    animation-fill-mode: forwards;
 }
 
 .hide-score {
