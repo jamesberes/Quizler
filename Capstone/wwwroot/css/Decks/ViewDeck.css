@@ -1,4 +1,8 @@
-﻿.deck-title h1 {
+﻿p {
+    margin: 0;
+}
+
+.deck-title h1 {
     text-align: center;
 }
 
@@ -43,7 +47,7 @@ div.card {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    margin: 1.5% 2.5%;
+    margin: 0;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -71,7 +75,8 @@ div.card a {
 
 div.card img {
     max-width: 100%;
-    max-height: inherit;
+    max-height: 100%;
+    padding: 15px;
 }
 
 .hidden {
