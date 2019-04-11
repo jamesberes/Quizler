@@ -25,7 +25,7 @@ namespace Capstone.Controllers
             this.tagSqlDAL = tagSqlDAL;
         }
 
-        // GET: api/API
+        // GET: API/Search
         [HttpGet]
         public SearchViewModel Search(string query)
         {
@@ -52,6 +52,13 @@ namespace Capstone.Controllers
             results.UserDecksSelectList = decksSqlDAL.GetUserDecksSelectList(1); //TODO: Fix so it pulls actual userID
 
             return results;
+        }
+
+        // GET: API/GetUserDecks?userId=
+        public List<Deck> GetUserDecks(int userId = 1)
+        {
+            List<Deck> decks = decksSqlDAL.GetDecksbyUserId(userId);
+            return decks;
         }
 
         //// GET: api/API/5
