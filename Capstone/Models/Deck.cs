@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Capstone.Providers.Auth;
 
 namespace Capstone.Models
 {
     public class Deck
     {
+        IAuthProvider authProvider;
+
         public int Id { get; set; }
 
         [Display(Name = "Deck Name")]
@@ -17,8 +20,8 @@ namespace Capstone.Models
         public DateTime DateCreated { get; set; }
 
         public bool PublicDeck { get; set; }
-        
-        public int UserId { get; set; } = 1;
+
+        public int UserId { get; set; } //= 1;
 
         public bool ForReview { get; set; }
 

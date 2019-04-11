@@ -97,7 +97,7 @@ namespace Capstone.Models.DALs
         }
 
         //List<Deck> GetDecksbyUserId();
-        public List<Deck> GetDecksbyUserId(int userId)
+        public List<Deck> GetDecksbyUserId(int userId) //todo userId
         {
             List<Deck> result = new List<Deck>();
             try
@@ -238,7 +238,7 @@ namespace Capstone.Models.DALs
             return output;
         }
 
-        public List<SelectListItem> GetUserDecksSelectList(int userId)
+        public List<SelectListItem> GetUserDecksSelectList(int userId) //todo userId
         {
             List<SelectListItem> output = new List<SelectListItem>();
 

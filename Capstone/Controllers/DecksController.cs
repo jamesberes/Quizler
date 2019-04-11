@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Capstone.Models;
 using Capstone.Models.DALs;
 using Capstone.Models.View_Models;
+using Capstone.Providers.Auth;
 
 namespace Capstone.Controllers
 {
@@ -14,16 +15,27 @@ namespace Capstone.Controllers
         private IDeckDAL decksSqlDAL;
         private ICardDAL cardSqlDAL;
         private ITagDAL tagSqlDAL;
+        private IUsersDAL userSqlDAL;
+        private IAuthProvider authProvider;
 
-        public DecksController(IDeckDAL decksSqlDAL, ICardDAL cardSqlDAL, ITagDAL tagSqlDAL)
+        public DecksController(IDeckDAL decksSqlDAL, ICardDAL cardSqlDAL, ITagDAL tagSqlDAL, IUsersDAL userSqlDAL, IAuthProvider authProvider)
         {
             this.decksSqlDAL = decksSqlDAL;
             this.cardSqlDAL = cardSqlDAL;
             this.tagSqlDAL = tagSqlDAL;
+            this.userSqlDAL = userSqlDAL;
+            this.authProvider = authProvider;
         }
 
         public IActionResult Index(int userId = 1)
         {
+
+            Users currentUser = authProvider.GetCurrentUser();
+            if (currentUser == null)
+            {
+                return RedirectToAction("login", "account");
+            }
+            userId = currentUser.Id;
             List<Deck> decks = decksSqlDAL.GetDecksbyUserId(userId);
             return View(decks);
         }
@@ -32,6 +44,7 @@ namespace Capstone.Controllers
         public IActionResult CreateDeck()
         {
             Deck deck = new Deck();
+            deck.UserId = authProvider.GetCurrentUser().Id;
             return View(deck);
         }
 
@@ -152,7 +165,7 @@ namespace Capstone.Controllers
         }
 
         [HttpPost]
-        public IActionResult DeleteDeck(int deckId, int routedUserId)
+        public IActionResult DeleteDeck(int deckId, int routedUserId) //todo userId
         {
             if (decksSqlDAL.DeleteDeck(deckId) == false)
             {

@@ -53,9 +53,9 @@ namespace Capstone.Controllers
 
             return results;
         }
+        
 
-        // GET: API/GetUserDecks?userId=
-        public List<Deck> GetUserDecks(int userId = 1)
+        public List<Deck> GetUserDecks(int userId = 1) //todo userId
         {
             List<Deck> decks = decksSqlDAL.GetDecksbyUserId(userId);
             return decks;
