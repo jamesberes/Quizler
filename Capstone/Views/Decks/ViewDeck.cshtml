@@ -6,23 +6,33 @@
 
 <link href="~/css/Decks/ViewDeck.css" rel="stylesheet" />
 
-<h2>ViewDeck</h2>
+<div class="deck-title">
+    <h1>@Model.Name</h1>
+    <p>Deck</p>
+</div>
+
 
 <div>
-    <h4>Deck</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        @*TODO: The below are hidden in case we would like to display these values in the future - Evaluate?*@
+        <dt class="hidden">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="hidden">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
         <dt class="hidden">
             @Html.DisplayNameFor(model => model.Id)
         </dt>
         <dd class="hidden">
             @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
         </dd>
         <dt class="hidden">
             @Html.DisplayNameFor(model => model.DateCreated)
@@ -48,12 +58,6 @@
         <dd class="hidden">
             @Html.DisplayFor(model => model.ForReview)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
     </dl>
 </div>
 
@@ -72,10 +76,9 @@
 
 <hr />
 
-
 <div>
-    <a asp-action="EditDeck" asp-route-deckId="@(Model.Id)">Edit Deck</a> |
     <a asp-action="AddCard" asp-route-deckId="@Model.Id">Add a card to this deck</a> |
+    <a asp-action="EditDeck" asp-route-deckId="@(Model.Id)">Edit Deck</a> |
     <a asp-action="DeleteDeck" asp-route-deckId="@(Model.Id)">Delete Deck</a> |
     <a asp-action="Index" asp-route-userId="@(Model.UserId)">Back to Decks</a>
 </div>

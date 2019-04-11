@@ -1,4 +1,8 @@
-﻿div.cards {
+﻿.deck-title h1, p {
+    text-align: center;
+}
+
+div.cards {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
