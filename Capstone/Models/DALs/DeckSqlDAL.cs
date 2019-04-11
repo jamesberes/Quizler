@@ -12,13 +12,13 @@ namespace Capstone.Models.DALs
         private string connectionString;
         private ICardDAL cardSqlDAL;
 
-        private const string sql_CreateDeck = @"insert into decks (name, users_id, description) values (@name, @user, @description); SELECT CAST(SCOPE_IDENTITY() as int);";
+        private const string sql_CreateDeck = @"INSERT INTO decks (name, users_id, description) VALUES (@name, @user, @description); SELECT CAST(SCOPE_IDENTITY() as int);";
         private const string sql_GetDeckById = @"SELECT * FROM decks WHERE id = @id";
         //private const string sql_GetRandomDeck = "";
         private const string sql_GetDecksbyUserId = @"SELECT * FROM decks WHERE users_id = @userId";
         private const string sql_UpdateDeck = @"UPDATE decks SET name = @name, description = @description WHERE id = @id";
         private const string sql_GetHighestOrderNumber = "SELECT TOP 1 cards.card_order FROM decks JOIN cards on decks.id = cards.deck_id WHERE decks.id = @id ORDER BY cards.card_order DESC";
-        private const string sql_DeleteDeck = "DELETE t FROM tags t JOIN cards c ON t.card_id=c.id WHERE deck_id = @deckId; delete from cards where deck_id = @deckId; delete from decks where id = @deckId;";
+        private const string sql_DeleteDeck = "DELETE t FROM tags t JOIN cards c ON t.card_id=c.id WHERE deck_id = @deckId; DELETE FROM cards WHERE deck_id = @deckId; DELETE FROM decks WHERE id = @deckId;";
 
         public DeckSqlDAL(string connectionString)
         {

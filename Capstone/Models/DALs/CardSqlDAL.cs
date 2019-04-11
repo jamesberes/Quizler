@@ -12,10 +12,10 @@ namespace Capstone.Models.DALs
         ITagDAL tagSqlDAL;
 
         private const string sql_AddCardToDeck = @"INSERT INTO cards (front, back, img, card_order, deck_id) VALUES (@front, @back, @img, @card_order, @deck_id); SELECT CAST(SCOPE_IDENTITY() AS INT);";
-        private const string sql_GetCardsByDeckId = @"Select * FROM cards WHERE deck_id = @deckId ORDER BY card_order;";
+        private const string sql_GetCardsByDeckId = @"SELECT * FROM cards WHERE deck_id = @deckId ORDER BY card_order;";
         private const string sql_UpdateCard = @"UPDATE cards SET front = @front, back = @back, img = @img, card_order = @order WHERE id = @id;";
         private const string sql_GetCardById = @"SELECT * FROM cards WHERE id = @id;";
-        private const string sql_DeleteCard = @"delete from tags where card_id = @id; DELETE FROM cards WHERE id = @id";
+        private const string sql_DeleteCard = @"DELETE FROM tags where card_id = @id; DELETE FROM cards WHERE id = @id";
         private const string sql_SearchForCard = @"SELECT DISTINCT(cards.id) FROM cards JOIN tags ON cards.id = tags.card_id WHERE tags.tag LIKE '%' + @tag + '%';";
 
         public CardSqlDAL(string connectionString)
