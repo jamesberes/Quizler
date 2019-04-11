@@ -2,9 +2,29 @@
     text-align: center;
 }
 
+.deck-title h1 {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
 .deck-description {
     text-align:center;
 }
+
+    .deck-description p {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+    }
 
 div.cards {
     width: 100%;
@@ -24,6 +44,13 @@ div.card {
     align-items: center;
     cursor: pointer;
     margin: 1.5% 2.5%;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 }
 
 div.card:hover {
