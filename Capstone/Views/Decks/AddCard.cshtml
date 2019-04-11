@@ -1,7 +1,7 @@
 ﻿@model Capstone.Models.Card
 
 @{
-    ViewData["Title"] = "AddCard";
+    ViewData["Title"] = "Add card to deck"; //TODO: Pull in name of deck somehow
 }
 
 <h2>AddCard</h2>
@@ -13,13 +13,18 @@
         <form asp-action="AddCard" asp-route-deckId="@(Model.DeckId)" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Front" class="control-label"></label>
-                <input asp-for="Front" class="form-control" />
+                <label asp-for="Front" class="control-label">Enter the front flashcard text</label>
+                <input asp-for="Front" id="front-text" class="form-control" placeholder="Question..."/>
                 <span asp-validation-for="Front" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Back" class="control-label"></label>
-                <input asp-for="Back" class="form-control" />
+                <label asp-for="ImageURL" class="control-label">Enter a URL to an image</label>
+                <input asp-for="ImageURL" id="image-text" class="form-control" placeholder="Image URL..." />
+                <span asp-validation-for="ImageURL" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Back" class="control-label">Enter the back flashcard text</label>
+                <input asp-for="Back" class="form-control" placeholder="Answer..."/>
                 <span asp-validation-for="Back" class="text-danger"></span>
             </div>
             <div id="tags" class="form-group">
