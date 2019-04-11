@@ -186,7 +186,7 @@ namespace Capstone.Controllers
             SearchViewModel results = new SearchViewModel();
             results.Card = new Card();
 
-            string[] tags = query.Split(' ', ',');
+            string[] tags = query.Split(' ', ',', '+');
             foreach(string tag in tags)
             {
                 results.SearchTerms.Add(new Tag() { Name = tag.ToLower() });
