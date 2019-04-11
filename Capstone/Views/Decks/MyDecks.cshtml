@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Capstone.Models.Deck>
+
+@{
+    ViewData["Title"] = "My Decks";
+}
+
+<link href="~/css/Decks/Index.css" type="text/css" rel="stylesheet" />
+
+<h2>My Decks</h2>
+<p>
+    <a asp-action="CreateDeck">Create a Deck</a>
+</p>
+
+<div class="search-bar">
+    <form asp-action="Search" method="get">
+        <input name="query" placeholder="Search all decks for cards" required>
+        <input type="submit" value="Search" />
+    </form>
+</div>
+
+<div class="decks">
+    @foreach (var item in Model)
+    {
+        <a class="deck-link" asp-action="ViewDeck" asp-route-deckID="@item.Id">
+            <div class="deck" id="@item.Id">
+                <h1>@item.Name</h1>
+                <p>@item.Description</p>
+            </div>
+        </a>
+    }
+</div>

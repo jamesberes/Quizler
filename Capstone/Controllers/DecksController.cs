@@ -27,7 +27,7 @@ namespace Capstone.Controllers
             this.authProvider = authProvider;
         }
 
-        public IActionResult Index(int userId)
+        public IActionResult MyDecks(int userId)
         {
 
             Users currentUser = authProvider.GetCurrentUser();
@@ -173,7 +173,7 @@ namespace Capstone.Controllers
             }
             else
             {
-                return RedirectToAction("Index", new { userId = routedUserId });
+                return RedirectToAction("MyDecks", new { userId = routedUserId });
             }
         }
 

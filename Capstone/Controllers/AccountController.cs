@@ -50,7 +50,7 @@ namespace Capstone.Controllers
                 if (validLogin)
                 {
                     // Redirect the user where you want them to go after successful login
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("MyDecks", "Decks");
                 }
             }
 

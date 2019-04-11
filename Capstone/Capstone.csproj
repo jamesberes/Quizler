@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Decks\Index.cshtml" />
     <Content Remove="wwwroot\js\Decks\JavaScript.js" />
   </ItemGroup>
 
