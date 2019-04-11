@@ -1,4 +1,19 @@
-﻿div#study-area {
+﻿div.head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+div#complete-button {
+    background-color: lightcoral;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+}
+
+div#study-area {
     display: flex;
     flex-direction: column;
     justify-content: center;

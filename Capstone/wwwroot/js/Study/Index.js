@@ -11,6 +11,8 @@ const correctButton = document.querySelector('div#correct-button');
 const wrongButton = document.querySelector('div#wrong-button');
 const scoreDisplay = document.querySelector('div#score-count p');
 const completeSession = document.querySelector('div#complete-session');
+const endSessionButton = document.querySelector('div#complete-button');
+
 let unansweredQuestions = [];
 let answeredQuestions = [];
 let hasBeenFlipped = false;
@@ -85,9 +87,10 @@ async function FlipCard() {
 function CompleteStudySession() {
     studyCard.classList.add('hidden');
     scoreTracker.classList.add('hidden');
-    completeSession.querySelector('p.correct').innerText = `You got ${right} questions correct.`;
-    completeSession.querySelector('p.incorrect').innerText = `You got ${wrong} questions wrong.`;
+    completeSession.querySelector('p.correct').innerText = `You got ${right} question${right === 1 ? '' : 's'} correct.`;
+    completeSession.querySelector('p.incorrect').innerText = `You got ${wrong} question${wrong === 1 ? '' : 's'} wrong.`;
     completeSession.classList.remove('hidden');
+    endSessionButton.classList.add('hidden');
 }
 
 studyCard.addEventListener('click', FlipCard);
@@ -126,4 +129,8 @@ scoreTracker.addEventListener('mouseout', e => {
     if (hasBeenFlipped) {
         scoreTracker.classList.add('hide-score');
     }
+});
+
+endSessionButton.addEventListener('click', () => {
+    CompleteStudySession();
 });
