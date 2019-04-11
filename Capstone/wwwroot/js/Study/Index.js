@@ -1,4 +1,6 @@
-﻿const deckId = document.querySelector('input#deckId').value;
+﻿let right = 0;
+let wrong = 0;
+const deckId = document.querySelector('input#deckId').value;
 const apiUrl = `http://localhost:${location.port}/API/`;
 
 const frontOfCard = document.querySelector('div#study-card-front');
@@ -17,3 +19,15 @@ fetch(`${apiUrl}getdeck?id=${deckId}`)
                 console.log(data);
             });
     });
+
+function computeScore(correct) {
+    if (correct) {
+        right++;
+    }
+    else {
+        wrong++;
+    }
+}
+
+correctButton.addEventListener('click', computeScore(true));
+wrongButton.addEventListener('click', computeScore(false));
