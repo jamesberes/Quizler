@@ -39,15 +39,16 @@
 
 <hr />
 
-<div>
+<div class="deck-buttons">
     @if (Model.Cards.Count > 0)
     {
-        <a asp-controller="Study" asp-action="Index" asp-route-deckId="@Model.Id">Start Study Session</a> <span>|</span>
+        <a asp-controller="Study" asp-action="Index" asp-route-deckId="@Model.Id">Start Study Session</a>
     }
-    <a asp-action="AddCard" asp-route-deckId="@Model.Id">Add a card to this deck</a> |
-    <a asp-action="EditDeck" asp-route-deckId="@(Model.Id)">Edit Deck</a> |
-    <a asp-action="DeleteDeck" asp-route-deckId="@(Model.Id)">Delete Deck</a> |
-    <a asp-action="Index" asp-route-userId="@(Model.UserId)">Back to Decks</a>
+    <a asp-action="AddCard" asp-route-deckId="@Model.Id">Add a card to this deck</a>
+    <a asp-action="EditDeck" asp-route-deckId="@(Model.Id)">Edit Deck</a>
+    <a asp-action="Index" asp-route-userId="@(Model.UserId)">Back to Decks</a> 
+    <a title="Delete Deck?" asp-action="DeleteDeck" asp-route-deckId="@(Model.Id)"><i class="fa fa-trash" aria-hidden="true"></i></a>
 </div>
 
 <script src="~/js/Decks/ViewDeck.js"></script>
+

@@ -12,6 +12,7 @@ const wrongButton = document.querySelector('div#wrong-button');
 const scoreDisplay = document.querySelector('div#score-count p');
 const completeSession = document.querySelector('div#complete-session');
 const endSessionButton = document.querySelector('div#complete-button');
+const image = document.querySelector('#img-front');
 
 let unansweredQuestions = [];
 let answeredQuestions = [];
@@ -22,7 +23,16 @@ fetch(`${apiUrl}getdeck?id=${deckId}`)
         response.json()
             .then(data => {
                 unansweredQuestions = data.cards;
-                frontOfCard.innerText = unansweredQuestions[0].front;
+
+                console.log(unansweredQuestions[0]);
+                if (unansweredQuestions[0].imageURL != '') {
+                    image.src = unansweredQuestions[0].imageURL;
+                    frontOfCard.innerText = '';
+                } else {
+                    frontOfCard.innerText = unansweredQuestions[0].front;
+                    image.src = '';
+
+                }
                 backOfCard.innerText = unansweredQuestions[0].back;
                 studyCard.classList.remove('hidden');
             });
@@ -47,9 +57,18 @@ function NextCard() {
     if (unansweredQuestions.length > 0) {
         frontOfCard.classList.remove('hidden');
         backOfCard.classList.add('hidden');
+        image.classList.remove('hidden');
         scoreTracker.classList.add('hide-score');
-        frontOfCard.innerText = unansweredQuestions[0].front;
+
+        if (unansweredQuestions[0].imageURL != '') {
+            image.src = unansweredQuestions[0].imageURL;
+            frontOfCard.innerText = '';
+        } else {
+            frontOfCard.innerText = unansweredQuestions[0].front;
+            image.src = '';
+        }
         backOfCard.innerText = unansweredQuestions[0].back;
+
     } else {
         CompleteStudySession();
     }
@@ -63,6 +82,7 @@ async function FlipCard() {
 
     if (!frontOfCard.classList.contains('hidden')) {
         frontOfCard.classList.add('hidden');
+        image.classList.add('hidden');
         frontToBack = true;
     }
     if (!backOfCard.classList.contains('hidden')) {
@@ -77,8 +97,10 @@ async function FlipCard() {
         if (frontToBack) {
             backOfCard.classList.remove('hidden');
             frontOfCard.classList.add('hidden');
+            image.classList.add('hidden');
         } else {
             frontOfCard.classList.remove('hidden');
+            image.classList.remove('hidden');
             backOfCard.classList.add('hidden');
         }
     });
