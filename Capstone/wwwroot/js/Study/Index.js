@@ -22,7 +22,14 @@ fetch(`${apiUrl}getdeck?id=${deckId}`)
         response.json()
             .then(data => {
                 unansweredQuestions = data.cards;
-                frontOfCard.innerText = unansweredQuestions[0].front;
+
+                console.log(unansweredQuestions[0]);
+                if (unansweredQuestions[0].imageURL != '') {
+                    frontOfCard.innerHTML = `<img src="${unansweredQuestions[0].imageURL}">`;
+                } else {
+                    frontOfCard.innerText = unansweredQuestions[0].front;
+
+                }
                 backOfCard.innerText = unansweredQuestions[0].back;
                 studyCard.classList.remove('hidden');
             });
@@ -48,8 +55,15 @@ function NextCard() {
         frontOfCard.classList.remove('hidden');
         backOfCard.classList.add('hidden');
         scoreTracker.classList.add('hide-score');
-        frontOfCard.innerText = unansweredQuestions[0].front;
+
+        if (unansweredQuestions[0].imageURL != '') {
+            frontOfCard.innerHTML = `<img src="${unansweredQuestions[0].imageURL}">`;
+        } else {
+            frontOfCard.innerText = unansweredQuestions[0].front;
+
+        }
         backOfCard.innerText = unansweredQuestions[0].back;
+
     } else {
         CompleteStudySession();
     }

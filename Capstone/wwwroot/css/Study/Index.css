@@ -32,6 +32,11 @@ div#study-card {
     cursor: pointer;
 }
 
+#card-front img {
+    max-height: 95%;
+    max-width: 95%;
+}
+
 div#score-tracker {
     display: flex;
     background-color: aliceblue;
