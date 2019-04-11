@@ -1,2 +1,43 @@
-﻿body {
+﻿div#study-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+div#study-card-front {
+
+}
+
+div#study-card-back {
+
+}
+
+div#score-tracker {
+    display: flex;
+}
+
+div#correct-button {
+    color: green;
+    background-color: lightgreen;
+    width: 100px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div#wrong-button {
+    color: red;
+    background-color: lightcoral;
+    width: 100px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div#score-count {
+
 }
