@@ -123,6 +123,8 @@ namespace Capstone.Models.DALs
                             Description = Convert.ToString(reader["description"])
                         };
 
+                        deck.Cards = cardSqlDAL.GetCardsByDeckId(deck.Id);
+
                         result.Add(deck);
                     }
                 }
