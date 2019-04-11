@@ -7,21 +7,24 @@
 <link href="~/css/Decks/ViewDeck.css" rel="stylesheet" />
 
 <div class="deck-title">
-    <h1>@Model.Name</h1>
-    <p>Deck</p>
+    <h1>@Model.Name Deck</h1>
 </div>
 
+<div class="deck-description">
+    <p>@Model.Description</p>
+</div>
+
+<hr />
 
 <div>
-    <hr />
+    @*TODO: The below are hidden in case we would like to display these values in the future - Evaluate?*@
     <dl class="dl-horizontal">
-        <dt>
+        <dt class="hidden">
             @Html.DisplayNameFor(model => model.Description)
         </dt>
-        <dd>
+        <dd class="hidden">
             @Html.DisplayFor(model => model.Description)
         </dd>
-        @*TODO: The below are hidden in case we would like to display these values in the future - Evaluate?*@
         <dt class="hidden">
             @Html.DisplayNameFor(model => model.Name)
         </dt>

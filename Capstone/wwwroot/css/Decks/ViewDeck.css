@@ -1,5 +1,9 @@
-﻿.deck-title h1, p {
+﻿.deck-title h1 {
     text-align: center;
+}
+
+.deck-description {
+    text-align:center;
 }
 
 div.cards {
