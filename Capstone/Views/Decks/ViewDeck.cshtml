@@ -1,13 +1,22 @@
 ﻿@model Capstone.Models.Deck
 
 @{
-    ViewData["Title"] = Model.Name + " Deck";
+    string noDeck = "";
+    if (Model.Name.ToLower().Contains("deck"))
+    {
+        noDeck = "";
+    }
+    else
+    {
+        noDeck = " Deck";
+    }
+    ViewData["Title"] = Model.Name + noDeck;
 }
 
 <link href="~/css/Decks/ViewDeck.css" rel="stylesheet" />
 
 <div class="deck-title">
-    <h1>@Model.Name Deck</h1>
+    <h1>@Model.Name @noDeck</h1>
 </div>
 
 <div class="deck-description">

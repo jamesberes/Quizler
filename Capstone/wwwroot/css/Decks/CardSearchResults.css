@@ -1,0 +1,57 @@
+﻿.card-selector {
+
+}
+
+div.cards {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+div.card {
+    height: 20vh;
+    width: 30vw;
+    background-color: lightgray;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin: 0;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+    div.card:hover {
+        background-color: lightblue;
+    }
+
+    div.card p {
+        font-size: 2vw;
+    }
+
+        div.card p.back {
+            font-size: 1.3vw;
+        }
+
+    div.card a {
+        justify-self: flex-end;
+    }
+
+    div.card img {
+        max-width: 100%;
+        max-height: 100%;
+        padding: 15px;
+    }
+
+.hidden {
+    display: none;
+    opacity: 0;
+}
