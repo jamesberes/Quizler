@@ -61,6 +61,17 @@ namespace Capstone.Controllers
             return decks;
         }
 
+        // POST: API/CreateDeck
+        [HttpPost]
+        public void CreateDeck(Deck newDeck)
+        {
+            int deckId = decksSqlDAL.CreateDeck(newDeck);
+            if (deckId != 0)
+            {
+                newDeck.Cards = new List<Card>();
+            }
+        }
+
         //// GET: api/API/5
         //[HttpGet("{id}", Name = "Get")]
         //public string Get(int id)
