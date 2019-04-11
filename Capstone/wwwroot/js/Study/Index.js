@@ -1,5 +1,5 @@
 ﻿const deckId = document.querySelector('input#deckId').value;
-const apiUrl = 'http://localhost:62451/API/';
+const apiUrl = `http://localhost:${location.port}/API/`;
 
 fetch(`${apiUrl}getdeck?id=${deckId}`)
     .then(response => {
