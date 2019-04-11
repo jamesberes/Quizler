@@ -62,6 +62,7 @@ namespace Capstone.Controllers
         }
 
         // POST: API/CreateDeck
+        [HttpPost]
         public void CreateDeck(Deck newDeck)
         {
             int deckId = decksSqlDAL.CreateDeck(newDeck);
