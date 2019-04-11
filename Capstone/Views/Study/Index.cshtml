@@ -4,7 +4,10 @@
     ViewData["Title"] = "Time to Study!";
 }
 
-<h1>Study Session</h1>
+<div class="head">
+    <h1>Study Session</h1>
+    <div class="button" id="complete-button">End Study Session</div>
+</div>
 
 <input type="hidden" value="@Model" id="deckId" />
 
@@ -16,7 +19,7 @@
         </div>
     </div>
 
-    <div id="score-tracker" class="hide-score">
+    <div id="score-tracker" class="hide-score hidden">
         <div id="correct-button" class="button">
             <i class="fas fa-check"></i>
         </div>
