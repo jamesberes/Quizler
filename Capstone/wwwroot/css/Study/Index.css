@@ -6,6 +6,12 @@
     height: 100%;
 }
 
+div#study-card {
+    width: 50vw;
+    height: 25vw;
+    background-color: lavender;
+}
+
 div#study-card-front {
 
 }
