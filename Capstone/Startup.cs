@@ -19,6 +19,8 @@ namespace Capstone
             Configuration = configuration;
         }
 
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -37,6 +39,17 @@ namespace Capstone
             services.AddScoped<IDeckDAL, DeckSqlDAL>(c => new DeckSqlDAL(connectionString));
             services.AddScoped<ITagDAL, TagSqlDAL>(c => new TagSqlDAL(connectionString));
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                    builder =>
+                        builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials()
+                    );
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -51,6 +64,8 @@ namespace Capstone
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseStaticFiles();
 
