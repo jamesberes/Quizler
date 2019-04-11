@@ -186,7 +186,7 @@ namespace Capstone.Controllers
             SearchViewModel results = new SearchViewModel();
             results.Card = new Card();
 
-            string[] tags = query.Split(' ', ',');
+            string[] tags = query.Split(' ', ',', '+');
             foreach(string tag in tags)
             {
                 results.SearchTerms.Add(new Tag() { Name = tag.ToLower() });
@@ -203,7 +203,7 @@ namespace Capstone.Controllers
                 results.SearchResults.Add(cardSqlDAL.GetCardById(id));
             }
 
-            results.UserDecks = decksSqlDAL.GetUserDecksSelectList(1); //TODO: Fix so it pulls actual userID
+            results.UserDecksSelectList = decksSqlDAL.GetUserDecksSelectList(1); //TODO: Fix so it pulls actual userID
 
             return View("SearchResults", results);
         }

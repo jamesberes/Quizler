@@ -61,7 +61,7 @@
                 <form asp-action="AddCardFromSearch" method="post">
                     <input type="submit" value="Add Card to Deck" />
                     <input type="hidden" class="hidden-cardId" asp-for="Card.Id" />
-                    <select asp-for="Card.DeckId" asp-items="Model.UserDecks"></select>
+                    <select asp-for="Card.DeckId" asp-items="Model.UserDecksSelectList"></select>
                 </form>
             </td>
         </tr>
