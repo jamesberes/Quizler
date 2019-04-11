@@ -43,7 +43,7 @@ function NextCard() {
     if (unansweredQuestions.length > 0) {
         frontOfCard.classList.remove('hidden');
         backOfCard.classList.add('hidden');
-        scoreTracker.classList.add('hidden');
+        scoreTracker.classList.add('hide-score');
         frontOfCard.innerText = unansweredQuestions[0].front;
         backOfCard.innerText = unansweredQuestions[0].back;
     } else {
@@ -54,7 +54,7 @@ function NextCard() {
 function FlipCard() {
     frontOfCard.classList.toggle('hidden');
     backOfCard.classList.toggle('hidden');
-    scoreTracker.classList.toggle('hidden');
+    scoreTracker.classList.toggle('hide-score');
 }
 
 function CompleteStudySession() {
