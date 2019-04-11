@@ -61,6 +61,13 @@ namespace Capstone.Controllers
             return decks;
         }
 
+        // GET: API/GetDeck?Id=
+        public Deck GetDeck(int Id)
+        {
+            Deck deck = decksSqlDAL.GetDeckById(Id);
+            return deck;
+        }
+
         // POST: API/CreateDeck
         [HttpPost]
         public void CreateDeck(Deck newDeck)
@@ -71,30 +78,5 @@ namespace Capstone.Controllers
                 newDeck.Cards = new List<Card>();
             }
         }
-
-        //// GET: api/API/5
-        //[HttpGet("{id}", Name = "Get")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
-
-        //// POST: api/API
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
-
-        //// PUT: api/API/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        //// DELETE: api/ApiWithActions/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }
