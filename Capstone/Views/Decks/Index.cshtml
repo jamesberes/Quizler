@@ -6,18 +6,17 @@
 
 <link href="~/css/Decks/Index.css" type="text/css" rel="stylesheet" />
 
-<h2>My Flashcard Decks</h2>
+<h2>My Decks</h2>
 <p>
     <a asp-action="CreateDeck">Create New Deck</a>
 </p>
 
-<div>
+<div class="search-bar">
     <form asp-action="Search" method="get">
-        <input name="query" placeholder="Search for a card...">
+        <input name="query" placeholder="Search all decks for cards" required>
         <input type="submit" value="Search" />
     </form>
 </div>
-
 
 <div class="decks">
     @foreach (var item in Model)

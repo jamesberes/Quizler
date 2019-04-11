@@ -1,4 +1,8 @@
-﻿.decks {
+﻿.search-bar form {
+    margin: 0 auto;
+}
+
+.decks {
     display: flex;
     width: 100%;
     flex-wrap: wrap;

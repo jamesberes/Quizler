@@ -83,7 +83,7 @@ namespace Capstone.Controllers
         [HttpPost]
         public IActionResult UpdateCard(Card updatedCard)
         {
-            if(cardSqlDAL.UpdateCard(updatedCard) == null)
+            if (cardSqlDAL.UpdateCard(updatedCard) == null)
             {
                 return View("Error");
             }
@@ -109,14 +109,14 @@ namespace Capstone.Controllers
         }
 
         [HttpPost]
-        public IActionResult DeleteCard(int cardId, int DeckId )
+        public IActionResult DeleteCard(int cardId, int DeckId)
         {
             //todo: when deleting card, also delete tags. 
             bool result = cardSqlDAL.DeleteCard(cardId);
 
             if (result)
             {
-                return RedirectToAction("ViewDeck", new { deckId = DeckId});
+                return RedirectToAction("ViewDeck", new { deckId = DeckId });
             }
             else
             {
@@ -185,20 +185,21 @@ namespace Capstone.Controllers
         {
             SearchViewModel results = new SearchViewModel();
             results.Card = new Card();
-
             string[] tags = query.Split(' ', ',', '+');
-            foreach(string tag in tags)
+
+            foreach (string tag in tags)
             {
                 results.SearchTerms.Add(new Tag() { Name = tag.ToLower() });
             }
 
             HashSet<int> uniqueCardIds = new HashSet<int>();
-            foreach(Tag tag in results.SearchTerms)
+
+            foreach (Tag tag in results.SearchTerms)
             {
                 uniqueCardIds = cardSqlDAL.SearchForCard(tag);
             }
 
-            foreach(int id in uniqueCardIds)
+            foreach (int id in uniqueCardIds)
             {
                 results.SearchResults.Add(cardSqlDAL.GetCardById(id));
             }
