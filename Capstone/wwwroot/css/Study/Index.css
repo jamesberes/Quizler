@@ -12,7 +12,9 @@ div#study-card {
     height: 25vw;
     background-color: lavender;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
 div#study-card-front {
@@ -59,4 +61,11 @@ div.button {
 
 div#score-count {
 
+}
+
+.no-select {
+    -webkit-user-select: none; /* Chrome all / Safari all */
+    -moz-user-select: none; /* Firefox all */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none;
 }

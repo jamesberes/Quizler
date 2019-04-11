@@ -9,23 +9,30 @@
 <input type="hidden" value="@Model" id="deckId" />
 
 <div id="study-area">
-    <div id="study-card">
+    <div id="study-card" class="hidden">
         <div id="study-card">
-            <h2 id="card-front"></h2>
-            <h3 id="card-back"></h3>
+            <h2 id="card-front" class="no-select"></h2>
+            <h3 id="card-back" class="hidden no-select"></h3>
         </div>
     </div>
 
-    <div id="score-tracker">
+    <div id="score-tracker" class="hidden">
         <div id="correct-button" class="button">
             <i class="fas fa-check"></i>
         </div>
         <div id="wrong-button" class="button">
             <i class="fas fa-times"></i>
         </div>
-        <div id="score-count">
+        <div id="score-count" class="no-select">
             <p></p>
         </div>
+    </div>
+
+    <div id="complete-session" class="hidden">
+        <h2>Study Session Compete!</h2>
+        <p class="correct"></p>
+        <p class="incorrect"></p>
+        <a asp-controller="Decks" asp-action="ViewDeck" asp-route-deckid="@Model">Back to Deck</a>
     </div>
 </div>
 
