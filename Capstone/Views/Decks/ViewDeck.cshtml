@@ -16,54 +16,6 @@
 
 <hr />
 
-<div>
-    @*TODO: The below are hidden in case we would like to display these values in the future - Evaluate?*@
-    <dl class="dl-horizontal">
-        <dt class="hidden">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class="hidden">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class="hidden">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class="hidden">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class="hidden">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class="hidden">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class="hidden">
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </dt>
-        <dd class="hidden">
-            @Html.DisplayFor(model => model.DateCreated)
-        </dd>
-        <dt class="hidden">
-            @Html.DisplayNameFor(model => model.PublicDeck)
-        </dt>
-        <dd class="hidden">
-            @Html.DisplayFor(model => model.PublicDeck)
-        </dd>
-        <dt class="hidden">
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-        <dd class="hidden">
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-        <dt class="hidden">
-            @Html.DisplayNameFor(model => model.ForReview)
-        </dt>
-        <dd class="hidden">
-            @Html.DisplayFor(model => model.ForReview)
-        </dd>
-    </dl>
-</div>
-
 <div class="cards">
     @foreach (var card in Model.Cards)
     {
