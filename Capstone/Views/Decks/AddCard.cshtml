@@ -9,33 +9,27 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="AddCard" asp-route-deckId="@(Model.DeckId)" method="post">
+        <form id="add-card-form" asp-action="AddCard" asp-route-deckId="@(Model.DeckId)" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Front" class="control-label">Enter the text you'd like on the front</label>
-                <input asp-for="Front" id="front-text" class="form-control" placeholder="What is 2 + 2?"/>
-                <span asp-validation-for="Front" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="ImageURL" class="control-label">Enter a URL to an image</label>
                 <input asp-for="ImageURL" id="image-text" class="form-control" placeholder="Image URL..." />
                 <span asp-validation-for="ImageURL" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Front" class="control-label">Enter the text you'd like on the front</label>
+                <input asp-for="Front" id="front-text" class="form-control" placeholder="What is 2 + 2?" />
+                <span asp-validation-for="Front" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Back" class="control-label">Enter the text you'd like on the back</label>
-                <input asp-for="Back" class="form-control" placeholder="2 + 2 is 4!"/>
+                <input asp-for="Back" class="form-control" placeholder="2 + 2 is 4!" />
                 <span asp-validation-for="Back" class="text-danger"></span>
             </div>
-            <div id="tags" class="form-group">
-                <label asp-for="Tags" class="control-label"></label>
-                <input asp-for="Tags[0]" class="form-control" />
-                <span asp-validation-for="Tags" class="text-danger"></span>
-            </div>
-            <button id="AddNewTag">Add Another Tag</button>
 
             <input type="hidden" asp-for="CardOrder" />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" disabled value="Create" class="btn btn-default" />
             </div>
         </form>
     </div>

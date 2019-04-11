@@ -19,18 +19,21 @@
 <div class="cards">
     @foreach (var card in Model.Cards)
     {
-    <div class="card">
-        <p class="front">@card.Front</p>
-        @if (!String.IsNullOrEmpty(card.ImageURL))
-        {
-            <img src="@card.ImageURL" />
+        <div class="card">
+            @if (String.IsNullOrEmpty(card.ImageURL))
+            {
+                <p class="front">@card.Front</p>
+            }
+            @if (!String.IsNullOrEmpty(card.ImageURL))
+            {
+                <img src="@card.ImageURL" />
 
-        }
-        <p class="back hidden">@card.Back</p>
-        <a class="hidden" asp-action="UpdateCard" asp-route-cardId="@card.Id">Update Card</a>
-        <a class="hidden" asp-action="AddTag" asp-route-cardId="@card.Id">Add Tag</a>
-        <a class="hidden" asp-action="DeleteCard" asp-route-cardId="@card.Id">Delete Card</a>
-    </div>
+            }
+            <p class="back hidden">@card.Back</p>
+            <a class="hidden" asp-action="UpdateCard" asp-route-cardId="@card.Id">Update Card</a>
+            <a class="hidden" asp-action="AddTag" asp-route-cardId="@card.Id">Add Tag</a>
+            <a class="hidden" asp-action="DeleteCard" asp-route-cardId="@card.Id">Delete Card</a>
+        </div>
     }
 </div>
 
