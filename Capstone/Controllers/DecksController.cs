@@ -27,7 +27,7 @@ namespace Capstone.Controllers
             this.authProvider = authProvider;
         }
 
-        public IActionResult Index(int userId = 1)
+        public IActionResult Index(int userId)
         {
 
             Users currentUser = authProvider.GetCurrentUser();
