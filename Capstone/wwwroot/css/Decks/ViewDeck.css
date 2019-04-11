@@ -69,6 +69,11 @@ div.card a {
     justify-self: flex-end;
 }
 
+div.card img {
+    max-width: 100%;
+    max-height: inherit;
+}
+
 .hidden {
     display: none;
     opacity: 0;

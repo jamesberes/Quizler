@@ -11,7 +11,7 @@ namespace Capstone.Models
         public int Id { get; set; }
 
         [Display(Name = "Front of Card")]  //TODO: Adjust validation settings for images
-        public string Front { get; set; }
+        public string Front { get; set; } = "";
 
         [Display(Name = "Back of Card")]
         [Required(ErrorMessage = "Please put something on the back of the card")]
