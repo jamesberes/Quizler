@@ -29,5 +29,11 @@ function computeScore(correct) {
     }
 }
 
-correctButton.addEventListener('click', computeScore(true));
-wrongButton.addEventListener('click', computeScore(false));
+correctButton.addEventListener('click', function () {
+    computeScore(true);
+    scoreDisplay.innerText = `Correct: ${right} - Wrong: ${wrong}`;
+});
+wrongButton.addEventListener('click', function () {
+    computeScore(false);
+    scoreDisplay.innerText = `Correct: ${right} - Wrong: ${wrong}`;
+});
