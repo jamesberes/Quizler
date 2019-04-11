@@ -9,15 +9,15 @@ namespace Capstone.Models.View_Models
     public class SearchViewModel
     {
         public List<Tag> SearchTerms { get; set; }
-        public HashSet<Card> SearchResults { get; set; }
-        public List<SelectListItem> UserDecks { get; set; }
+        public List<Card> SearchResults { get; set; }
+        public List<SelectListItem> UserDecksSelectList { get; set; }
         public Card Card { get; set; }
 
         public SearchViewModel()
         {
             SearchTerms = new List<Tag>();
-            SearchResults = new HashSet<Card>();
-            UserDecks = new List<SelectListItem>();
+            SearchResults = new List<Card>();
+            UserDecksSelectList = new List<SelectListItem>();
         }
     }
 }
