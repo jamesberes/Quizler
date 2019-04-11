@@ -6,6 +6,7 @@
     display: flex;
     width: 100%;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 a.deck-link {
@@ -26,7 +27,9 @@ a.deck-link {
 
 div.deck {
     width: 20vw;
+    min-width: 250px;
     height: 25vw;
+    min-height: 350px;
     background-color: lightgray;
     border-radius: 15px;
     text-align: center;
@@ -47,15 +50,18 @@ div.deck {
     div.deck h1 {
         padding-top: 20%;
         padding-bottom: 8%;
-        font-size: 3.5vw;
+        font-size: 200%;
     }
 
     div.deck p {
-        font-size: 1.5vw;
+        font-size: 100%;
         text-decoration: none;
     }
 
 hidden {
     display: none;
     opacity: 0;
+}
+
+@media only screen and (max-width: 1024px) {
 }
