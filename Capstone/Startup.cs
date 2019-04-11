@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Capstone.Models.DALs;
+using Capstone.Providers.Auth;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -29,15 +30,30 @@ namespace Capstone
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
+                options.CheckConsentNeeded = context => false; //todo switched from true to false to allow functionality
                 options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+            //session info
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                // Sets session expiration to 20 minuates
+                options.IdleTimeout = TimeSpan.FromMinutes(20);
+                options.Cookie.HttpOnly = true;
             });
 
             //Dependency injections
             string connectionString = Configuration.GetConnectionString("Default");
+            services.AddTransient<IUsersDAL>(m => new UserSqlDAL(connectionString));
             services.AddScoped<ICardDAL, CardSqlDAL>(c => new CardSqlDAL(connectionString));
             services.AddScoped<IDeckDAL, DeckSqlDAL>(c => new DeckSqlDAL(connectionString));
             services.AddScoped<ITagDAL, TagSqlDAL>(c => new TagSqlDAL(connectionString));
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            //does this not need a connection string b/c it's not accessing the database, but rather saved data in the models?
+            services.AddScoped<IAuthProvider, SessionAuthProvider>();
 
             services.AddCors(options =>
             {
@@ -66,8 +82,10 @@ namespace Capstone
             }
 
             app.UseCors(MyAllowSpecificOrigins);
-
             app.UseStaticFiles();
+            app.UseHttpsRedirection();
+            app.UseCookiePolicy();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

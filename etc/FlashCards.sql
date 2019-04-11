@@ -46,7 +46,8 @@ create table users
 	email varchar(max) not null,
 	password varchar(max) not null,
 	salt varchar(max) not null,
-	is_admin bit default(0) not null
+	is_admin bit default(0) not null,
+	role varchar(max) default('user')
 );
 
 create table tags

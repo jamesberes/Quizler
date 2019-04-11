@@ -25,5 +25,10 @@ namespace Capstone.Models
 
         [Required]
         public bool isAdmin { get; set; }
+
+        /// <summary>
+        /// The user's role.
+        /// </summary>
+        public string Role { get; set; }
     }
 }
