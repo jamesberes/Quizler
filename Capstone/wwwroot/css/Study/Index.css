@@ -32,6 +32,7 @@ div#study-card {
     cursor: pointer;
     transition: all 0.2s;
     border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
     div#study-card:hover {
@@ -119,4 +120,25 @@ div#score-count {
     opacity: 0;
     visibility: hidden;
     display: none;
+}
+
+.fade-animation {
+    animation: fade-in-out;
+    animation-duration: 0.4s;
+
+}
+
+@keyframes fade-in-out {
+    0% {
+        opacity: 1;
+        visibility: visible;
+    }
+    50% {
+        opacity: 0;
+        visibility: hidden;
+    }
+    100% {
+        opacity: 100;
+        visibility: visible;
+    }
 }
