@@ -32,7 +32,7 @@ create table decks
 create table cards
 (
 	id int primary key identity(1,1),
-	front nvarchar(max) not null,
+	front nvarchar(max),
 	back nvarchar(max) not null,
 	img nvarchar(max),
 	card_order int not null,
