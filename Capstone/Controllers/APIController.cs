@@ -74,6 +74,13 @@ namespace Capstone.Controllers
             return decks;
         }
 
+        public List<Deck> LazyLoadPublicDecks(int startId)
+        {
+            Users currentUser = authProvider.GetCurrentUser();
+            List<Deck> decks = decksSqlDAL.LazyLoadPublicDecks(currentUser.Id, startId);
+            return decks;
+        }
+
         // GET: API/GetDeck?Id=
         public Deck GetDeck(int Id)
         {

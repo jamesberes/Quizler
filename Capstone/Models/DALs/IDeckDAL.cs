@@ -18,5 +18,6 @@ namespace Capstone.Models.DALs
         List<SelectListItem> GetUserDecksSelectList(int userId);
         string GetUserNameFromDeckId(int deckId);
         List<Deck> LazyLoadDecks(int userId, int startId);
+        List<Deck> LazyLoadPublicDecks(int startId);
     }
 }

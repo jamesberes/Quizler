@@ -31,7 +31,10 @@
         <form asp-action="AddCardFromSearch" method="post">
             <input type="submit" value="Add Card to Deck" />
             <input type="hidden" class="submit-the-card-id" asp-for="Card.Id" />
-            <select asp-for="Card.DeckId" asp-items="Model.UserDecksSelectList"></select>
+            @if (Model.UserDecksSelectList.Count > 0)
+            {
+                <select asp-for="Card.DeckId" asp-items="Model.UserDecksSelectList"></select>
+            }
         </form>
     </div>
 }

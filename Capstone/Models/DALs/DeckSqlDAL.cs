@@ -21,6 +21,7 @@ namespace Capstone.Models.DALs
         private const string sql_DeleteDeck = "DELETE t FROM tags t JOIN cards c ON t.card_id=c.id WHERE deck_id = @deckId; DELETE FROM cards WHERE deck_id = @deckId; DELETE FROM decks WHERE id = @deckId;";
         private const string sql_GetUserNameFromDeckId = "select display_name from users join decks on users.id = decks.users_id where decks.id = @deckId;";
         private const string sql_LazyLoadDecksByUserId = @"SELECT TOP 10 * FROM decks WHERE users_id = @userId AND id > @deckId";
+        private const string sql_LazyLoadPublicDecks = @"SELECT TOP 10 * FROM decks WHERE is_public = 1 AND id > @deckId";
 
         public DeckSqlDAL(string connectionString)
         {
@@ -240,7 +241,7 @@ namespace Capstone.Models.DALs
             return output;
         }
 
-        public List<SelectListItem> GetUserDecksSelectList(int userId) //todo userId
+        public List<SelectListItem> GetUserDecksSelectList(int userId)
         {
             List<SelectListItem> output = new List<SelectListItem>();
 
@@ -266,7 +267,7 @@ namespace Capstone.Models.DALs
                     }
                 }
             }
-            catch (SqlException ex)
+            catch
             {
                 output = null;
             }
@@ -334,7 +335,46 @@ namespace Capstone.Models.DALs
             }
             catch (SqlException)
             {
-                List<Deck> deck = null;
+                result = null;
+            }
+            return result;
+        }
+
+        public List<Deck> LazyLoadPublicDecks(int startId)
+        {
+            List<Deck> result = new List<Deck>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql_LazyLoadPublicDecks, conn);
+                    cmd.Parameters.AddWithValue("@deckId", startId);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Deck deck = new Deck
+                        {
+                            Id = Convert.ToInt32(reader["id"]),
+                            Name = Convert.ToString(reader["name"]),
+                            DateCreated = Convert.ToDateTime(reader["date_created"]),
+                            PublicDeck = Convert.ToBoolean(reader["is_public"]),
+                            UserId = Convert.ToInt32(reader["users_id"]),
+                            ForReview = Convert.ToBoolean(reader["for_review"]),
+                            Description = Convert.ToString(reader["description"])
+                        };
+
+                        deck.Cards = cardSqlDAL.GetCardsByDeckId(deck.Id);
+
+                        result.Add(deck);
+                    }
+                }
+            }
+            catch
+            {
+                result = null;
             }
             return result;
         }

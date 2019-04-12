@@ -235,8 +235,12 @@ namespace Capstone.Controllers
         [HttpGet]
         public IActionResult Search(string query)
         {
+            int userId = authProvider.GetCurrentUser().Id;
+
             SearchViewModel results = new SearchViewModel();
+
             results.Card = new Card();
+
             string[] tags = query.Split(' ', ',', '+');
 
             foreach (string tag in tags)
@@ -256,7 +260,7 @@ namespace Capstone.Controllers
                 results.SearchResults.Add(cardSqlDAL.GetCardById(id));
             }
 
-            results.UserDecksSelectList = decksSqlDAL.GetUserDecksSelectList(1); //TODO: Fix so it pulls actual userID
+            results.UserDecksSelectList = decksSqlDAL.GetUserDecksSelectList(userId);
 
             return View("SearchResults", results);
         }
