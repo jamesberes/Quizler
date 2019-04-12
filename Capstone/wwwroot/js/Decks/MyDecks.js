@@ -1,4 +1,6 @@
 ﻿const decksDiv = document.querySelector('div.decks');
+const preloader = document.querySelector('img.preload');
+
 const apiUrl = `http://localhost:${location.port}/API/`;
 let maxLoadedDeckId = 0;
 let resultCount = 10;
@@ -9,6 +11,9 @@ function LazyLoad() {
     fetch(apiUrl + `LazyLoadDecks?startId=${maxLoadedDeckId}`)
         .then(result => {
             result.json().then(data => {
+
+                preloader.classList.add('hidden');
+
                 data.forEach(item => {
                     let deck = document.createElement('a');
                     deck.classList.add('deck-link');
@@ -22,7 +27,6 @@ function LazyLoad() {
                 })
                 resultCount = data.length;
                 if (resultCount > 9) {
-                    console.log("Grabbing more decks");
                     window.addEventListener('scroll', LazyLoad());
                 }
             })

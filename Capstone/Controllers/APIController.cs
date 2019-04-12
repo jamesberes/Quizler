@@ -60,9 +60,10 @@ namespace Capstone.Controllers
         }
         
 
-        public List<Deck> GetUserDecks(int userId = 1) //todo userId
+        public List<Deck> GetUserDecks() //todo userId
         {
-            List<Deck> decks = decksSqlDAL.GetDecksbyUserId(userId);
+            Users currentUser = authProvider.GetCurrentUser();
+            List<Deck> decks = decksSqlDAL.GetDecksbyUserId(currentUser.Id);
             return decks;
         }
 
