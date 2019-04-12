@@ -118,7 +118,7 @@ namespace Capstone.Controllers
         public IActionResult AddCardFromOtherUsersDeck(OtherUsersDeckViewModel oudvm)
         {
             Card cardToAdd = cardSqlDAL.GetCardById(oudvm.Card.Id);
-            cardToAdd.DeckId = oudvm.Card.Id;
+            cardToAdd.DeckId = oudvm.Card.DeckId;
             cardToAdd = cardSqlDAL.AddCardToDeck(cardToAdd);
             return RedirectToAction("ViewDeck", new { deckId = cardToAdd.DeckId });
         }
