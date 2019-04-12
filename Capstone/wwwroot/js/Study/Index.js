@@ -17,24 +17,50 @@ const cancelButton = document.querySelector('#cancel-button');
 let unansweredQuestions = [];
 let answeredQuestions = [];
 let hasBeenFlipped = false;
+let random = false;
 
 fetch(`${apiUrl}getdeck?id=${deckId}`)
     .then(response => {
         response.json()
             .then(data => {
                 unansweredQuestions = data.cards;
-                if (unansweredQuestions[0].imageURL != '') {
-                    image.src = unansweredQuestions[0].imageURL;
-                    frontOfCard.innerText = '';
-                } else {
-                    frontOfCard.innerText = unansweredQuestions[0].front;
-                    image.src = '';
 
+                if (random) {
+                    unansweredQuestions = shuffle(unansweredQuestions);
                 }
-                backOfCard.innerText = unansweredQuestions[0].back;
-                studyCard.classList.remove('hidden');
+
+                DisplayFirstCard();
             });
     });
+
+function DisplayFirstCard() {
+    if (unansweredQuestions[0].imageURL != '') {
+        image.src = unansweredQuestions[0].imageURL;
+        frontOfCard.innerText = '';
+    } else {
+        frontOfCard.innerText = unansweredQuestions[0].front;
+        image.src = '';
+
+    }
+    backOfCard.innerText = unansweredQuestions[0].back;
+    studyCard.classList.remove('hidden');
+}
+
+function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    while (0 !== currentIndex) {
+
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+}
 
 function ComputeScore(correct) {
     if (correct) {
@@ -44,6 +70,7 @@ function ComputeScore(correct) {
         wrong++;
     }
 }
+
 
 function NextCard() {
     hasBeenFlipped = false;
