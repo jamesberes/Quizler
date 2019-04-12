@@ -13,7 +13,7 @@
     ViewData["Title"] = Model.Deck.Name + noDeck;
 }
 
-<link href="~/css/Decks/ViewDeck.css" rel="stylesheet" />
+<link href="~/css/Decks/NotOwnerDeck.css" rel="stylesheet" />
 
 <div class="deck-title">
     <h1>@Model.Deck.Name @noDeck by @Model.DeckOwnerName</h1>
@@ -28,7 +28,9 @@
 <div class="cards">
     @foreach (var card in Model.Deck.Cards)
     {
+    <div>
         <div class="card">
+            <input type="hidden" class="hidden-card-id" value="@card.Id" />
             @if (String.IsNullOrEmpty(card.ImageURL))
             {
                 <p class="front">@card.Front</p>
@@ -45,6 +47,7 @@
             <input type="hidden" class="submit-the-card-id" asp-for="Card.Id" />
             <select asp-for="Card.DeckId" asp-items="Model.UserDecksSelectList"></select>
         </form>
+    </div>
     }
 </div>
 
@@ -61,5 +64,5 @@
     @*<a title="Delete Deck?" asp-action="DeleteDeck" asp-route-deckId="@(Model.Id)"><i class="fa fa-trash" aria-hidden="true"></i></a>*@
 </div>
 
-<script src="~/js/Decks/ViewDeck.js"></script>
+<script src="~/js/Decks/NotOwnersDeck.js"></script>
 

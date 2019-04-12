@@ -54,9 +54,9 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
     </dl>
-    
+
     <form asp-action="DeleteDeck" method="post" asp-route-deckId="@Model.Id" asp-route-routedUserId="@Model.UserId">
         <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Cancel</a>
+        <a asp-action="ViewDeck" asp-route-deckId="@Model.Id">Cancel</a>
     </form>
 </div>

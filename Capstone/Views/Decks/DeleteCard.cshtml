@@ -1,14 +1,13 @@
 ﻿@model Capstone.Models.Card
 
 @{
-    ViewData["Title"] = "DeleteCard";
+    ViewData["Title"] = "Delete Card?";
 }
 
-<h2>Delete Card</h2>
+<h2>Delete Card???</h2>
+<p>Are you sure you want to delete this card?</p>
 
-<h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Card</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -51,6 +50,6 @@
 
     <form asp-action="DeleteCard" method="post" asp-route-DeckId="@Model.DeckId" asp-route-cardId="@Model.Id">
         <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="ViewDeck" asp-route-deckId="@Model.DeckId">Back to Deck</a>
+        <a asp-action="ViewDeck" asp-route-deckId="@Model.DeckId">Cancel</a>
     </form>
 </div>
