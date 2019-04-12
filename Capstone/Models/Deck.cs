@@ -9,8 +9,6 @@ namespace Capstone.Models
 {
     public class Deck
     {
-        IAuthProvider authProvider;
-
         public int Id { get; set; }
 
         [Display(Name = "Deck Name")]

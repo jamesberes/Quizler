@@ -69,7 +69,7 @@ namespace Capstone.Controllers
             {
                 return View(deck);
             }
-            else
+            else if (IsDeckPublic(deckId))
             {
                 OtherUsersDeckViewModel oudvm = new OtherUsersDeckViewModel()
                 {
@@ -78,6 +78,10 @@ namespace Capstone.Controllers
                 oudvm.DeckOwnerName = decksSqlDAL.GetUserNameFromDeckId(deck.Id);
                 oudvm.UserDecksSelectList = decksSqlDAL.GetUserDecksSelectList(userId);
                 return View("NotOwnersDeck", oudvm);
+            }
+            else
+            {
+                return NotFound();
             }
         }
 
@@ -282,7 +286,12 @@ namespace Capstone.Controllers
             {
                 return true;
             }
-            
+        }
+
+        public bool IsDeckPublic(int deckId)
+        {
+            Deck deck = decksSqlDAL.GetDeckById(deckId);
+            return deck.PublicDeck ? true : false;
         }
     }
 }
