@@ -1,0 +1,65 @@
+﻿@model Capstone.Models.View_Models.OtherUsersDeckViewModel
+
+@{
+    string noDeck = "";
+    if (Model.Deck.Name.ToLower().Contains("deck"))
+    {
+        noDeck = "";
+    }
+    else
+    {
+        noDeck = " Deck";
+    }
+    ViewData["Title"] = Model.Deck.Name + noDeck;
+}
+
+<link href="~/css/Decks/ViewDeck.css" rel="stylesheet" />
+
+<div class="deck-title">
+    <h1>@Model.Deck.Name @noDeck by @Model.DeckOwnerName</h1>
+</div>
+
+<div class="deck-description">
+    <p>@Model.Deck.Description</p>
+</div>
+
+<hr />
+
+<div class="cards">
+    @foreach (var card in Model.Deck.Cards)
+    {
+        <div class="card">
+            @if (String.IsNullOrEmpty(card.ImageURL))
+            {
+                <p class="front">@card.Front</p>
+            }
+            @if (!String.IsNullOrEmpty(card.ImageURL))
+            {
+                <img src="@card.ImageURL" />
+
+            }
+            <p class="back hidden">@card.Back</p>
+        </div>
+        <form asp-action="AddCardFromOtherUsersDeck" method="post">
+            <input type="submit" value="Add Card to Deck" />
+            <input type="hidden" class="submit-the-card-id" asp-for="Card.Id" />
+            <select asp-for="Card.DeckId" asp-items="Model.UserDecksSelectList"></select>
+        </form>
+    }
+</div>
+
+<hr />
+
+<div class="deck-buttons">
+    @if (Model.Deck.Cards.Count > 0)
+    {
+        <a asp-controller="Study" asp-action="Index" asp-route-deckId="@Model.Deck.Id">Start Study Session</a>
+    }
+    @*<a asp-action="AddCard" asp-route-deckId="@Model.Id">Add This Card To One of My Decks</a>*@
+    @*<a asp-action="EditDeck" asp-route-deckId="@(Model.Id)">Edit Deck</a>*@
+    <a asp-action="MyDecks" asp-route-userId="@(Model.Deck.UserId)">Back to My Decks</a>
+    @*<a title="Delete Deck?" asp-action="DeleteDeck" asp-route-deckId="@(Model.Id)"><i class="fa fa-trash" aria-hidden="true"></i></a>*@
+</div>
+
+<script src="~/js/Decks/ViewDeck.js"></script>
+

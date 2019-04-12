@@ -13,6 +13,7 @@ namespace Capstone.Models.DALs
         private const string sql_CreateUser = "INSERT INTO users (display_name, email, password, salt, role) VALUES (@displayName, @email, @password, @salt, @role);";
         private const string sql_DeleteUser = "DELETE FROM users WHERE id = @id;";
         private const string sql_GetUser = "SELECT * FROM USERS WHERE email = @email;";
+        //private const string sql_IsCurrentUserTheOwner = "";
 
         public UserSqlDAL(string connectionString)
         {
