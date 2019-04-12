@@ -22,6 +22,7 @@ function LazyLoad() {
                 })
                 resultCount = data.length;
                 if (resultCount > 9) {
+                    console.log("Grabbing more decks");
                     window.addEventListener('scroll', LazyLoad());
                 }
             })
