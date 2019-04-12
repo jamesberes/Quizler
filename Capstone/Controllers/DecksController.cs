@@ -81,6 +81,10 @@ namespace Capstone.Controllers
         [HttpPost]
         public IActionResult AddCard(Card newCard)
         {
+            if (String.IsNullOrEmpty(newCard.Front) && !String.IsNullOrEmpty(newCard.ImageURL))
+            {
+                newCard.Front = "";
+            }
             cardSqlDAL.AddCardToDeck(newCard);
             return RedirectToAction("ViewDeck", new { deckId = newCard.DeckId });
         }

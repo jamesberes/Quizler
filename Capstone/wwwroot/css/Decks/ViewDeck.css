@@ -55,6 +55,7 @@ div.card {
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none;
+    margin-bottom: 20px;
 }
 
 div.card:hover {
