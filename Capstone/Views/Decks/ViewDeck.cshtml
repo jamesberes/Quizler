@@ -2,14 +2,9 @@
 
 @{
     string noDeck = "";
-    if (Model.Name.ToLower().Contains("deck"))
-    {
-        noDeck = "";
-    }
-    else
-    {
-        noDeck = " Deck";
-    }
+
+    noDeck = Model.Name.ToLower().Contains("deck") ? "" : " Deck";
+
     ViewData["Title"] = Model.Name + noDeck;
 }
 
