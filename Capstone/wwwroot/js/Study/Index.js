@@ -9,7 +9,6 @@ const backOfCard = document.querySelector('h3#card-back');
 const scoreTracker = document.querySelector('div#score-tracker');
 const correctButton = document.querySelector('div#correct-button');
 const wrongButton = document.querySelector('div#wrong-button');
-const scoreDisplay = document.querySelector('div#score-count p');
 const completeSession = document.querySelector('div#complete-session');
 const endSessionButton = document.querySelector('div#complete-button');
 const image = document.querySelector('#img-front');
@@ -18,24 +17,50 @@ const cancelButton = document.querySelector('#cancel-button');
 let unansweredQuestions = [];
 let answeredQuestions = [];
 let hasBeenFlipped = false;
+let random = false;
 
 fetch(`${apiUrl}getdeck?id=${deckId}`)
     .then(response => {
         response.json()
             .then(data => {
                 unansweredQuestions = data.cards;
-                if (unansweredQuestions[0].imageURL != '') {
-                    image.src = unansweredQuestions[0].imageURL;
-                    frontOfCard.innerText = '';
-                } else {
-                    frontOfCard.innerText = unansweredQuestions[0].front;
-                    image.src = '';
 
+                if (random) {
+                    unansweredQuestions = shuffle(unansweredQuestions);
                 }
-                backOfCard.innerText = unansweredQuestions[0].back;
-                studyCard.classList.remove('hidden');
+
+                DisplayFirstCard();
             });
     });
+
+function DisplayFirstCard() {
+    if (unansweredQuestions[0].imageURL != '') {
+        image.src = unansweredQuestions[0].imageURL;
+        frontOfCard.innerText = '';
+    } else {
+        frontOfCard.innerText = unansweredQuestions[0].front;
+        image.src = '';
+
+    }
+    backOfCard.innerText = unansweredQuestions[0].back;
+    studyCard.classList.remove('hidden');
+}
+
+function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    while (0 !== currentIndex) {
+
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+}
 
 function ComputeScore(correct) {
     if (correct) {
@@ -46,11 +71,15 @@ function ComputeScore(correct) {
     }
 }
 
+
 function NextCard() {
     hasBeenFlipped = false;
     if (unansweredQuestions.length > 0) {
         answeredQuestions.push(unansweredQuestions[0]);
         unansweredQuestions.shift();
+        //studyCard.classList.remove('fade-animation');
+        //studyCard.classList.add('fade-animation');
+
     }
 
     if (unansweredQuestions.length > 0) {
@@ -119,13 +148,11 @@ studyCard.addEventListener('click', FlipCard);
 
 correctButton.addEventListener('click', function () {
     ComputeScore(true);
-    scoreDisplay.innerText = `Correct: ${right} - Wrong: ${wrong}`;
     NextCard();
 });
 
 wrongButton.addEventListener('click', function () {
     ComputeScore(false);
-    scoreDisplay.innerText = `Correct: ${right} - Wrong: ${wrong}`;
     NextCard();
 });
 
