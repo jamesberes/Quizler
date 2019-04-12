@@ -217,8 +217,10 @@ namespace Capstone.Controllers
         [HttpGet]
         public IActionResult AddTag(int cardId)
         {
-            Tag tag = new Tag();
+            TagViewModel tag = new TagViewModel();
+            Card card = cardSqlDAL.GetCardById(cardId);
             tag.CardId = cardId;
+            tag.DeckId = card.DeckId;
             return View(tag);
         }
 
