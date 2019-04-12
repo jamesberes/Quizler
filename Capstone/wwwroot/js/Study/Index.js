@@ -13,6 +13,7 @@ const scoreDisplay = document.querySelector('div#score-count p');
 const completeSession = document.querySelector('div#complete-session');
 const endSessionButton = document.querySelector('div#complete-button');
 const image = document.querySelector('#img-front');
+const cancelButton = document.querySelector('#cancel-button');
 
 let unansweredQuestions = [];
 let answeredQuestions = [];
@@ -68,6 +69,7 @@ function NextCard() {
         backOfCard.innerText = unansweredQuestions[0].back;
 
     } else {
+        cancelButton.classList.add('hidden');
         CompleteStudySession();
     }
 }
