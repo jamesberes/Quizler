@@ -1,27 +1,29 @@
 ﻿const getImageTextbox = document.getElementById('image-text').form[0];
 const getFrontTextbox = document.getElementById('front-text').form[1];
 const form = document.getElementById('edit-card-form');
-const frontTextboxPlaceholder = getFrontTextbox.placeholder;
-const imageTextboxPlaceholder = getImageTextbox.placeholder;
+const getFrontTextboxPlaceholder = getFrontTextbox.placeholder;
+const getImageTextboxPlaceholder = getImageTextbox.placeholder;
 const submitButton = document.querySelector('[type=submit]');
-const placeholderText = "You can only have an image OR text";
+const placeholderRestriction = "You can only have an image OR text";
+const defaultImagePlaceholder = "Image URL...";
+const defaultFrontTextPlaceholder = "What is 2 + 2 ?";
 let originalFrontTextboxValue = getFrontTextbox.value;
 let originalImageTextboxValue = getImageTextbox.value;
 
 if (originalImageTextboxValue) {
     getFrontTextbox.disabled = true;
-    getFrontTextbox.placeholder = placeholderText;
+    getFrontTextbox.placeholder = placeholderRestriction;
 }
 
 if (originalFrontTextboxValue) {
     getImageTextbox.disabled = true;
-    getImageTextbox.placeholder = placeholderText;
+    getImageTextbox.placeholder = placeholderRestriction;
 }
 
 getFrontTextbox.addEventListener('input', i => {
     if (getFrontTextbox.value !== '') {
         getImageTextbox.disabled = true;
-        getImageTextbox.placeholder = placeholderText;
+        getImageTextbox.placeholder = placeholderRestriction;
     }
     else {
         getImageTextbox.disabled = false
@@ -29,7 +31,7 @@ getFrontTextbox.addEventListener('input', i => {
             getImageTextbox.value = originalImageTextboxValue;
         }
         else {
-            getImageTextbox.placeholder = imageTextboxPlaceholder
+            getImageTextbox.placeholder = defaultImagePlaceholder;
         }
     }
 });
@@ -37,7 +39,7 @@ getFrontTextbox.addEventListener('input', i => {
 getImageTextbox.addEventListener('input', i => {
     if (getImageTextbox.value !== '') {
         getFrontTextbox.disabled = true
-        getFrontTextbox.placeholder = placeholderText;
+        getFrontTextbox.placeholder = placeholderRestriction;
     }
     else {
         getFrontTextbox.disabled = false
@@ -45,7 +47,7 @@ getImageTextbox.addEventListener('input', i => {
             getFrontTextbox.value = originalFrontTextboxValue;
         }
         else {
-            getFrontTextbox.placeholder = placeholderText;
+            getFrontTextbox.placeholder = defaultFrontTextPlaceholder;
         }
     }
 });
