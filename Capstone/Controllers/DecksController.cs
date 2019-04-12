@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Capstone.Models;
+﻿using Capstone.Models;
 using Capstone.Models.DALs;
 using Capstone.Models.View_Models;
 using Capstone.Providers.Auth;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace Capstone.Controllers
 {
@@ -65,9 +62,25 @@ namespace Capstone.Controllers
 
         public IActionResult ViewDeck(int deckId)
         {
+            int userId = authProvider.GetCurrentUser().Id;
             Deck deck = decksSqlDAL.GetDeckById(deckId);
-            return View(deck);
+            if (IsCurrentUserTheOwner(deckId))
+            {
+                return View(deck);
+            }
+            else
+            {
+                OtherUsersDeckViewModel oudvm = new OtherUsersDeckViewModel()
+                {
+                    Deck = deck
+                };
+                oudvm.DeckOwnerName = decksSqlDAL.GetUserNameFromDeckId(deck.Id);
+                oudvm.UserDecksSelectList = decksSqlDAL.GetUserDecksSelectList(userId);
+                return View("NotOwnersDeck", oudvm);
+            }
         }
+
+
 
         [HttpGet]
         public IActionResult AddCard(int deckID)
@@ -89,6 +102,18 @@ namespace Capstone.Controllers
         {
             Card cardToAdd = cardSqlDAL.GetCardById(svm.Card.Id);
             cardToAdd.DeckId = svm.Card.DeckId;
+            cardToAdd = cardSqlDAL.AddCardToDeck(cardToAdd);
+            return RedirectToAction("ViewDeck", new { deckId = cardToAdd.DeckId });
+        }
+
+        //view model that contains: select list items of users decks
+        //                              users display name
+        //                                deck itself.
+        // 
+        public IActionResult AddCardFromOtherUsersDeck(OtherUsersDeckViewModel oudvm)
+        {
+            Card cardToAdd = cardSqlDAL.GetCardById(oudvm.Card.Id);
+            cardToAdd.DeckId = oudvm.Card.Id;
             cardToAdd = cardSqlDAL.AddCardToDeck(cardToAdd);
             return RedirectToAction("ViewDeck", new { deckId = cardToAdd.DeckId });
         }
@@ -220,6 +245,26 @@ namespace Capstone.Controllers
             results.UserDecksSelectList = decksSqlDAL.GetUserDecksSelectList(1); //TODO: Fix so it pulls actual userID
 
             return View("SearchResults", results);
+        }
+
+        public bool IsCurrentUserTheOwner(int deckId)
+        {
+            Users currentUser = authProvider.GetCurrentUser();
+            if (currentUser == null)
+            {
+                return false;
+            }
+            int userId = currentUser.Id;
+            Deck deck = decksSqlDAL.GetDeckById(deckId);
+            if (userId != deck.UserId)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+            
         }
     }
 }

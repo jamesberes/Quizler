@@ -19,6 +19,7 @@ namespace Capstone.Models.DALs
         private const string sql_UpdateDeck = @"UPDATE decks SET name = @name, description = @description WHERE id = @id";
         private const string sql_GetHighestOrderNumber = "SELECT TOP 1 cards.card_order FROM decks JOIN cards on decks.id = cards.deck_id WHERE decks.id = @id ORDER BY cards.card_order DESC";
         private const string sql_DeleteDeck = "DELETE t FROM tags t JOIN cards c ON t.card_id=c.id WHERE deck_id = @deckId; DELETE FROM cards WHERE deck_id = @deckId; DELETE FROM decks WHERE id = @deckId;";
+        private const string sql_GetUserNameFromDeckId = "select display_name from users join decks on users.id = decks.users_id where decks.id = @deckId;";
 
         public DeckSqlDAL(string connectionString)
         {
@@ -269,6 +270,32 @@ namespace Capstone.Models.DALs
                 output = null;
             }
             return output;
+        }
+
+        public string GetUserNameFromDeckId(int deckId)
+        {
+            string name = "";
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql_GetUserNameFromDeckId, conn);
+                    cmd.Parameters.AddWithValue("@deckId", deckId);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        name = Convert.ToString(reader["display_name"]);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                name = null;
+            }
+            return name;
         }
     }
 }
