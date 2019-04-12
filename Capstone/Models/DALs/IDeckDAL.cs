@@ -19,5 +19,7 @@ namespace Capstone.Models.DALs
         string GetUserNameFromDeckId(int deckId);
         List<Deck> LazyLoadDecks(int userId, int startId);
         List<Deck> LazyLoadPublicDecks(int startId);
+        bool SetDeckForReferral(int deckId, bool bit);
+        bool MakePrivate(int deckId);
     }
 }

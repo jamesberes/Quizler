@@ -98,5 +98,38 @@ namespace Capstone.Controllers
                 newDeck.Cards = new List<Card>();
             }
         }
+
+        [HttpPost]
+        public IActionResult ToggleForReferral(int deckId)
+        {
+            int userId = authProvider.GetCurrentUser().Id;
+            Deck deckToToggle = decksSqlDAL.GetDeckById(deckId);
+            if (deckToToggle.UserId == userId)
+            {
+                bool value = deckToToggle.ForReview == true ? false : true;
+                decksSqlDAL.SetDeckForReferral(deckId, value);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPost]
+        public IActionResult MakePrivate(int deckId)
+        {
+            int userId = authProvider.GetCurrentUser().Id;
+            Deck deckToToggle = decksSqlDAL.GetDeckById(deckId);
+            if (deckToToggle.UserId == userId)
+            {
+                decksSqlDAL.MakePrivate(deckId);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
     }
 }
