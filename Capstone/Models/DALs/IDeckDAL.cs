@@ -17,5 +17,6 @@ namespace Capstone.Models.DALs
         bool DeleteDeck(int deckId);
         List<SelectListItem> GetUserDecksSelectList(int userId);
         string GetUserNameFromDeckId(int deckId);
+        List<Deck> LazyLoadDecks(int userId, int startId);
     }
 }

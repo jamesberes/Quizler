@@ -23,8 +23,6 @@ fetch(`${apiUrl}getdeck?id=${deckId}`)
         response.json()
             .then(data => {
                 unansweredQuestions = data.cards;
-
-                console.log(unansweredQuestions[0]);
                 if (unansweredQuestions[0].imageURL != '') {
                     image.src = unansweredQuestions[0].imageURL;
                     frontOfCard.innerText = '';

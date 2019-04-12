@@ -3,6 +3,7 @@ using Capstone.Models.DALs;
 using Capstone.Models.View_Models;
 using Capstone.Providers.Auth;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 
 namespace Capstone.Controllers
@@ -33,8 +34,8 @@ namespace Capstone.Controllers
                 return RedirectToAction("login", "account");
             }
             userId = currentUser.Id;
-            List<Deck> decks = decksSqlDAL.GetDecksbyUserId(userId);
-            return View(decks);
+            //List<Deck> decks = decksSqlDAL.GetDecksbyUserId(userId);
+            return View();
         }
 
         [HttpGet]
@@ -94,6 +95,10 @@ namespace Capstone.Controllers
         [HttpPost]
         public IActionResult AddCard(Card newCard)
         {
+            if (String.IsNullOrEmpty(newCard.Front) && !String.IsNullOrEmpty(newCard.ImageURL))
+            {
+                newCard.Front = "";
+            }
             cardSqlDAL.AddCardToDeck(newCard);
             return RedirectToAction("ViewDeck", new { deckId = newCard.DeckId });
         }

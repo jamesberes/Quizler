@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Capstone.Models;
 using Capstone.Models.DALs;
 using Capstone.Models.View_Models;
+using Capstone.Providers.Auth;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,12 +18,16 @@ namespace Capstone.Controllers
         private IDeckDAL decksSqlDAL;
         private ICardDAL cardSqlDAL;
         private ITagDAL tagSqlDAL;
+        private IUsersDAL userSqlDAL;
+        private IAuthProvider authProvider;
 
-        public APIController(IDeckDAL decksSqlDAL, ICardDAL cardSqlDAL, ITagDAL tagSqlDAL)
+        public APIController(IDeckDAL decksSqlDAL, ICardDAL cardSqlDAL, ITagDAL tagSqlDAL, IUsersDAL userSqlDAL, IAuthProvider authProvider)
         {
             this.decksSqlDAL = decksSqlDAL;
             this.cardSqlDAL = cardSqlDAL;
             this.tagSqlDAL = tagSqlDAL;
+            this.userSqlDAL = userSqlDAL;
+            this.authProvider = authProvider;
         }
 
         // GET: API/Search
@@ -58,6 +63,13 @@ namespace Capstone.Controllers
         public List<Deck> GetUserDecks(int userId = 1) //todo userId
         {
             List<Deck> decks = decksSqlDAL.GetDecksbyUserId(userId);
+            return decks;
+        }
+
+        public List<Deck> LazyLoadDecks(int startId)
+        {
+            Users currentUser = authProvider.GetCurrentUser();
+            List<Deck> decks = decksSqlDAL.LazyLoadDecks(currentUser.Id, startId);
             return decks;
         }
 
