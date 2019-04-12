@@ -22,6 +22,7 @@ namespace Capstone.Models.DALs
         private const string sql_GetUserNameFromDeckId = "select display_name from users join decks on users.id = decks.users_id where decks.id = @deckId;";
         private const string sql_LazyLoadDecksByUserId = @"SELECT TOP 10 * FROM decks WHERE users_id = @userId AND id > @deckId";
         private const string sql_LazyLoadPublicDecks = @"SELECT TOP 10 * FROM decks WHERE is_public = 1 AND id > @deckId";
+        private const string sql_SetDeckForReview = @"UPDATE decks SET for_review = @bit WHERE id = @deckId;";
 
         public DeckSqlDAL(string connectionString)
         {
@@ -377,6 +378,39 @@ namespace Capstone.Models.DALs
                 result = null;
             }
             return result;
+        }
+
+        //sets the selected deck's "For Review" to either 1 or 2
+        public bool SetDeckForReferral(int deckId, int bit)
+        {
+            bool output;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql_SetDeckForReview, conn);
+                    cmd.Parameters.AddWithValue("@deckId", deckId);
+                    cmd.Parameters.AddWithValue("@bit", bit);
+
+                    int numRowsChanged = cmd.ExecuteNonQuery();
+                    if (numRowsChanged > 0)
+                    {
+                        output = true;
+                    }
+                    else
+                    {
+                        output = false;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+            return output;
         }
     }
 }
