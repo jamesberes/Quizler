@@ -30,7 +30,7 @@ namespace Capstone
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => false; //todo switched from true to false to allow functionality
+                options.CheckConsentNeeded = context => false; //switched from true to false to allow functionality
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 

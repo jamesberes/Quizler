@@ -108,8 +108,16 @@ namespace Capstone.Models.DALs
 
                     SqlCommand cmd = new SqlCommand(sql_UpdateCard, conn);
 
+                    if (String.IsNullOrEmpty(updatedCard.Front))
+                    {
+                        updatedCard.Front = "";
+                    }
                     cmd.Parameters.AddWithValue("@front", updatedCard.Front);
                     cmd.Parameters.AddWithValue("@back", updatedCard.Back);
+                    if (String.IsNullOrEmpty(updatedCard.ImageURL))
+                    {
+                        updatedCard.ImageURL = "";
+                    }
                     cmd.Parameters.AddWithValue("@img", updatedCard.ImageURL);
                     cmd.Parameters.AddWithValue("@id", updatedCard.Id);
                     cmd.Parameters.AddWithValue("@order", updatedCard.CardOrder);

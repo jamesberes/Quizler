@@ -1,10 +1,11 @@
-﻿@model Capstone.Models.Tag
+﻿@model Capstone.Models.View_Models.TagViewModel
 
 @{
     ViewData["Title"] = "AddTag";
 }
 
-<h2>AddTag</h2>
+<h2>Add a Tag</h2>
+<p>Put tags on your card to make it easier to search for them!</p>
 
 <h4>Tag</h4>
 <hr />
@@ -25,6 +26,10 @@
             </div>
         </form>
     </div>
+</div>
+
+<div>
+    <a asp-action="ViewDeck" asp-route-deckId="@Model.DeckId">Cancel</a>
 </div>
 
 @section Scripts {

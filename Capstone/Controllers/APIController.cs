@@ -60,9 +60,10 @@ namespace Capstone.Controllers
         }
         
 
-        public List<Deck> GetUserDecks(int userId = 1) //todo userId
+        public List<Deck> GetUserDecks() //todo userId
         {
-            List<Deck> decks = decksSqlDAL.GetDecksbyUserId(userId);
+            Users currentUser = authProvider.GetCurrentUser();
+            List<Deck> decks = decksSqlDAL.GetDecksbyUserId(currentUser.Id);
             return decks;
         }
 
@@ -70,6 +71,13 @@ namespace Capstone.Controllers
         {
             Users currentUser = authProvider.GetCurrentUser();
             List<Deck> decks = decksSqlDAL.LazyLoadDecks(currentUser.Id, startId);
+            return decks;
+        }
+
+        public List<Deck> LazyLoadPublicDecks(int startId)
+        {
+            Users currentUser = authProvider.GetCurrentUser();
+            List<Deck> decks = decksSqlDAL.LazyLoadPublicDecks(startId);
             return decks;
         }
 

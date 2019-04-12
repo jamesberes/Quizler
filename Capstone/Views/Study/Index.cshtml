@@ -33,11 +33,15 @@
     </div>
 
     <div id="complete-session" class="hidden">
-        <h2>Study Session Compete!</h2>
+        <h2>Study Session Complete!</h2>
         <p class="correct"></p>
         <p class="incorrect"></p>
         <a asp-controller="Decks" asp-action="ViewDeck" asp-route-deckid="@Model">Back to Deck</a>
     </div>
+</div>
+
+<div>
+    <a asp-controller="Decks" asp-action="ViewDeck" asp-route-deckid="@Model">Cancel Study Session</a>
 </div>
 
 <script src="~/js/Study/Index.js"></script>

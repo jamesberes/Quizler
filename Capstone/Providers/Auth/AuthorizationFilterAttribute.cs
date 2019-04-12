@@ -21,9 +21,6 @@ namespace Capstone.Providers.Auth
             this.roles = roles;
         }
 
-        //todo option 1: add team filter 
-        //option 2: add in db 
-
         /// <summary>
         /// Called after the action executes.
         /// </summary>

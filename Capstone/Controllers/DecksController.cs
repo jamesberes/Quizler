@@ -111,31 +111,6 @@ namespace Capstone.Controllers
             return RedirectToAction("ViewDeck", new { deckId = cardToAdd.DeckId });
         }
 
-        //view model that contains: select list items of users decks
-        //                              users display name
-        //                                deck itself.
-        // 
-        public IActionResult AddCardFromOtherUsersDeck(OtherUsersDeckViewModel oudvm)
-        {
-            Card cardToAdd = cardSqlDAL.GetCardById(oudvm.Card.Id);
-            cardToAdd.DeckId = oudvm.Card.DeckId;
-            cardToAdd = cardSqlDAL.AddCardToDeck(cardToAdd);
-            return RedirectToAction("ViewDeck", new { deckId = cardToAdd.DeckId });
-        }
-
-        [HttpPost]
-        public IActionResult UpdateCard(Card updatedCard)
-        {
-            if (cardSqlDAL.UpdateCard(updatedCard) == null)
-            {
-                return View("Error");
-            }
-            else
-            {
-                return RedirectToAction("ViewDeck", new { deckId = updatedCard.DeckId });
-            }
-        }
-
         [HttpGet]
         public IActionResult UpdateCard(int cardId)
         {
@@ -143,6 +118,39 @@ namespace Capstone.Controllers
             return View(card);
         }
 
+        public IActionResult AddCardFromOtherUsersDeck(OtherUsersDeckViewModel oudvm)
+        {
+            Card cardToAdd = cardSqlDAL.GetCardById(oudvm.Card.Id);
+            cardToAdd.DeckId = oudvm.Card.DeckId;
+            cardToAdd = cardSqlDAL.AddCardToDeck(cardToAdd);
+            return RedirectToAction("ViewDeck", new { deckId = cardToAdd.DeckId });
+
+        }
+
+        [HttpPost]
+        public IActionResult UpdateCard(Card updatedCard)
+        {
+            if (cardSqlDAL.UpdateCard(updatedCard) == null)
+            {
+                Card card = new Card();
+                card = cardSqlDAL.GetCardById(updatedCard.Id);
+                if (updatedCard.Front == card.Front
+                    && updatedCard.Back == card.Back
+                    && updatedCard.ImageURL == card.ImageURL
+                    && updatedCard.CardOrder == card.CardOrder)
+                {
+                    return RedirectToAction("ViewDeck", new { deckId = updatedCard.DeckId });
+                }
+                else
+                {
+                    return View("Error");
+                }
+            }
+            else
+            {
+                return RedirectToAction("ViewDeck", new { deckId = updatedCard.DeckId });
+            }
+        }
 
         [HttpGet]
         public IActionResult DeleteCard(int cardId)
@@ -154,7 +162,6 @@ namespace Capstone.Controllers
         [HttpPost]
         public IActionResult DeleteCard(int cardId, int DeckId)
         {
-            //todo: when deleting card, also delete tags. 
             bool result = cardSqlDAL.DeleteCard(cardId);
 
             if (result)
@@ -210,8 +217,10 @@ namespace Capstone.Controllers
         [HttpGet]
         public IActionResult AddTag(int cardId)
         {
-            Tag tag = new Tag();
+            TagViewModel tag = new TagViewModel();
+            Card card = cardSqlDAL.GetCardById(cardId);
             tag.CardId = cardId;
+            tag.DeckId = card.DeckId;
             return View(tag);
         }
 
@@ -226,8 +235,12 @@ namespace Capstone.Controllers
         [HttpGet]
         public IActionResult Search(string query)
         {
+            int userId = authProvider.GetCurrentUser().Id;
+
             SearchViewModel results = new SearchViewModel();
+
             results.Card = new Card();
+
             string[] tags = query.Split(' ', ',', '+');
 
             foreach (string tag in tags)
@@ -247,7 +260,7 @@ namespace Capstone.Controllers
                 results.SearchResults.Add(cardSqlDAL.GetCardById(id));
             }
 
-            results.UserDecksSelectList = decksSqlDAL.GetUserDecksSelectList(1); //TODO: Fix so it pulls actual userID
+            results.UserDecksSelectList = decksSqlDAL.GetUserDecksSelectList(userId);
 
             return View("SearchResults", results);
         }

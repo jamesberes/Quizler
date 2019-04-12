@@ -58,6 +58,12 @@ div.deck {
         text-decoration: none;
     }
 
+    div.preload {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
 hidden {
     display: none;
     opacity: 0;
