@@ -97,19 +97,6 @@ namespace Capstone.Controllers
             return RedirectToAction("ViewDeck", new { deckId = cardToAdd.DeckId });
         }
 
-        [HttpPost]
-        public IActionResult UpdateCard(Card updatedCard)
-        {
-            if (cardSqlDAL.UpdateCard(updatedCard) == null)
-            {
-                return View("Error");
-            }
-            else
-            {
-                return RedirectToAction("ViewDeck", new { deckId = updatedCard.DeckId });
-            }
-        }
-
         [HttpGet]
         public IActionResult UpdateCard(int cardId)
         {
@@ -117,6 +104,30 @@ namespace Capstone.Controllers
             return View(card);
         }
 
+        [HttpPost]
+        public IActionResult UpdateCard(Card updatedCard)
+        {
+            if (cardSqlDAL.UpdateCard(updatedCard) == null)
+            {
+                Card card = new Card();
+                card = cardSqlDAL.GetCardById(updatedCard.Id);
+                if (updatedCard.Front == card.Front
+                    && updatedCard.Back == card.Back
+                    && updatedCard.ImageURL == card.ImageURL
+                    && updatedCard.CardOrder == card.CardOrder)
+                {
+                    return RedirectToAction("ViewDeck", new { deckId = updatedCard.DeckId });
+                }
+                else
+                {
+                    return View("Error");
+                }
+            }
+            else
+            {
+                return RedirectToAction("ViewDeck", new { deckId = updatedCard.DeckId });
+            }
+        }
 
         [HttpGet]
         public IActionResult DeleteCard(int cardId)
