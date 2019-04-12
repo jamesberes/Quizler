@@ -9,10 +9,10 @@ const backOfCard = document.querySelector('h3#card-back');
 const scoreTracker = document.querySelector('div#score-tracker');
 const correctButton = document.querySelector('div#correct-button');
 const wrongButton = document.querySelector('div#wrong-button');
-const scoreDisplay = document.querySelector('div#score-count p');
 const completeSession = document.querySelector('div#complete-session');
 const endSessionButton = document.querySelector('div#complete-button');
 const image = document.querySelector('#img-front');
+const cancelButton = document.querySelector('#cancel-button');
 
 let unansweredQuestions = [];
 let answeredQuestions = [];
@@ -50,6 +50,9 @@ function NextCard() {
     if (unansweredQuestions.length > 0) {
         answeredQuestions.push(unansweredQuestions[0]);
         unansweredQuestions.shift();
+        //studyCard.classList.remove('fade-animation');
+        //studyCard.classList.add('fade-animation');
+
     }
 
     if (unansweredQuestions.length > 0) {
@@ -68,6 +71,7 @@ function NextCard() {
         backOfCard.innerText = unansweredQuestions[0].back;
 
     } else {
+        cancelButton.classList.add('hidden');
         CompleteStudySession();
     }
 }
@@ -117,13 +121,11 @@ studyCard.addEventListener('click', FlipCard);
 
 correctButton.addEventListener('click', function () {
     ComputeScore(true);
-    scoreDisplay.innerText = `Correct: ${right} - Wrong: ${wrong}`;
     NextCard();
 });
 
 wrongButton.addEventListener('click', function () {
     ComputeScore(false);
-    scoreDisplay.innerText = `Correct: ${right} - Wrong: ${wrong}`;
     NextCard();
 });
 

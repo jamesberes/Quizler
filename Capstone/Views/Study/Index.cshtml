@@ -27,9 +27,6 @@
         <div id="wrong-button" class="button">
             <i class="fas fa-times"></i>
         </div>
-        <div id="score-count" class="no-select">
-            <p></p>
-        </div>
     </div>
 
     <div id="complete-session" class="hidden">
@@ -41,7 +38,7 @@
 </div>
 
 <div>
-    <a asp-controller="Decks" asp-action="ViewDeck" asp-route-deckid="@Model">Cancel Study Session</a>
+    <a id="cancel-button" asp-controller="Decks" asp-action="ViewDeck" asp-route-deckid="@Model">Cancel Study Session</a>
 </div>
 
 <script src="~/js/Study/Index.js"></script>
