@@ -240,7 +240,7 @@ namespace Capstone.Models.DALs
             return output;
         }
 
-        public List<SelectListItem> GetUserDecksSelectList(int userId) //todo userId
+        public List<SelectListItem> GetUserDecksSelectList(int userId)
         {
             List<SelectListItem> output = new List<SelectListItem>();
 
@@ -266,7 +266,7 @@ namespace Capstone.Models.DALs
                     }
                 }
             }
-            catch (SqlException ex)
+            catch
             {
                 output = null;
             }

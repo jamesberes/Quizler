@@ -12,7 +12,9 @@ function LazyLoad() {
         .then(result => {
             result.json().then(data => {
 
-                preloader.classList.add('hidden');
+                if (data.length < 10) {
+                    preloader.classList.add('hidden');
+                }
 
                 data.forEach(item => {
                     let deck = document.createElement('a');
