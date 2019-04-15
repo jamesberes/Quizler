@@ -38,6 +38,12 @@ namespace Capstone.Controllers
             return View();
         }
 
+        public IActionResult CommunityDecks()
+        {
+            List<Deck> decks = decksSqlDAL.GetAllAdminDecks();
+            return View(decks);
+        }
+
         [HttpGet]
         public IActionResult CreateDeck()
         {
