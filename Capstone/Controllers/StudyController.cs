@@ -4,22 +4,31 @@ using System.Linq;
 using System.Threading.Tasks;
 using Capstone.Models;
 using Capstone.Models.DALs;
+using Capstone.Providers.Auth;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Capstone.Controllers
 {
     public class StudyController : Controller
     {
-        private IDeckDAL decksSqlDAL;
+        private IAuthProvider authProvider;
 
-        public StudyController(IDeckDAL decksSqlDAL)
+        public StudyController(IAuthProvider authProvider)
         {
-            this.decksSqlDAL = decksSqlDAL;
+            this.authProvider = authProvider;
         }
 
         public IActionResult Index(int deckId)
         {
-            return View(deckId);
+            Users currentUser = authProvider.GetCurrentUser();
+            if (currentUser == null)
+            {
+                return RedirectToAction("login", "account");
+            }
+            else
+            {
+                return View(deckId);
+            }
         }
     }
 }

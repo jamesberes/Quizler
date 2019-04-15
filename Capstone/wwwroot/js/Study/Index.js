@@ -20,14 +20,24 @@ const sequentialOrderButton = document.querySelector('#sequential-order-button')
 const randomOrderCheckbox = document.querySelector('#random-checkbox');
 const sequentialOrderCheckbox = document.querySelector('#sequential-checkbox');
 const startStudySessionButton = document.querySelector('#start-session-btn');
+const normalStudyModeBtn = document.querySelector('#normal-mode-btn');
+const lightningStudyModeBtn = document.querySelector('#lightning-mode-button');
+const setTimeForm = document.querySelector('form.set-time');
+const minutesInput = document.querySelector('#minutes');
+const countdownClock = document.querySelector('#countdown-clock');
 
 
 let unansweredQuestions = [];
 let answeredQuestions = [];
 let hasBeenFlipped = false;
 let random = false;
+let lightningRound = false;
+let cardTime = 0;
+let intervalId;
 
 sequentialOrderButton.style.backgroundColor = '#e6e6e6';
+normalStudyModeBtn.style.backgroundColor = '#e6e6e6';
+
 
 fetch(`${apiUrl}getdeck?id=${deckId}`)
     .then(response => {
@@ -36,31 +46,52 @@ fetch(`${apiUrl}getdeck?id=${deckId}`)
                 unansweredQuestions = data.cards;
 
                 randomOrderButton.addEventListener('click', e => {
-                    randomOrderCheckbox.checked = true;
-                    sequentialOrderCheckbox.checked = false;
+                    random = true;
                     randomOrderButton.style.backgroundColor = '#e6e6e6';
                     sequentialOrderButton.style.backgroundColor = '#fff';
                 });
 
                 sequentialOrderButton.addEventListener('click', e => {
-                    sequentialOrderCheckbox.checked = true;
-                    randomOrderCheckbox.checked = false;
+                    random = false;
                     sequentialOrderButton.style.backgroundColor = '#e6e6e6';
                     randomOrderButton.style.backgroundColor = '#fff';
                 });
 
+                normalStudyModeBtn.addEventListener('click', e => {
+                    lightningRound = false;
+                    normalStudyModeBtn.style.backgroundColor = '#e6e6e6';
+                    lightningStudyModeBtn.style.backgroundColor = '#fff';
+                    setTimeForm.classList.add('hidden');
+                });
+
+                lightningStudyModeBtn.addEventListener('click', e => {
+                    lightningRound = true;
+                    lightningStudyModeBtn.style.backgroundColor = '#e6e6e6';
+                    normalStudyModeBtn.style.backgroundColor = '#fff';
+                    setTimeForm.classList.remove('hidden');
+                });
+
+                minutesInput.addEventListener('change', e => {
+                    cardTime = parseInt(minutesInput.value);
+                });
+
                 startStudySessionButton.addEventListener('click', e => {
                     DisplayFirstCard();
+                    scoreTracker.classList.remove('hidden');
                 });
             });
     });
 
 function DisplayFirstCard() {
-    if (randomOrderCheckbox.checked) {
+    if (random) {
         unansweredQuestions = shuffle(unansweredQuestions);
     }
 
-    studyModeDiv.classList.add('fade-animation');
+    if (lightningRound && cardTime > 0) {
+        startTimer();
+    }
+
+    studyModeDiv.classList.add('fade-out-animation');
     studyModeDiv.addEventListener('animationend', e => {
         studyModeDiv.classList.add('hidden');
         studyCard.classList.remove('hidden');
@@ -76,6 +107,29 @@ function DisplayFirstCard() {
     }
     backOfCard.innerText = unansweredQuestions[0].back;
 
+}
+
+function startTimer() {
+    let timer = cardTime;
+    intervalId = setInterval(() => {
+        let minutes = Math.floor(timer / 60);
+        let seconds = Math.floor(timer % 60);
+
+        let minutesDisplay = minutes < 10 ? `0${minutes}` : minutes;
+        let secondsDisplay = seconds < 10 ? `0${seconds}` : seconds;
+
+        countdownClock.innerText = `${minutesDisplay}:${secondsDisplay}`;
+
+        if (timer > 0) {
+            timer--;
+        }
+        else {
+            clearInterval(intervalId);
+            wrong++;
+            NextCard();
+            startTimer();
+        }
+    }, 1000);
 }
 
 function shuffle(array) {
@@ -118,7 +172,6 @@ function NextCard() {
         frontOfCard.classList.remove('hidden');
         backOfCard.classList.add('hidden');
         image.classList.remove('hidden');
-        scoreTracker.classList.add('hide-score');
 
         if (unansweredQuestions[0].imageURL != '') {
             image.src = unansweredQuestions[0].imageURL;
@@ -151,10 +204,8 @@ async function FlipCard() {
         frontToBack = false;
     }
 
-    scoreTracker.classList.remove('hidden');
     studyCard.addEventListener('animationend', e => {
         studyCard.classList.remove('flip');
-        scoreTracker.classList.toggle('hide-score');
         if (frontToBack) {
             backOfCard.classList.remove('hidden');
             frontOfCard.classList.add('hidden');
@@ -175,7 +226,7 @@ function CompleteStudySession() {
     completeSession.classList.remove('hidden');
     endSessionButton.classList.add('hidden');
     studyModeDiv.classList.add('hidden');
-
+    clearInterval(intervalId);
 }
 
 studyCard.addEventListener('click', FlipCard);
@@ -183,36 +234,44 @@ studyCard.addEventListener('click', FlipCard);
 correctButton.addEventListener('click', function () {
     ComputeScore(true);
     NextCard();
+    clearInterval(intervalId);
+    if (lightningRound && cardTime > 0) {
+        startTimer();
+    }
 });
 
 wrongButton.addEventListener('click', function () {
     ComputeScore(false);
     NextCard();
-});
-
-studyCard.addEventListener('mouseover', e => {
-    if (hasBeenFlipped) {
-        scoreTracker.classList.remove('hide-score');
+    clearInterval(intervalId);
+    if (lightningRound && cardTime > 0) {
+        startTimer();
     }
 });
 
-scoreTracker.addEventListener('mouseover', e => {
-    if (hasBeenFlipped) {
-        scoreTracker.classList.remove('hide-score');
-    }
-});
+//studyCard.addEventListener('mouseover', e => {
+//    if (hasBeenFlipped) {
+//        scoreTracker.classList.remove('hide-score');
+//    }
+//});
 
-studyCard.addEventListener('mouseout', e => {
-    if (hasBeenFlipped) {
-        scoreTracker.classList.add('hide-score');
-    }
-});
+//scoreTracker.addEventListener('mouseover', e => {
+//    if (hasBeenFlipped) {
+//        scoreTracker.classList.remove('hide-score');
+//    }
+//});
 
-scoreTracker.addEventListener('mouseout', e => {
-    if (hasBeenFlipped) {
-        scoreTracker.classList.add('hide-score');
-    }
-});
+//studyCard.addEventListener('mouseout', e => {
+//    if (hasBeenFlipped) {
+//        scoreTracker.classList.add('hide-score');
+//    }
+//});
+
+//scoreTracker.addEventListener('mouseout', e => {
+//    if (hasBeenFlipped) {
+//        scoreTracker.classList.add('hide-score');
+//    }
+//});
 
 endSessionButton.addEventListener('click', () => {
     CompleteStudySession();

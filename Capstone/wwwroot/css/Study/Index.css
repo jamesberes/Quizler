@@ -33,13 +33,11 @@ div#select-study-mode {
     transition: all 0.2s;
     border-radius: 5px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    position: relative;
 }
 
 #select-study-mode h2 {
-    position: absolute;
-    top: 5px;
     margin-bottom: 15px;
+    flex-grow: 1.5;
 }
 
 div.options {
@@ -47,10 +45,31 @@ div.options {
     justify-content: center;
     flex-direction: column;
     display: flex;
+    flex-grow: 8;
 }
 
 div.btn-group {
     margin-bottom: 15px;
+}
+
+.order-div {
+    display: flex;
+}
+
+.order-div h4 {
+    padding-right: 10px;
+}
+
+.mode-div {
+    display: flex;
+}
+
+.mode-div h4 {
+    padding-right: 10px;
+}
+
+form.set-time {
+    padding-bottom: 15px;
 }
 
 div#study-card {
@@ -80,7 +99,6 @@ div#score-tracker {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: aliceblue;
     padding: 12px 0;
     width: 40vw;
     border-radius: 4px;
@@ -103,20 +121,84 @@ div#correct-button {
     align-items: center;
 }
 
-div#wrong-button {
-    color: red;
-    background-color: lightcoral;
-    width: 100px;
-    height: 25px;
+div#correct-button {
+    /*-moz-box-shadow: 0px 10px 14px -7px #276873;
+    -webkit-box-shadow: 0px 10px 14px -7px #276873;*/
+    /*box-shadow: 0px 10px 14px -7px #276873;*/
+    background-color: #599bb3;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #3d768a;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+div#correct-button:hover {
+    background-color: #408c99;
+}
+
+div#correct-button:active {
+    position: relative;
+    top: 1px;
+}
+
+div#wrong-button {
+    -moz-box-shadow: inset 0px 1px 0px 0px #f29c93;
+    -webkit-box-shadow: inset 0px 1px 0px 0px #f29c93;
+    box-shadow: inset 0px 1px 0px 0px #f29c93;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #fe1a00), color-stop(1, #ce0100));
+    background: -moz-linear-gradient(top, #fe1a00 5%, #ce0100 100%);
+    background: -webkit-linear-gradient(top, #fe1a00 5%, #ce0100 100%);
+    background: -o-linear-gradient(top, #fe1a00 5%, #ce0100 100%);
+    background: -ms-linear-gradient(top, #fe1a00 5%, #ce0100 100%);
+    background: linear-gradient(to bottom, #fe1a00 5%, #ce0100 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fe1a00', endColorstr='#ce0100',GradientType=0);
+    background-color: #fe1a00;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    border: 1px solid #d83526;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #b23e35;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    div#wrong-button:hover {
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ce0100), color-stop(1, #fe1a00));
+        background: -moz-linear-gradient(top, #ce0100 5%, #fe1a00 100%);
+        background: -webkit-linear-gradient(top, #ce0100 5%, #fe1a00 100%);
+        background: -o-linear-gradient(top, #ce0100 5%, #fe1a00 100%);
+        background: -ms-linear-gradient(top, #ce0100 5%, #fe1a00 100%);
+        background: linear-gradient(to bottom, #ce0100 5%, #fe1a00 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ce0100', endColorstr='#fe1a00',GradientType=0);
+        background-color: #ce0100;
+    }
+
+    div#wrong-button:active {
+        position: relative;
+        top: 1px;
+    }
+
 div.button {
     cursor: pointer;
     border-radius: 2px;
     margin: 0 5vw;
+    width: 100px;
+    height: 25px;
+    text-align: center;
 }
 
 div#score-count {
@@ -153,12 +235,17 @@ div#score-count {
     display: none;
 }
 
-.fade-animation {
+.fade-out-animation {
+    animation: fade-out;
+    animation-duration: 0.4s;
+}
+
+.fade-in-animation {
     animation: fade-in;
     animation-duration: 0.4s;
 }
 
-@keyframes fade-in {
+@keyframes fade-out {
     0% {
         opacity: 1;
         visibility: visible;
@@ -167,5 +254,17 @@ div#score-count {
     100% {
         opacity: 0;
         visibility: hidden;
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    100% {
+        opacity: 1;
+        visibility: visible;
     }
 }

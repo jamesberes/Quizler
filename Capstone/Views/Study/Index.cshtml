@@ -5,7 +5,10 @@
 }
 
 <div class="head">
-    <h1>Study Session</h1>
+    <div>
+        <h1>Study Session</h1>
+        <h3 id="countdown-clock"></h3>
+    </div>
     <div class="btn btn-danger" id="complete-button">End Study Session</div>
 </div>
 
@@ -15,13 +18,34 @@
     <div id="select-study-mode" class="">
         <h2>Select Study Options</h2>
         <div class="options">
-            <div class="btn-group" role="group">
-                <div id="random-order-btn" class="btn btn-default">Random</div>
-                <div id="sequential-order-button" class="btn btn-default">Sequential</div>
+
+            <div class="order-div">
+                <h4>Card Ordering: </h4>
+                <div class="btn-group" role="group">
+                    <div id="sequential-order-button" class="btn btn-default">Sequential</div>
+                    <div id="random-order-btn" class="btn btn-default">Random</div>
+                </div>
             </div>
-            <input type="checkbox" id="random-checkbox" value="random" class="hidden" />
-            <input type="checkbox" id="sequential-checkbox" value="sequential" class="hidden" checked />
+
+            <div class="mode-div">
+                <h4>Study Mode: </h4>
+                <div class="btn-group" role="group">
+                    <div id="normal-mode-btn" class="btn btn-default">Normal Study Mode</div>
+                    <div id="lightning-mode-button" class="btn btn-default">Lightning Round Mode</div>
+                </div>
+            </div>
+
+            <form class="set-time hidden">
+                <div class="row">
+                    <div class="input-group">
+                        <span class="input-group-addon">Length</span>
+                        <input id="minutes" type="number" class="form-control" placeholder="in seconds (per card)">
+                    </div>
+                </div>
+            </form>
+
             <div id="start-session-btn" class="btn btn-primary">Start Session</div>
+
         </div>
     </div>
 
