@@ -22,9 +22,9 @@ namespace Capstone.Test
         {
             tran = new TransactionScope();
             dal = new CardSqlDAL(connectionString);
-            
+
             //Add a test deck
-            using(SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
 
@@ -175,6 +175,30 @@ namespace Capstone.Test
 
             Assert.AreEqual(false, dal.DeleteCard(card.Id + 1), "Result should be false because the test card should be the highest Id currently in the database");
             Assert.AreEqual(true, dal.DeleteCard(card.Id));
+        }
+
+        [TestMethod]
+        public void UpdateCardTests()
+        {
+            List<Card> testCards = new List<Card>();
+            testCards.Add(new Card() { Front = "front", Back = "back", DeckId = testDeckId, CardOrder = 1 });
+            testCards.Add(new Card() { Front = "front2", Back = "back2", DeckId = testDeckId, CardOrder = 2 });
+            testCards.Add(new Card() { Front = "front3", Back = "back3", DeckId = testDeckId, CardOrder = 3 });
+            testCards.Add(new Card() { Front = "front4", Back = "back4", DeckId = testDeckId, CardOrder = 4 });
+            testCards.Add(new Card() { Front = "front5", Back = "back5", DeckId = testDeckId, CardOrder = 5 });
+
+            dal.AddCardListToDeck(testCards);
+
+
+            Card updatedCard = testCards[1];
+            updatedCard.CardOrder = 5;
+
+            dal.UpdateCard(updatedCard);
+
+            List<Card> updatedTestCards = dal.GetCardsByDeckId(testDeckId);
+
+            Assert.AreEqual(2, updatedTestCards[1].CardOrder);
+            Assert.AreEqual("front3", updatedTestCards[1].Front);
         }
     }
 }

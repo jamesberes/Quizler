@@ -22,6 +22,24 @@ div#study-area {
     height: 100%;
 }
 
+div#select-study-mode {
+    width: 50vw;
+    height: 25vw;
+    background-color: #ecf0f1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+div#select-study-mode div.buttons {
+    display: flex;
+}
+
 div#study-card {
     width: 50vw;
     height: 25vw;
@@ -123,22 +141,18 @@ div#score-count {
 }
 
 .fade-animation {
-    animation: fade-in-out;
+    animation: fade-in;
     animation-duration: 0.4s;
-
 }
 
-@keyframes fade-in-out {
+@keyframes fade-in {
     0% {
         opacity: 1;
         visibility: visible;
     }
-    50% {
+
+    100% {
         opacity: 0;
         visibility: hidden;
-    }
-    100% {
-        opacity: 100;
-        visibility: visible;
     }
 }

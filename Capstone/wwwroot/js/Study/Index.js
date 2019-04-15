@@ -13,6 +13,10 @@ const completeSession = document.querySelector('div#complete-session');
 const endSessionButton = document.querySelector('div#complete-button');
 const image = document.querySelector('#img-front');
 const cancelButton = document.querySelector('#cancel-button');
+const studyModeDiv = document.querySelector('#select-study-mode');
+const randomOrderButton = document.querySelector('#random-order-btn');
+const sequentialOrderButton = document.querySelector('#sequential-order-button');
+
 
 let unansweredQuestions = [];
 let answeredQuestions = [];
@@ -25,11 +29,22 @@ fetch(`${apiUrl}getdeck?id=${deckId}`)
             .then(data => {
                 unansweredQuestions = data.cards;
 
-                if (random) {
+                randomOrderButton.addEventListener('click', e => {
                     unansweredQuestions = shuffle(unansweredQuestions);
-                }
+                    studyModeDiv.classList.add('fade-animation');
+                    studyModeDiv.addEventListener('animationend', e => {
+                        studyModeDiv.classList.add('hidden');
+                        DisplayFirstCard();
+                    });
+                });
 
-                DisplayFirstCard();
+                sequentialOrderButton.addEventListener('click', e => {
+                    studyModeDiv.classList.add('fade-animation');
+                    studyModeDiv.addEventListener('animationend', e => {
+                        studyModeDiv.classList.add('hidden');
+                        DisplayFirstCard();
+                    });
+                });
             });
     });
 
