@@ -13,15 +13,21 @@ const completeSession = document.querySelector('div#complete-session');
 const endSessionButton = document.querySelector('div#complete-button');
 const image = document.querySelector('#img-front');
 const cancelButton = document.querySelector('#cancel-button');
+
 const studyModeDiv = document.querySelector('#select-study-mode');
 const randomOrderButton = document.querySelector('#random-order-btn');
 const sequentialOrderButton = document.querySelector('#sequential-order-button');
+const randomOrderCheckbox = document.querySelector('#random-checkbox');
+const sequentialOrderCheckbox = document.querySelector('#sequential-checkbox');
+const startStudySessionButton = document.querySelector('#start-session-btn');
 
 
 let unansweredQuestions = [];
 let answeredQuestions = [];
 let hasBeenFlipped = false;
 let random = false;
+
+sequentialOrderButton.style.backgroundColor = '#e6e6e6';
 
 fetch(`${apiUrl}getdeck?id=${deckId}`)
     .then(response => {
@@ -30,25 +36,36 @@ fetch(`${apiUrl}getdeck?id=${deckId}`)
                 unansweredQuestions = data.cards;
 
                 randomOrderButton.addEventListener('click', e => {
-                    unansweredQuestions = shuffle(unansweredQuestions);
-                    studyModeDiv.classList.add('fade-animation');
-                    studyModeDiv.addEventListener('animationend', e => {
-                        studyModeDiv.classList.add('hidden');
-                        DisplayFirstCard();
-                    });
+                    randomOrderCheckbox.checked = true;
+                    sequentialOrderCheckbox.checked = false;
+                    randomOrderButton.style.backgroundColor = '#e6e6e6';
+                    sequentialOrderButton.style.backgroundColor = '#fff';
                 });
 
                 sequentialOrderButton.addEventListener('click', e => {
-                    studyModeDiv.classList.add('fade-animation');
-                    studyModeDiv.addEventListener('animationend', e => {
-                        studyModeDiv.classList.add('hidden');
-                        DisplayFirstCard();
-                    });
+                    sequentialOrderCheckbox.checked = true;
+                    randomOrderCheckbox.checked = false;
+                    sequentialOrderButton.style.backgroundColor = '#e6e6e6';
+                    randomOrderButton.style.backgroundColor = '#fff';
+                });
+
+                startStudySessionButton.addEventListener('click', e => {
+                    DisplayFirstCard();
                 });
             });
     });
 
 function DisplayFirstCard() {
+    if (randomOrderCheckbox.checked) {
+        unansweredQuestions = shuffle(unansweredQuestions);
+    }
+
+    studyModeDiv.classList.add('fade-animation');
+    studyModeDiv.addEventListener('animationend', e => {
+        studyModeDiv.classList.add('hidden');
+        studyCard.classList.remove('hidden');
+    });
+
     if (unansweredQuestions[0].imageURL != '') {
         image.src = unansweredQuestions[0].imageURL;
         frontOfCard.innerText = '';
@@ -58,7 +75,7 @@ function DisplayFirstCard() {
 
     }
     backOfCard.innerText = unansweredQuestions[0].back;
-    studyCard.classList.remove('hidden');
+
 }
 
 function shuffle(array) {
