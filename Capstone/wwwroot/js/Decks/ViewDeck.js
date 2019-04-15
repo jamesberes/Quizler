@@ -1,5 +1,5 @@
 ﻿const cards = document.querySelectorAll('div.card');
-//const reviewToggleButton = document.querySelector(".btn-toggle-review");
+const reviewToggleButton = document.querySelector(".btn-toggle-review");
 const apiUrl = `http://localhost:${location.port}/API/`;
 const deckId = document.querySelector('.deckId-button').id;
 let deck;

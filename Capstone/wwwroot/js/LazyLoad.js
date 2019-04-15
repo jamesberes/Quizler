@@ -2,7 +2,7 @@
 let resultCount = 10;
 
 function LazyLoad(apiUrl, container) {
-    fetch(apiUrl + `LazyLoadDecks?startId=${maxLoadedDeckId}`)
+    fetch(apiUrl + `?startId=${maxLoadedDeckId}`)
         .then(result => {
             result.json().then(data => {
 
