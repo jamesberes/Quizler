@@ -40,7 +40,7 @@ namespace Capstone.Controllers
 
         public IActionResult CommunityDecks()
         {
-            List<Deck> decks = decksSqlDAL.GetAllAdminDecks();
+            List<Deck> decks = decksSqlDAL.GetAllAdminDecks(); //TODO: Also pull in all public decks
             return View(decks);
         }
 
@@ -90,8 +90,6 @@ namespace Capstone.Controllers
                 return NotFound();
             }
         }
-
-
 
         [HttpGet]
         public IActionResult AddCard(int deckID)

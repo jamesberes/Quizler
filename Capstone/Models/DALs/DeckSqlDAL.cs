@@ -25,7 +25,8 @@ namespace Capstone.Models.DALs
         private const string sql_SetDeckForReview = @"UPDATE decks SET for_review = @bit WHERE id = @deckId;";
         private const string sql_MakePrivate = @"UPDATE decks SET is_public = 0 WHERE id = @deckId;";
         private const string sql_GetAllDecksForReview = @"SELECT * FROM decks WHERE for_review = 1";
-        private const string sql_GetAllAdminDecks = @"SELECT * FROM decks JOIN users ON decks.users_id = users.id WHERE users.is_admin = 1;";
+        private const string sql_GetAllPublicAdminDecks = @"SELECT * FROM decks JOIN users ON decks.users_id = users.id WHERE users.is_admin = 1 AND decks.is_public = 1;";
+        private const string sql_GetAllPublicDecks = @"SELECT * FROM decks WHERE decks.is_public = 1;";
 
         public DeckSqlDAL(string connectionString)
         {
@@ -113,7 +114,7 @@ namespace Capstone.Models.DALs
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand(sql_GetAllAdminDecks, conn);
+                    SqlCommand cmd = new SqlCommand(sql_GetAllPublicAdminDecks, conn);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
