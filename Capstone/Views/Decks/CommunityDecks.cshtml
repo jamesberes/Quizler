@@ -13,9 +13,6 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                <p>Created by Admin</p>
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.PublicDeck)
             </th>
             <th>
@@ -35,9 +32,6 @@
                     <p>
                         <a asp-action="ViewDeck" asp-route-deckId="@item.Id">View Deck</a>
                     </p>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserId)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.PublicDeck)
