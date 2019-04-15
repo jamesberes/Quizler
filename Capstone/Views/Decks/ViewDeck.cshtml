@@ -44,19 +44,22 @@
 
 <hr />
 
-@if (!Model.ForReview && !Model.PublicDeck)
-{
-    @(forReviewButtonText = "Submit Deck For Review");
-}
-else if (Model.ForReview && !Model.PublicDeck)
-{
-    @(forReviewButtonText = "Under Review...");
-}
-else if (Model.PublicDeck)
-{
-    @(forReviewButtonText = "Make Deck Private");
-}
-<div class="deck-buttons">
+<div class="hidden"> @*This div exists because the variable declaration was printing to the page*@
+    @if (!Model.ForReview && !Model.PublicDeck)
+    {
+        @(forReviewButtonText = "Submit Deck For Review");
+    }
+    else if (Model.ForReview && !Model.PublicDeck)
+    {
+        @(forReviewButtonText = "Under Review...");
+    }
+    else if (Model.PublicDeck)
+    {
+        @(forReviewButtonText = "Make Deck Private");  
+    }
+</div>
+
+<div class="deck-buttons">  
     @if (Model.Cards.Count > 0)
     {
         <a asp-controller="Study" asp-action="Index" asp-route-deckId="@Model.Id">Start Study Session</a>
