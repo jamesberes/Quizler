@@ -40,7 +40,7 @@ namespace Capstone.Controllers
 
         public IActionResult CommunityDecks()
         {
-            List<Deck> decks = decksSqlDAL.GetAllAdminDecks();
+            List<Deck> decks = decksSqlDAL.GetAllPublicDecks();
             return View(decks);
         }
 
