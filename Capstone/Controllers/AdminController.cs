@@ -40,5 +40,19 @@ namespace Capstone.Controllers
                 return NotFound();
             }
         }
+
+        public IActionResult ViewDeck(int deckId)
+        {
+            int? userId = authProvider.GetCurrentUser().Id;
+            Deck deck = decksSqlDAL.GetDeckById(deckId);
+            if (authProvider.IsAdmin())
+            {
+                return View("ViewDeckAdmin", deck);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
     }
 }

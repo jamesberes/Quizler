@@ -1,0 +1,52 @@
+﻿@model Capstone.Models.Deck
+
+@{
+    string noDeck = "";
+
+    noDeck = Model.Name.ToLower().Contains("deck") ? "" : " Deck";
+
+    ViewData["Title"] = Model.Name + noDeck;
+}
+
+<link href="~/css/Decks/ViewDeck.css" rel="stylesheet" />
+
+<div class="deck-title">
+    <h1>@Model.Name @noDeck</h1>
+</div>
+
+<div class="deck-description">
+    <p>@Model.Description</p>
+</div>
+
+<hr />
+
+<div class="cards">
+    @foreach (var card in Model.Cards)
+    {
+        <div class="card">
+            @if (String.IsNullOrEmpty(card.ImageURL))
+            {
+                <p class="front">@card.Front</p>
+            }
+            @if (!String.IsNullOrEmpty(card.ImageURL))
+            {
+                <img src="@card.ImageURL" />
+
+            }
+            <p class="back hidden">@card.Back</p>
+        </div>
+    }
+</div>
+
+<hr />
+
+<div class="hidden"> @*This div exists because the variable declaration was printing to the page*@
+    
+</div>
+
+<div class="deck-buttons">  
+    <a asp-controller="Account" asp-action="Login">Log in to interact!</a>
+</div>
+
+<script src="~/js/Decks/ViewDeck.js"></script>
+
