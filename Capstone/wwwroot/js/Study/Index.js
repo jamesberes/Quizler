@@ -157,6 +157,8 @@ function CompleteStudySession() {
     completeSession.querySelector('p.incorrect').innerText = `You got ${wrong} question${wrong === 1 ? '' : 's'} wrong.`;
     completeSession.classList.remove('hidden');
     endSessionButton.classList.add('hidden');
+    studyModeDiv.classList.add('hidden');
+
 }
 
 studyCard.addEventListener('click', FlipCard);
