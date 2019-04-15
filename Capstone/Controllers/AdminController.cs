@@ -25,15 +25,10 @@ namespace Capstone.Controllers
             this.authProvider = authProvider;
         }
 
-        public bool IsAdmin()
-        {
-            return authProvider.GetCurrentUser().IsAdmin;
-        }
-
         [AuthorizationFilter("User")]
         public IActionResult Index()
         {
-            if (IsAdmin())
+            if (authProvider.IsAdmin())
             {
                 //returns view with table of all the decks up for review
                 List<Deck> decks = decksSqlDAL.GetAllDecksForReview();
@@ -44,7 +39,20 @@ namespace Capstone.Controllers
             {
                 return NotFound();
             }
-            
+        }
+
+        public IActionResult ViewDeck(int deckId)
+        {
+            int? userId = authProvider.GetCurrentUser().Id;
+            Deck deck = decksSqlDAL.GetDeckById(deckId);
+            if (authProvider.IsAdmin())
+            {
+                return View("ViewDeckAdmin", deck);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }

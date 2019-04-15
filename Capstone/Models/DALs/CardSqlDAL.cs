@@ -17,9 +17,7 @@ namespace Capstone.Models.DALs
         private const string sql_GetCardById = @"SELECT * FROM cards WHERE id = @id;";
         private const string sql_DeleteCard = @"DELETE FROM tags where card_id = @id; DELETE FROM cards WHERE id = @id";
         private const string sql_SearchForCard = @"SELECT DISTINCT(cards.id) FROM cards JOIN tags ON cards.id = tags.card_id WHERE tags.tag LIKE '%' + @tag + '%';";
-        private const string sql_GetAllAdminCards = @"SELECT * FROM cards JOIN decks ON cards.deck_id = decks.id JOIN users ON decks.users_id = users.id WHERE users.is_admin = 1;";
         private const string sql_ReorderDeck = "UPDATE cards SET card_order = @card_order WHERE id = @id;";
-
 
         public CardSqlDAL(string connectionString)
         {
@@ -144,43 +142,6 @@ namespace Capstone.Models.DALs
 
             return result;
 
-        }
-
-        public List<Card> ViewAllAdminCards()
-        {
-            List<Card> result = new List<Card>();
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(ConnectionString))
-                {
-                    conn.Open();
-
-                    SqlCommand cmd = new SqlCommand(sql_GetAllAdminCards, conn);
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        Card card = new Card
-                        {
-                            Id = Convert.ToInt32(reader["id"]),
-                            Front = Convert.ToString(reader["front"]),
-                            Back = Convert.ToString(reader["back"]),
-                            ImageURL = Convert.ToString(reader["img"]),
-                            DeckId = Convert.ToInt32(reader["deck_id"]),
-                            CardOrder = Convert.ToInt32(reader["card_order"])
-                        };
-
-                        card.Tags = tagSqlDAL.GetTagsForCard(card.Id);
-
-                        result.Add(card);
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                result = new List<Card>();
-            }
-            return result;
         }
 
         public Card UpdateCard(Card updatedCard)

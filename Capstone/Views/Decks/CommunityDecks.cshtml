@@ -26,20 +26,20 @@
 
             string itemDescription = String.IsNullOrEmpty(item.Description) ? "No Description" : item.Description;
 
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-                <p>
-                    <a asp-action="ViewDeck" asp-route-deckId="@item.Id">View Deck</a>
-                </p>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PublicDeck)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => itemDescription)
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                    <p>
+                        <a asp-action="ViewDeck" asp-route-deckId="@item.Id">View Deck</a>
+                    </p>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PublicDeck)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => itemDescription)
+                </td>
+            </tr>
         }
     </tbody>
 </table>

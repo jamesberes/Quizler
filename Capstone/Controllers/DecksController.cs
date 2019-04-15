@@ -40,7 +40,7 @@ namespace Capstone.Controllers
 
         public IActionResult CommunityDecks()
         {
-            List<Deck> decks = decksSqlDAL.GetAllAdminDecks();
+            List<Deck> decks = decksSqlDAL.GetAllPublicDecks();
             return View(decks);
         }
 
@@ -69,9 +69,13 @@ namespace Capstone.Controllers
 
         public IActionResult ViewDeck(int deckId)
         {
-            int userId = authProvider.GetCurrentUser().Id;
             Deck deck = decksSqlDAL.GetDeckById(deckId);
-            if (IsCurrentUserTheOwner(deckId) || IsAdmin())
+            if (authProvider.GetCurrentUser() == null)
+            {
+                return View("AnonViewDeck", deck);
+            }
+            int userId = authProvider.GetCurrentUser().Id;
+            if (IsCurrentUserTheOwner(deckId))
             {
                 return View(deck);
             }
@@ -84,14 +88,13 @@ namespace Capstone.Controllers
                 oudvm.DeckOwnerName = decksSqlDAL.GetUserNameFromDeckId(deck.Id);
                 oudvm.UserDecksSelectList = decksSqlDAL.GetUserDecksSelectList(userId);
                 return View("NotOwnersDeck", oudvm);
+
             }
             else
             {
                 return NotFound();
             }
         }
-
-
 
         [HttpGet]
         public IActionResult AddCard(int deckID)
@@ -141,7 +144,7 @@ namespace Capstone.Controllers
         public IActionResult UpdateCard(Card updatedCard)
         {
             Card card = cardSqlDAL.GetCardById(updatedCard.Id);
-            
+
             // Check if new Card Order is within range of valid options
             if (updatedCard.CardOrder > cardSqlDAL.GetCardsByDeckId(updatedCard.DeckId).Count || updatedCard.CardOrder < 1)
             {
@@ -304,10 +307,6 @@ namespace Capstone.Controllers
         {
             Deck deck = decksSqlDAL.GetDeckById(deckId);
             return deck.PublicDeck ? true : false;
-        }
-        public bool IsAdmin()
-        {
-            return authProvider.GetCurrentUser().IsAdmin;
         }
     }
 }
