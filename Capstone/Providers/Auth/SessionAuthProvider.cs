@@ -140,5 +140,10 @@ namespace Capstone.Providers.Auth
             return (user != null) && 
                 roles.Any(r => r.ToLower() == user.Role.ToLower());
         }
+
+        public bool IsAdmin()
+        {
+            return GetCurrentUser().IsAdmin;
+        }
     }
 }

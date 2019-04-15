@@ -1,0 +1,63 @@
+﻿@model Capstone.Models.Deck
+
+@{
+    string noDeck = "";
+    string forReviewButtonText = "";
+
+    noDeck = Model.Name.ToLower().Contains("deck") ? "" : " Deck";
+
+    ViewData["Title"] = Model.Name + noDeck;
+}
+
+<link href="~/css/Decks/ViewDeck.css" rel="stylesheet" />
+
+<div class="deck-title">
+    <h1>@Model.Name @noDeck</h1>
+</div>
+
+<div class="deck-description">
+    <p>@Model.Description</p>
+</div>
+
+<hr />
+
+<div class="cards">
+    @foreach (var card in Model.Cards)
+    {
+        <div class="card">
+            @if (String.IsNullOrEmpty(card.ImageURL))
+            {
+                <p class="front">@card.Front</p>
+            }
+            @if (!String.IsNullOrEmpty(card.ImageURL))
+            {
+                <img src="@card.ImageURL" />
+
+            }
+            <p class="back hidden">@card.Back</p>
+            <a class="hidden" asp-action="UpdateCard" asp-route-cardId="@card.Id">Update Card</a>
+            <a class="hidden" asp-action="AddTag" asp-route-cardId="@card.Id">Add Tag</a>
+            <a class="hidden" asp-action="DeleteCard" asp-route-cardId="@card.Id">Delete Card</a>
+        </div>
+    }
+</div>
+
+<hr />
+
+@*@if (Model.ForReview && !Model.PublicDeck)
+{
+    @(forReviewButtonText = "Under Review...");
+}
+else if (Model.PublicDeck)
+{
+    @(forReviewButtonText = "Make Deck Private");
+}*@
+<div class="deck-buttons">
+    <a class="btn-approve" asp-route-deckId="@(Model.Id)">Approve</a>
+    <a class="btn-deny" id="@Model.Id">Deny</a>
+    <a asp-action="Index" asp-controller="Admin" >Review Another Deck</a>
+    <a title="Delete Deck?" asp-action="DeleteDeck" asp-route-deckId="@(Model.Id)"><i class="fa fa-trash" aria-hidden="true"></i></a>
+</div>
+
+<script src="~/js/Decks/ViewDeckAdmin.js"></script>
+

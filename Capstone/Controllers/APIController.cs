@@ -121,9 +121,25 @@ namespace Capstone.Controllers
         {
             int userId = authProvider.GetCurrentUser().Id;
             Deck deckToToggle = decksSqlDAL.GetDeckById(deckId);
-            if (deckToToggle.UserId == userId)
+            if (deckToToggle.UserId == userId || authProvider.IsAdmin())
             {
                 decksSqlDAL.MakePrivate(deckId);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPost]
+        public IActionResult MakePublic(int deckId)
+        {
+            int userId = authProvider.GetCurrentUser().Id;
+            Deck deckToToggle = decksSqlDAL.GetDeckById(deckId);
+            if (deckToToggle.UserId == userId || authProvider.IsAdmin())
+            {
+                decksSqlDAL.MakePublic(deckId);
                 return Ok();
             }
             else
