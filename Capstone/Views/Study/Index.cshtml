@@ -13,10 +13,15 @@
 
 <div id="study-area">
     <div id="select-study-mode" class="">
-        <h2>Select Card Ordering:</h2>
-        <div class="buttons">
-            <div id="random-order-btn" class="btn btn-default">Random</div>
-            <div id="sequential-order-button" class="btn btn-default">Sequential</div>
+        <h2>Select Study Options</h2>
+        <div class="options">
+            <div class="btn-group" role="group">
+                <div id="random-order-btn" class="btn btn-default">Random</div>
+                <div id="sequential-order-button" class="btn btn-default">Sequential</div>
+            </div>
+            <input type="checkbox" id="random-checkbox" value="random" class="hidden" />
+            <input type="checkbox" id="sequential-checkbox" value="sequential" class="hidden" checked />
+            <div id="start-session-btn" class="btn btn-primary">Start Session</div>
         </div>
     </div>
 
