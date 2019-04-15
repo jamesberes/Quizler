@@ -65,7 +65,7 @@ namespace Capstone.Controllers
         {
             int userId = authProvider.GetCurrentUser().Id;
             Deck deck = decksSqlDAL.GetDeckById(deckId);
-            if (IsCurrentUserTheOwner(deckId))
+            if (IsCurrentUserTheOwner(deckId) || IsAdmin())
             {
                 return View(deck);
             }
@@ -292,6 +292,10 @@ namespace Capstone.Controllers
         {
             Deck deck = decksSqlDAL.GetDeckById(deckId);
             return deck.PublicDeck ? true : false;
+        }
+        public bool IsAdmin()
+        {
+            return authProvider.GetCurrentUser().IsAdmin;
         }
     }
 }

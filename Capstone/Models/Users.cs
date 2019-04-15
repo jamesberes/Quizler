@@ -24,7 +24,7 @@ namespace Capstone.Models
         public string Salt { get; set; }
 
         [Required]
-        public bool isAdmin { get; set; }
+        public bool IsAdmin { get; set; }
 
         /// <summary>
         /// The user's role.

@@ -148,6 +148,7 @@ namespace Capstone.Models.DALs
                 Email = Convert.ToString(reader["email"]),
                 Password = Convert.ToString(reader["password"]),
                 Salt = Convert.ToString(reader["salt"]),
+                IsAdmin = Convert.ToBoolean(reader["is_admin"]),
                 Role = Convert.ToString(reader["role"])
             };
         }

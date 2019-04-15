@@ -24,6 +24,7 @@ namespace Capstone.Models.DALs
         private const string sql_LazyLoadPublicDecks = @"SELECT TOP 10 * FROM decks WHERE is_public = 1 AND id > @deckId";
         private const string sql_SetDeckForReview = @"UPDATE decks SET for_review = @bit WHERE id = @deckId;";
         private const string sql_MakePrivate = @"UPDATE decks SET is_public = 0 WHERE id = @deckId;";
+        private const string sql_GetAllDecksForReview = @"select * from decks where for_review = 1";
 
         public DeckSqlDAL(string connectionString)
         {
@@ -442,6 +443,45 @@ namespace Capstone.Models.DALs
                 throw;
             }
             return output;
+        }
+
+        //List<Deck> GetAllDecksForReview();
+        public List<Deck> GetAllDecksForReview()
+        {
+            List<Deck> result = new List<Deck>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql_GetAllDecksForReview, conn);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Deck deck = new Deck
+                        {
+                            Id = Convert.ToInt32(reader["id"]),
+                            Name = Convert.ToString(reader["name"]),
+                            DateCreated = Convert.ToDateTime(reader["date_created"]),
+                            PublicDeck = Convert.ToBoolean(reader["is_public"]),
+                            UserId = Convert.ToInt32(reader["users_id"]),
+                            ForReview = Convert.ToBoolean(reader["for_review"]),
+                            Description = Convert.ToString(reader["description"])
+                        };
+
+                        deck.Cards = cardSqlDAL.GetCardsByDeckId(deck.Id);
+
+                        result.Add(deck);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                List<Deck> deck = new List<Deck>();
+            }
+            return result;
         }
     }
 }
