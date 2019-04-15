@@ -17,6 +17,7 @@ namespace Capstone.Models.DALs
         private const string sql_GetCardById = @"SELECT * FROM cards WHERE id = @id;";
         private const string sql_DeleteCard = @"DELETE FROM tags where card_id = @id; DELETE FROM cards WHERE id = @id";
         private const string sql_SearchForCard = @"SELECT DISTINCT(cards.id) FROM cards JOIN tags ON cards.id = tags.card_id WHERE tags.tag LIKE '%' + @tag + '%';";
+        private const string sql_ReorderDeck = "UPDATE cards SET card_order = @card_order WHERE id = @id;";
 
         public CardSqlDAL(string connectionString)
         {
@@ -42,9 +43,16 @@ namespace Capstone.Models.DALs
                 try
                 {
                     output.Id = (int)cmd.ExecuteScalar();
-                    foreach (var tag in output.Tags)
+                    if (output.Tags != null)
                     {
-                        tag.CardId = output.Id;
+                        foreach (var tag in output.Tags)
+                        {
+                            tag.CardId = output.Id;
+                        }
+                    }
+                    else
+                    {
+                        output.Tags = new List<Tag>();
                     }
                     tagSqlDAL.AddTagList(output.Tags);
                 }
@@ -54,6 +62,46 @@ namespace Capstone.Models.DALs
                 }
             }
             return output;
+        }
+
+        public List<Card> AddCardListToDeck(List<Card> cards)
+        {
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                conn.Open();
+
+                foreach (Card card in cards)
+                {
+                    SqlCommand cmd = new SqlCommand(sql_AddCardToDeck, conn);
+                    cmd.Parameters.AddWithValue("@front", card.Front);
+                    cmd.Parameters.AddWithValue("@back", card.Back);
+                    cmd.Parameters.AddWithValue("@img", card.ImageURL);
+                    cmd.Parameters.AddWithValue("@card_order", card.CardOrder);
+                    cmd.Parameters.AddWithValue("@deck_id", card.DeckId);
+
+                    try
+                    {
+                        card.Id = (int)cmd.ExecuteScalar();
+                        if (card.Tags != null)
+                        {
+                            foreach (var tag in card.Tags)
+                            {
+                                tag.CardId = card.Id;
+                            }
+                        }
+                        else
+                        {
+                            card.Tags = new List<Tag>();
+                        }
+                        tagSqlDAL.AddTagList(card.Tags);
+                    }
+                    catch (Exception e)
+                    {
+                        cards = null;
+                    }
+                }
+            }
+            return cards;
         }
 
         public List<Card> GetCardsByDeckId(int deckId)
@@ -99,12 +147,33 @@ namespace Capstone.Models.DALs
         public Card UpdateCard(Card updatedCard)
         {
             Card output;
-
-            try
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
             {
-                using (SqlConnection conn = new SqlConnection(ConnectionString))
+                conn.Open();
+                // Check if order has been changed. If it has, change the rest of the deck accordingly
+                if (GetCardById(updatedCard.Id).CardOrder != updatedCard.CardOrder)
                 {
-                    conn.Open();
+                    try
+                    {
+                        List<Card> updatedDeck = ReorderDeck(GetCardsByDeckId(updatedCard.DeckId), updatedCard);
+
+                        foreach (Card card in updatedDeck)
+                        {
+                            SqlCommand cmd = new SqlCommand(sql_ReorderDeck, conn);
+                            cmd.Parameters.AddWithValue("@card_order", card.CardOrder);
+                            cmd.Parameters.AddWithValue("@id", card.Id);
+
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        return null;
+                    }
+                }
+
+                try
+                {
 
                     SqlCommand cmd = new SqlCommand(sql_UpdateCard, conn);
 
@@ -131,11 +200,12 @@ namespace Capstone.Models.DALs
                     {
                         output = null;
                     }
+
                 }
-            }
-            catch (Exception e)
-            {
-                output = null;
+                catch (Exception e)
+                {
+                    output = null;
+                }
             }
             return output;
         }
@@ -234,6 +304,41 @@ namespace Capstone.Models.DALs
                 output = null;
             }
             return output;
+        }
+
+        private List<Card> ReorderDeck(List<Card> cards, Card updatedCard)
+        {
+            int originalIndex = cards.FindIndex(c => c.Id == updatedCard.Id);
+
+            // Remove the updated card from the array
+            cards.RemoveAt(originalIndex);
+
+            // Find where the card should now go
+            int updatedIndex = cards.FindIndex(c => c.CardOrder == updatedCard.CardOrder);
+
+            // If updatedIndex cannot be found in the original cards, the new index must be higher than the highest card
+            if (updatedIndex == -1)
+            {
+                cards.Add(updatedCard);
+            }
+            else if (originalIndex > updatedIndex)
+            {
+                cards.Insert(updatedIndex, updatedCard);
+
+                for (int i = updatedIndex + 1; i <= originalIndex; i++)
+                {
+                    cards[i].CardOrder++;
+                }
+            }
+            else if (updatedIndex > originalIndex)
+            {
+                for (int i = originalIndex; i < updatedIndex; i++)
+                {
+                    cards[i].CardOrder--;
+                }
+            }
+
+            return cards;
         }
     }
 }
