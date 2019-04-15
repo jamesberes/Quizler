@@ -25,6 +25,8 @@ namespace Capstone.Models.DALs
         private const string sql_SetDeckForReview = @"UPDATE decks SET for_review = @bit WHERE id = @deckId;";
         private const string sql_MakePrivate = @"UPDATE decks SET is_public = 0 WHERE id = @deckId;";
         private const string sql_GetAllDecksForReview = @"select * from decks where for_review = 1";
+        private const string sql_GetAllAdminCards = @"SELECT * FROM cards JOIN decks ON cards.deck_id = decks.id JOIN users ON decks.users_id = users.id WHERE users.is_admin = 1;";
+        private const string sql_GetAllAdminDecks = @"SELECT * FROM decksJOIN users ON decks.users_id = users.idWHERE users.is_admin = 1;";
 
         public DeckSqlDAL(string connectionString)
         {
