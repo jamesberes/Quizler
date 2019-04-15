@@ -23,5 +23,6 @@ namespace Capstone.Models.DALs
         bool MakePrivate(int deckId);
         bool MakePublic(int deckId);
         List<Deck> GetAllDecksForReview();
+        List<Deck> GetAllAdminDecks();
     }
 }

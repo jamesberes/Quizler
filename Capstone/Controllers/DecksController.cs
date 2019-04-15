@@ -38,6 +38,12 @@ namespace Capstone.Controllers
             return View();
         }
 
+        public IActionResult CommunityDecks()
+        {
+            List<Deck> decks = decksSqlDAL.GetAllAdminDecks();
+            return View(decks);
+        }
+
         [HttpGet]
         public IActionResult CreateDeck()
         {
@@ -146,10 +152,16 @@ namespace Capstone.Controllers
         [HttpPost]
         public IActionResult UpdateCard(Card updatedCard)
         {
+            Card card = cardSqlDAL.GetCardById(updatedCard.Id);
+            
+            // Check if new Card Order is within range of valid options
+            if (updatedCard.CardOrder > cardSqlDAL.GetCardsByDeckId(updatedCard.DeckId).Count || updatedCard.CardOrder < 1)
+            {
+                return View("Error");
+            }
+
             if (cardSqlDAL.UpdateCard(updatedCard) == null)
             {
-                Card card = new Card();
-                card = cardSqlDAL.GetCardById(updatedCard.Id);
                 if (updatedCard.Front == card.Front
                     && updatedCard.Back == card.Back
                     && updatedCard.ImageURL == card.ImageURL

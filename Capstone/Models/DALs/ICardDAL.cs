@@ -15,5 +15,8 @@ namespace Capstone.Models.DALs
         Card GetCardById(int cardId);
         bool DeleteCard(int cardId);
         HashSet<int> SearchForCard(Tag tag);
+        List<Card> ViewAllAdminCards();
+        List<Card> AddCardListToDeck(List<Card> cards);
+
     }
 }

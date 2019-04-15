@@ -25,7 +25,8 @@ namespace Capstone.Models.DALs
         private const string sql_SetDeckForReview = @"UPDATE decks SET for_review = @bit WHERE id = @deckId;";
         private const string sql_MakePrivate = @"UPDATE decks SET is_public = 0 WHERE id = @deckId;";
         private const string sql_MakePublic = @"UPDATE decks SET is_public = 1 WHERE id = @deckId;";
-        private const string sql_GetAllDecksForReview = @"select * from decks where for_review = 1";
+        private const string sql_GetAllDecksForReview = @"SELECT * FROM decks WHERE for_review = 1";
+        private const string sql_GetAllAdminDecks = @"SELECT * FROM decks JOIN users ON decks.users_id = users.id WHERE users.is_admin = 1;";
 
         public DeckSqlDAL(string connectionString)
         {
@@ -88,13 +89,50 @@ namespace Capstone.Models.DALs
                             PublicDeck = Convert.ToBoolean(reader["is_public"]),
                             UserId = Convert.ToInt32(reader["users_id"]),
                             ForReview = Convert.ToBoolean(reader["for_review"]),
-                            Description = Convert.ToString(reader["description"])                            
+                            Description = Convert.ToString(reader["description"])
                         };
 
                         result = deck;
                     }
                 }
                 result.Cards = cardSqlDAL.GetCardsByDeckId(result.Id);
+            }
+            catch (SqlException ex)
+            {
+                //Deck deck = new Deck();
+            }
+            return result;
+        }
+
+        //Deck ViewAllAdminDecks();
+        public List<Deck> GetAllAdminDecks()
+        {
+            List<Deck> result = new List<Deck>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql_GetAllAdminDecks, conn);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Deck deck = new Deck
+                        {
+                            Id = Convert.ToInt32(reader["id"]),
+                            Name = Convert.ToString(reader["name"]),
+                            DateCreated = Convert.ToDateTime(reader["date_created"]),
+                            PublicDeck = Convert.ToBoolean(reader["is_public"]),
+                            UserId = Convert.ToInt32(reader["users_id"]),
+                            ForReview = Convert.ToBoolean(reader["for_review"]),
+                            Description = Convert.ToString(reader["description"])
+                        };
+                        deck.Cards = cardSqlDAL.GetCardsByDeckId(deck.Id);
+                        result.Add(deck);
+                    }
+                }
             }
             catch (SqlException ex)
             {
@@ -277,7 +315,7 @@ namespace Capstone.Models.DALs
             }
             return output;
         }
-        
+
         public string GetUserNameFromDeckId(int deckId)
         {
             string name = "";
