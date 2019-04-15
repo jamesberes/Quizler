@@ -13,9 +13,6 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PublicDeck)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
         </tr>
@@ -28,13 +25,9 @@
 
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                    <p>
-                        <a asp-action="ViewDeck" asp-route-deckId="@item.Id">View Deck</a>
-                    </p>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PublicDeck)
+                    <a asp-action="ViewDeck" asp-route-deckId="@item.Id">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => itemDescription)

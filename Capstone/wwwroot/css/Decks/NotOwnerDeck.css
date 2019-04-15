@@ -1,4 +1,5 @@
-﻿input[type=submit] {
+﻿
+input[type=submit] {
     -moz-box-shadow: 0px 10px 14px -7px #276873;
     -webkit-box-shadow: 0px 10px 14px -7px #276873;
     box-shadow: 0px 10px 14px -7px #276873;
@@ -18,7 +19,7 @@
     margin-bottom: 10px;
 }
 
-h1 {
+h1, p {
     text-align: center;
 }
 
@@ -32,12 +33,11 @@ h1 {
     }
 
 .card-selector {
-    border: dashed 1px green; /*TODO: border is just for development. Remove when no longer needed*/
     width: 30vw;
     height: 15vw;
 }
 
-.cards div {
+.cards div:nth-child(1n+1) {
     padding-bottom: 20px;
 }
 
@@ -66,7 +66,7 @@ div.card {
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
 }
 
     div.card:hover {
@@ -95,11 +95,11 @@ div.card {
 form {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
 }
 
 .hidden {
     display: none;
     opacity: 0;
-}
+}
