@@ -23,7 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Views\Decks\ViewDeckAdmin.cshtml">
+    <Content Update="Views\Admin\ViewDeckAdmin.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Decks\AnonViewDeck.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
   </ItemGroup>

@@ -39,6 +39,7 @@ approveButton.addEventListener('click', function () {
             console.log(response);
             if (response.ok) {
                 alert("Deck has been approved!");
+                window.location.href = "/Admin/Index/"
                 //GetDeck();
             } else {
                 alert("Something went wrong...");
@@ -51,7 +52,7 @@ denyButton.addEventListener('click', function () {
             if (response.ok) {
                 alert("Deck has been made Private.")
                 reviewToggleButton.innerText = "Submit Deck For Review";
-                GetDeck();
+                window.location.href = "/Admin/Index/"
             }
             else {
                 alert("Something went wrong...");

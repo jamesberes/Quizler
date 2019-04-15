@@ -69,13 +69,13 @@ namespace Capstone.Controllers
 
         public IActionResult ViewDeck(int deckId)
         {
-            int? userId = authProvider.GetCurrentUser().Id;
             Deck deck = decksSqlDAL.GetDeckById(deckId);
-            if (authProvider.IsAdmin())
+            if (authProvider.GetCurrentUser() == null)
             {
-                return View("ViewDeckAdmin", deck);
+                return View("AnonViewDeck", deck);
             }
-            else if (IsCurrentUserTheOwner(deckId))
+            int userId = authProvider.GetCurrentUser().Id;
+            if (IsCurrentUserTheOwner(deckId))
             {
                 return View(deck);
             }
@@ -86,16 +86,9 @@ namespace Capstone.Controllers
                     Deck = deck
                 };
                 oudvm.DeckOwnerName = decksSqlDAL.GetUserNameFromDeckId(deck.Id);
-                if (userId == null)
-                {
-                    return View("NotOwnersDeck", oudvm);
-                }
-                else
-                {
-                    oudvm.UserDecksSelectList = decksSqlDAL.GetUserDecksSelectList((int)userId);
-                    return View("NotOwnersDeck", oudvm);
-                }
-                
+                oudvm.UserDecksSelectList = decksSqlDAL.GetUserDecksSelectList(userId);
+                return View("NotOwnersDeck", oudvm);
+
             }
             else
             {
@@ -151,7 +144,7 @@ namespace Capstone.Controllers
         public IActionResult UpdateCard(Card updatedCard)
         {
             Card card = cardSqlDAL.GetCardById(updatedCard.Id);
-            
+
             // Check if new Card Order is within range of valid options
             if (updatedCard.CardOrder > cardSqlDAL.GetCardsByDeckId(updatedCard.DeckId).Count || updatedCard.CardOrder < 1)
             {

@@ -104,7 +104,7 @@ namespace Capstone.Controllers
         {
             int userId = authProvider.GetCurrentUser().Id;
             Deck deckToToggle = decksSqlDAL.GetDeckById(deckId);
-            if (deckToToggle.UserId == userId)
+            if (deckToToggle.UserId == userId || authProvider.IsAdmin())
             {
                 bool value = deckToToggle.ForReview == true ? false : true;
                 decksSqlDAL.SetDeckForReferral(deckId, value);
@@ -124,6 +124,10 @@ namespace Capstone.Controllers
             if (deckToToggle.UserId == userId || authProvider.IsAdmin())
             {
                 decksSqlDAL.MakePrivate(deckId);
+                if (deckToToggle.ForReview)
+                {
+                    decksSqlDAL.SetDeckForReferral(deckId, false);
+                }
                 return Ok();
             }
             else
@@ -140,6 +144,8 @@ namespace Capstone.Controllers
             if (deckToToggle.UserId == userId || authProvider.IsAdmin())
             {
                 decksSqlDAL.MakePublic(deckId);
+                bool value = deckToToggle.ForReview == true ? false : true;
+                decksSqlDAL.SetDeckForReferral(deckId, value);
                 return Ok();
             }
             else

@@ -53,9 +53,9 @@ else if (Model.PublicDeck)
     @(forReviewButtonText = "Make Deck Private");
 }*@
 <div class="deck-buttons">
-    <a class="btn-approve" asp-route-deckId="@(Model.Id)">Approve</a>
+    <a class="btn-approve">Approve</a>
     <a class="btn-deny" id="@Model.Id">Deny</a>
-    <a asp-action="Index" asp-controller="Admin" >Review Another Deck</a>
+    <a asp-action="Index" asp-controller="Admin" >Cancel</a>
     <a title="Delete Deck?" asp-action="DeleteDeck" asp-route-deckId="@(Model.Id)"><i class="fa fa-trash" aria-hidden="true"></i></a>
 </div>
 
