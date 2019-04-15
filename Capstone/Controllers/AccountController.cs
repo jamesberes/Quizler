@@ -79,7 +79,7 @@ namespace Capstone.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Register them as a new user (and set default role)
+                // Register them as a new user (and set default role in db schema)
                 // When a user registeres they need to be given a role. If you don't need anything special
                 // just give them "User".
                 if (authProvider.Register(rvm.DisplayName, rvm.Email, rvm.Password, role: "User") == false)
@@ -92,6 +92,28 @@ namespace Capstone.Controllers
             }
 
             return View(rvm);
+        }
+
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ChangePassword(ChangePasswordViewModel cpvm)
+        {
+            if (ModelState.IsValid)
+            {
+                if (authProvider.ChangePassword(cpvm.OldPassword, cpvm.ConfirmPassword) == false)
+                {
+                    return RedirectToAction("Error", "Home");
+                }
+
+                //else
+                return RedirectToAction("Index", "Account");
+            }
+            return View(cpvm);
         }
     }
 }
