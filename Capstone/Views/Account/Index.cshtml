@@ -3,6 +3,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>My Account</h2>
 
 <p>Welcome @Model.DisplayName</p>
+
+<a asp-controller="account" asp-action="changepassword" method="get">Change Password</a>
+<br />
+<a asp-controller="decks" asp-action="mydecks">My Decks</a>
