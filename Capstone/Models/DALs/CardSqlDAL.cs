@@ -17,6 +17,7 @@ namespace Capstone.Models.DALs
         private const string sql_GetCardById = @"SELECT * FROM cards WHERE id = @id;";
         private const string sql_DeleteCard = @"DELETE FROM tags where card_id = @id; DELETE FROM cards WHERE id = @id";
         private const string sql_SearchForCard = @"SELECT DISTINCT(cards.id) FROM cards JOIN tags ON cards.id = tags.card_id WHERE tags.tag LIKE '%' + @tag + '%';";
+        private const string sql_GetAllAdminCards = @"SELECT * FROM cards JOIN decks ON cards.deck_id = decks.id JOIN users ON decks.users_id = users.id WHERE users.is_admin = 1;";
 
         public CardSqlDAL(string connectionString)
         {
