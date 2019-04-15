@@ -24,6 +24,7 @@ namespace Capstone.Models.DALs
         private const string sql_LazyLoadPublicDecks = @"SELECT TOP 10 * FROM decks WHERE is_public = 1 AND id > @deckId";
         private const string sql_SetDeckForReview = @"UPDATE decks SET for_review = @bit WHERE id = @deckId;";
         private const string sql_MakePrivate = @"UPDATE decks SET is_public = 0 WHERE id = @deckId;";
+        private const string sql_MakePublic = @"UPDATE decks SET is_public = 1 WHERE id = @deckId;";
         private const string sql_GetAllDecksForReview = @"select * from decks where for_review = 1";
 
         public DeckSqlDAL(string connectionString)
@@ -425,6 +426,36 @@ namespace Capstone.Models.DALs
                     conn.Open();
 
                     SqlCommand cmd = new SqlCommand(sql_MakePrivate, conn);
+                    cmd.Parameters.AddWithValue("@deckId", deckId);
+
+                    int numRowsChanged = cmd.ExecuteNonQuery();
+                    if (numRowsChanged > 0)
+                    {
+                        output = true;
+                    }
+                    else
+                    {
+                        output = false;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+            return output;
+        }
+
+        public bool MakePublic(int deckId)
+        {
+            bool output = false;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql_MakePublic, conn);
                     cmd.Parameters.AddWithValue("@deckId", deckId);
 
                     int numRowsChanged = cmd.ExecuteNonQuery();

@@ -21,6 +21,7 @@ namespace Capstone.Models.DALs
         List<Deck> LazyLoadPublicDecks(int startId);
         bool SetDeckForReferral(int deckId, bool bit);
         bool MakePrivate(int deckId);
+        bool MakePublic(int deckId);
         List<Deck> GetAllDecksForReview();
     }
 }

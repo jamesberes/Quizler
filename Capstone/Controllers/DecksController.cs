@@ -63,9 +63,13 @@ namespace Capstone.Controllers
 
         public IActionResult ViewDeck(int deckId)
         {
-            int userId = authProvider.GetCurrentUser().Id;
+            int? userId = authProvider.GetCurrentUser().Id;
             Deck deck = decksSqlDAL.GetDeckById(deckId);
-            if (IsCurrentUserTheOwner(deckId) || IsAdmin())
+            if (authProvider.IsAdmin())
+            {
+                return View("ViewDeckAdmin", deck);
+            }
+            else if (IsCurrentUserTheOwner(deckId))
             {
                 return View(deck);
             }
@@ -76,8 +80,16 @@ namespace Capstone.Controllers
                     Deck = deck
                 };
                 oudvm.DeckOwnerName = decksSqlDAL.GetUserNameFromDeckId(deck.Id);
-                oudvm.UserDecksSelectList = decksSqlDAL.GetUserDecksSelectList(userId);
-                return View("NotOwnersDeck", oudvm);
+                if (userId == null)
+                {
+                    return View("NotOwnersDeck", oudvm);
+                }
+                else
+                {
+                    oudvm.UserDecksSelectList = decksSqlDAL.GetUserDecksSelectList((int)userId);
+                    return View("NotOwnersDeck", oudvm);
+                }
+                
             }
             else
             {
@@ -292,10 +304,6 @@ namespace Capstone.Controllers
         {
             Deck deck = decksSqlDAL.GetDeckById(deckId);
             return deck.PublicDeck ? true : false;
-        }
-        public bool IsAdmin()
-        {
-            return authProvider.GetCurrentUser().IsAdmin;
         }
     }
 }
