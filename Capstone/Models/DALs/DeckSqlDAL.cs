@@ -88,7 +88,7 @@ namespace Capstone.Models.DALs
                             PublicDeck = Convert.ToBoolean(reader["is_public"]),
                             UserId = Convert.ToInt32(reader["users_id"]),
                             ForReview = Convert.ToBoolean(reader["for_review"]),
-                            Description = Convert.ToString(reader["description"])                            
+                            Description = Convert.ToString(reader["description"])
                         };
 
                         result = deck;
@@ -104,9 +104,9 @@ namespace Capstone.Models.DALs
         }
 
         //Deck ViewAllAdminDecks();
-        public Deck ViewAllAdminDecks()
+        public List<Deck> GetAllAdminDecks()
         {
-            Deck result = new Deck();
+            List<Deck> result = new List<Deck>();
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -128,11 +128,10 @@ namespace Capstone.Models.DALs
                             ForReview = Convert.ToBoolean(reader["for_review"]),
                             Description = Convert.ToString(reader["description"])
                         };
-
-                        result = deck;
+                        deck.Cards = cardSqlDAL.GetCardsByDeckId(deck.Id);
+                        result.Add(deck);
                     }
                 }
-                result.Cards = cardSqlDAL.GetCardsByDeckId(result.Id);
             }
             catch (SqlException ex)
             {
@@ -315,7 +314,7 @@ namespace Capstone.Models.DALs
             }
             return output;
         }
-        
+
         public string GetUserNameFromDeckId(int deckId)
         {
             string name = "";

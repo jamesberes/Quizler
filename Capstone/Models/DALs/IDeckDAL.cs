@@ -22,6 +22,6 @@ namespace Capstone.Models.DALs
         bool SetDeckForReferral(int deckId, bool bit);
         bool MakePrivate(int deckId);
         List<Deck> GetAllDecksForReview();
-        Deck ViewAllAdminDecks();
+        List<Deck> GetAllAdminDecks();
     }
 }
