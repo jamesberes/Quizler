@@ -23,9 +23,11 @@
     </div>
 </div>
 
-<hr />
 
-<div class="decks"> @*This is used for reference in regards to JavaScript*@
+@{//todo: <h2 id="results-header" class="hidden">Search Results:</h2> }
+
+<div class="decks">
+    @*This is used for reference in regards to JavaScript*@
     @*foreach (var item in Model)
         {
             <a class="deck-link" asp-action="ViewDeck" asp-route-deckID="@item.Id">

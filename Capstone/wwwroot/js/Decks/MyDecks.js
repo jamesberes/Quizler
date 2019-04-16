@@ -1,6 +1,7 @@
 ﻿const decksDiv = document.querySelector('div.decks');
 const preloader = document.querySelector('img.preload');
 const searchBar = document.querySelector('input#search-bar');
+const searchHeader = document.querySelector('h2#results-header')
 let filteredResults;
 
 const url = `http://localhost:${location.port}/API/LazyLoadDecks`;
@@ -9,10 +10,19 @@ LazyLoad(url, decksDiv);
 
 searchBar.addEventListener('input', e => {
     let searchTerm = searchBar.value.toLowerCase();
+
+    console.log(searchTerm === '')
+
+    if (searchTerm === '') {
+        searchHeader.classList.add('hidden');
+    }
+
     filteredResults = allResults.filter(deck => {
         if (deck.name.toLowerCase().includes(searchTerm)) {
+            searchHeader.classList.remove('hidden');
             return true;
         } else if (cardSearch(deck.cards, searchTerm)) {
+            searchHeader.classList.remove('hidden');
             return true;
         }
     });
@@ -25,6 +35,11 @@ function cardSearch(cards, searchTerm) {
         if (card.front.toLowerCase().includes(searchTerm)) {
             output = true;
         }
+        card.tags.forEach(tag => {
+            if (tag.name.toLowerCase().includes(searchTerm)) {
+                output = true;
+            }
+        });
     });
     return output;
 }
