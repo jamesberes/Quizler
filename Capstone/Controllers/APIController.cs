@@ -55,7 +55,7 @@ namespace Capstone.Controllers
                 results.SearchResults.Add(cardSqlDAL.GetCardById(id));
             }
 
-            results.UserDecksSelectList = decksSqlDAL.GetUserDecksSelectList(1); //TODO: Fix so it pulls actual userID
+            results.UserDecksSelectList = decksSqlDAL.GetUserDecksSelectList(authProvider.GetCurrentUser().Id);
 
             return results;
         }
