@@ -16,7 +16,7 @@ namespace Capstone.Models.DALs
         private const string sql_UpdateCard = @"UPDATE cards SET front = @front, back = @back, img = @img, card_order = @order WHERE id = @id;";
         private const string sql_GetCardById = @"SELECT * FROM cards WHERE id = @id;";
         private const string sql_DeleteCard = @"DELETE FROM tags where card_id = @id; DELETE FROM cards WHERE id = @id";
-        private const string sql_SearchForCard = @"SELECT DISTINCT(cards.id) FROM cards JOIN tags ON cards.id = tags.card_id WHERE tags.tag LIKE '%' + @tag + '%';";
+        private const string sql_SearchForCard = @"SELECT DISTINCT(cards.id) FROM cards JOIN tags ON cards.id = tags.card_id JOIN decks ON cards.deck_id = decks.id JOIN users ON users.id = decks.users_id WHERE (tags.tag LIKE '%' + @tag + '%') AND (users.is_admin = 1 OR decks.is_public = 1);";
         private const string sql_ReorderDeck = "UPDATE cards SET card_order = @card_order WHERE id = @id;";
 
         public CardSqlDAL(string connectionString)

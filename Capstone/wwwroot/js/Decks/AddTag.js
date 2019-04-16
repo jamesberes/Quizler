@@ -23,7 +23,7 @@ function AddNewTagField(event) {
     if (allInputs[allInputs.length - 1].value != null && allInputs[allInputs.length - 1].value != '') {
         let div = document.createElement('div');
         div.classList.add('form-group');
-        div.innerHTML = '<label class="control-label">Name</label><input class="form-control tag" />';
+        div.innerHTML = '<label class="control-label">Tag</label><input class="form-control tag" />';
 
         form.insertBefore(div, form.querySelector('div.hidden-input'));
         div.focus();
