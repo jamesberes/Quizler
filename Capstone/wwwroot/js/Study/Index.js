@@ -127,7 +127,9 @@ function startTimer() {
             clearInterval(intervalId);
             wrong++;
             NextCard();
-            startTimer();
+            if (unansweredQuestions.length > 0) {
+                startTimer();
+            }
         }
     }, 1000);
 }
@@ -184,6 +186,7 @@ function NextCard() {
 
     } else {
         cancelButton.classList.add('hidden');
+        clearInterval(intervalId);
         CompleteStudySession();
     }
 }
@@ -219,6 +222,7 @@ async function FlipCard() {
 }
 
 function CompleteStudySession() {
+    clearInterval(intervalId);
     studyCard.classList.add('hidden');
     scoreTracker.classList.add('hidden');
     completeSession.querySelector('p.correct').innerText = `You got ${right} question${right === 1 ? '' : 's'} correct.`;
@@ -226,7 +230,6 @@ function CompleteStudySession() {
     completeSession.classList.remove('hidden');
     endSessionButton.classList.add('hidden');
     studyModeDiv.classList.add('hidden');
-    clearInterval(intervalId);
 }
 
 studyCard.addEventListener('click', FlipCard);
@@ -248,30 +251,6 @@ wrongButton.addEventListener('click', function () {
         startTimer();
     }
 });
-
-//studyCard.addEventListener('mouseover', e => {
-//    if (hasBeenFlipped) {
-//        scoreTracker.classList.remove('hide-score');
-//    }
-//});
-
-//scoreTracker.addEventListener('mouseover', e => {
-//    if (hasBeenFlipped) {
-//        scoreTracker.classList.remove('hide-score');
-//    }
-//});
-
-//studyCard.addEventListener('mouseout', e => {
-//    if (hasBeenFlipped) {
-//        scoreTracker.classList.add('hide-score');
-//    }
-//});
-
-//scoreTracker.addEventListener('mouseout', e => {
-//    if (hasBeenFlipped) {
-//        scoreTracker.classList.add('hide-score');
-//    }
-//});
 
 endSessionButton.addEventListener('click', () => {
     CompleteStudySession();
