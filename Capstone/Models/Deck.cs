@@ -28,5 +28,7 @@ namespace Capstone.Models
         public string Description { get; set; }
 
         public List<Card> Cards { get; set; }
+
+        public bool isAdminDeck { get; set; }
     }
 }
