@@ -164,10 +164,7 @@ namespace Capstone.Controllers
         [HttpPost]
         public void AddTags(TagAPIViewModel newTags)
         {
-                foreach (Tag newTag in newTags.Tags)
-                {
-                    tagSqlDAL.AddTag(newTag);
-                }
+            tagSqlDAL.AddTagList(newTags.Tags);
         }
     }
 }

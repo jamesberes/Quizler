@@ -268,3 +268,47 @@ div#score-count {
         visibility: visible;
     }
 }
+
+@media only screen and (max-width: 1000px) {
+    div#study-card {
+        width: 95vw;
+        height: 47.5vw;
+    }
+
+    div#select-study-mode {
+        width: 95vw;
+        height: 47.5vw;
+    }
+
+    div#score-tracker {
+        width: 95vw;
+    }
+}
+
+@media only screen and (max-width: 475px) {
+    .btn {
+        font-size: 11px;
+        padding: 4px 6px;
+    }
+
+    div.order-div h4, div.mode-div h4 {
+        font-size: 0.9em;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .btn {
+        font-size: 8px;
+        padding: 3px 4px;
+    }
+
+    div#study-card {
+        width: 95vw;
+        height: 65vw;
+    }
+
+    div#select-study-mode {
+        width: 95vw;
+        height: 65vw;
+    }
+}
