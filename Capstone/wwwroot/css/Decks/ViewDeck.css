@@ -39,7 +39,7 @@ div.cards {
 }
 
 div.card {
-    height: 20vh;
+    min-height: 20vh;
     width: 22%;
     min-width: 215px;
     background-color: lightgray;
@@ -74,6 +74,7 @@ div.card p {
 div.card p.back {
     font-size: 1.3em;
     margin: auto;
+    padding: 10px;
 }
 
 div.card img {
