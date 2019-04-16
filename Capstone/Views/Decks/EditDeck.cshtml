@@ -1,43 +1,47 @@
 ﻿@model Capstone.Models.Deck
 
 @{
-    ViewData["Title"] = "Edit " + Model.Name;
+    string noDeck = "";
+
+    noDeck = Model.Name.ToLower().Contains("deck") ? "" : " Deck";
+
+    ViewData["Title"] = "Edit " + Model.Name + noDeck;
 }
 
-    <h2>Editing: @Model.Name</h2>
+<h2>Editing: @Model.Name @noDeck</h2>
 
-    <hr />
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="EditDeck" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Name" class="control-label"></label>
-                    <input asp-for="Name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Description" class="control-label"></label>
-                    <input asp-for="Description" class="form-control" />
-                    <span asp-validation-for="Description" class="text-danger"></span>
-                </div>
-                <input type="hidden" asp-for="Id" />
-                <input type="hidden" asp-for="DateCreated" />
-                <input type="hidden" asp-for="UserId" />
-                <input type="hidden" asp-for="Cards" />
-                <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-default" />
-                </div>
-            </form>
-        </div>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditDeck" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="DateCreated" />
+            <input type="hidden" asp-for="UserId" />
+            <input type="hidden" asp-for="Cards" />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
     </div>
+</div>
 
-    <div>
-        <a asp-action="ViewDeck" asp-route-deckId="@Model.Id">Cancel</a>
-    </div>
+<div>
+    <a asp-action="ViewDeck" asp-route-deckId="@Model.Id">Cancel</a>
+</div>
 
-    @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    }
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
 
 <script src="~/js/Decks/EditCard.js"></script>

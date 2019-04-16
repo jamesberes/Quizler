@@ -2,14 +2,7 @@
 
 @{
     string noDeck = "";
-    if (Model.Deck.Name.ToLower().Contains("deck"))
-    {
-        noDeck = "";
-    }
-    else
-    {
-        noDeck = " Deck";
-    }
+    noDeck = Model.Deck.Name.ToLower().Contains("deck") ? "" : " Deck";
     ViewData["Title"] = Model.Deck.Name + noDeck;
 }
 
@@ -28,26 +21,26 @@
 <div class="cards">
     @foreach (var card in Model.Deck.Cards)
     {
-    <div>
-        <div class="card">
-            <input type="hidden" class="hidden-card-id" value="@card.Id" />
-            @if (String.IsNullOrEmpty(card.ImageURL))
-            {
-                <p class="front">@card.Front</p>
-            }
-            @if (!String.IsNullOrEmpty(card.ImageURL))
-            {
-                <img src="@card.ImageURL" />
+        <div>
+            <div class="card">
+                <input type="hidden" class="hidden-card-id" value="@card.Id" />
+                @if (String.IsNullOrEmpty(card.ImageURL))
+                {
+                    <p class="front">@card.Front</p>
+                }
+                @if (!String.IsNullOrEmpty(card.ImageURL))
+                {
+                    <img src="@card.ImageURL" />
 
-            }
-            <p class="back hidden">@card.Back</p>
+                }
+                <p class="back hidden">@card.Back</p>
+            </div>
+            <form asp-action="AddCardFromOtherUsersDeck" method="post">
+                <input type="submit" value="Add Card to Deck" />
+                <input type="hidden" class="submit-the-card-id" asp-for="Card.Id" />
+                <select asp-for="Card.DeckId" asp-items="Model.UserDecksSelectList"></select>
+            </form>
         </div>
-        <form asp-action="AddCardFromOtherUsersDeck" method="post">
-            <input type="submit" value="Add Card to Deck" />
-            <input type="hidden" class="submit-the-card-id" asp-for="Card.Id" />
-            <select asp-for="Card.DeckId" asp-items="Model.UserDecksSelectList"></select>
-        </form>
-    </div>
     }
 </div>
 
