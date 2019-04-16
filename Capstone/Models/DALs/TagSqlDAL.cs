@@ -21,29 +21,34 @@ namespace Capstone.Models.DALs
 
         public Tag AddTag(Tag input)
         {
-            Tag output;
+            Tag output = null;
 
-            try
+            if (!String.IsNullOrWhiteSpace(input.Name))
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                try
                 {
-                    conn.Open();
+                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    {
+                        conn.Open();
 
-                    SqlCommand cmd = new SqlCommand(sql_AddTag, conn);
-                    cmd.Parameters.AddWithValue("@tag", input.Name);
-                    cmd.Parameters.AddWithValue("@card_id", input.CardId);
+                        SqlCommand cmd = new SqlCommand(sql_AddTag, conn);
+                        cmd.Parameters.AddWithValue("@tag", input.Name);
+                        cmd.Parameters.AddWithValue("@card_id", input.CardId);
 
-                    input.Id = (int)cmd.ExecuteScalar();
-                    output = input;
+                        input.Id = (int)cmd.ExecuteScalar();
+                        output = input;
+                    }
                 }
-            }
-            catch
-            {
-                output = null;
-            }
+                catch
+                {
+                    output = null;
+                }
 
+            }
             return output;
         }
+
+
 
         public List<Tag> AddTagList(List<Tag> input)
         {
@@ -57,12 +62,15 @@ namespace Capstone.Models.DALs
 
                     foreach (Tag tag in input)
                     {
-                        SqlCommand cmd = new SqlCommand(sql_AddTag, conn);
-                        cmd.Parameters.AddWithValue("@tag", tag.Name);
-                        cmd.Parameters.AddWithValue("@card_id", tag.CardId);
+                        if (!String.IsNullOrWhiteSpace(tag.Name))
+                        {
+                            SqlCommand cmd = new SqlCommand(sql_AddTag, conn);
+                            cmd.Parameters.AddWithValue("@tag", tag.Name);
+                            cmd.Parameters.AddWithValue("@card_id", tag.CardId);
 
-                        tag.Id = (int)cmd.ExecuteScalar();
-                        output.Add(tag);
+                            tag.Id = (int)cmd.ExecuteScalar();
+                            output.Add(tag);
+                        }
                     }
                 }
             }
