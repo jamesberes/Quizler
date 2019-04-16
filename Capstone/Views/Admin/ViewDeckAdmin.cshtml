@@ -46,19 +46,11 @@
 
 <hr />
 
-@*@if (Model.ForReview && !Model.PublicDeck)
-    {
-        @(forReviewButtonText = "Under Review...");
-    }
-    else if (Model.PublicDeck)
-    {
-        @(forReviewButtonText = "Make Deck Private");
-    }*@
 <div class="deck-buttons">
     <a class="btn-approve">Approve</a>
     <a class="btn-deny" id="@Model.Id">Deny</a>
     <a asp-action="Index" asp-controller="Admin">Cancel</a>
-    <a title="Delete Deck?" asp-action="DeleteDeck" asp-route-deckId="@(Model.Id)"><i class="fa fa-trash" aria-hidden="true"></i></a>
+    <a class="hidden" title="Delete Deck?" asp-action="DeleteDeck" asp-route-deckId="@(Model.Id)"><i class="fa fa-trash" aria-hidden="true"></i></a>
 </div>
 
 <script src="~/js/Decks/ViewDeckAdmin.js"></script>
