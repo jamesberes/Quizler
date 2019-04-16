@@ -1,22 +1,17 @@
 ﻿@model Capstone.Models.Deck
 
 @{
-    ViewData["Title"] = "DeleteDeck";
+    string noDeck = "";
+
+    noDeck = Model.Name.ToLower().Contains("deck") ? "" : " Deck";
+
+    ViewData["Title"] = "Delete " + Model.Name + noDeck + "?";
 }
 
-<h2>Delete Deck @Model.Name</h2>
-
-<h3>Are you sure you want to delete this?</h3>
+<h2>Are You Sure You Want To Delete @Model.Name @noDeck?</h2>
 <div>
-    <h4>Deck</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Id)
-        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>
@@ -34,18 +29,6 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.PublicDeck)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ForReview)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ForReview)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Description)

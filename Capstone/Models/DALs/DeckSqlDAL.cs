@@ -27,6 +27,7 @@ namespace Capstone.Models.DALs
         private const string sql_MakePublic = @"UPDATE decks SET is_public = 1 WHERE id = @deckId;";
         private const string sql_GetAllDecksForReview = @"SELECT * FROM decks WHERE for_review = 1";
         private const string sql_GetAllPublicDecks = @"SELECT * FROM decks WHERE decks.is_public = 1;";
+        private const string sql_GetPublicAndAdminDecks = @"SELECT TOP 10 * FROM decks JOIN users ON decks.users_id = users.id WHERE (is_admin = 1 OR is_public = 1) AND decks.id > @deckId;";
 
         public DeckSqlDAL(string connectionString)
         {
@@ -130,6 +131,43 @@ namespace Capstone.Models.DALs
                             Description = Convert.ToString(reader["description"])
                         };
                         deck.Cards = cardSqlDAL.GetCardsByDeckId(deck.Id);
+                        result.Add(deck);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                //Deck deck = new Deck();
+            }
+            return result;
+        }
+
+        public List<Deck> GetPublicAdminDecks(int startId)
+        {
+            List<Deck> result = new List<Deck>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql_GetPublicAndAdminDecks, conn);
+                    cmd.Parameters.AddWithValue("@deckId", startId);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Deck deck = new Deck
+                        {
+                            Id = Convert.ToInt32(reader["id"]),
+                            Name = Convert.ToString(reader["name"]),
+                            DateCreated = Convert.ToDateTime(reader["date_created"]),
+                            PublicDeck = Convert.ToBoolean(reader["is_public"]),
+                            UserId = Convert.ToInt32(reader["users_id"]),
+                            ForReview = Convert.ToBoolean(reader["for_review"]),
+                            Description = Convert.ToString(reader["description"]),
+                            isAdminDeck = Convert.ToBoolean(reader["is_admin"])
+                        };
                         result.Add(deck);
                     }
                 }
@@ -369,8 +407,6 @@ namespace Capstone.Models.DALs
                             Description = Convert.ToString(reader["description"])
                         };
 
-                        deck.Cards = cardSqlDAL.GetCardsByDeckId(deck.Id);
-
                         result.Add(deck);
                     }
                 }
@@ -407,8 +443,6 @@ namespace Capstone.Models.DALs
                             ForReview = Convert.ToBoolean(reader["for_review"]),
                             Description = Convert.ToString(reader["description"])
                         };
-
-                        deck.Cards = cardSqlDAL.GetCardsByDeckId(deck.Id);
 
                         result.Add(deck);
                     }

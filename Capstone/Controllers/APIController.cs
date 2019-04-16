@@ -82,6 +82,12 @@ namespace Capstone.Controllers
             return decks;
         }
 
+        public List<Deck> LazyLoadPublicAdminDecks(int startId)
+        {
+            List<Deck> decks = decksSqlDAL.GetPublicAdminDecks(startId);
+            return decks;
+        }
+
         // GET: API/GetDeck?Id=
         public Deck GetDeck(int Id)
         {
