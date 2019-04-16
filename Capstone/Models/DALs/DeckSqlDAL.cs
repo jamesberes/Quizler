@@ -406,7 +406,7 @@ namespace Capstone.Models.DALs
                             ForReview = Convert.ToBoolean(reader["for_review"]),
                             Description = Convert.ToString(reader["description"])
                         };
-
+                        deck.Cards = cardSqlDAL.GetCardsByDeckId(deck.Id);
                         result.Add(deck);
                     }
                 }

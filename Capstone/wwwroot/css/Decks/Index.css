@@ -17,6 +17,10 @@
     margin: 0 auto;
 }
 
+#search-bar {
+    width: 25vw;
+}
+
 
 .decks {
     display: flex;

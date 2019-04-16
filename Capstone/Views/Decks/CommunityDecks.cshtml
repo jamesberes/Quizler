@@ -13,6 +13,13 @@
 
 <div class="deck-buttons">
     <a id="official-button">View Official Decks Only</a>
+
+    <div class="search-bar">
+        <form asp-action="Search" method="get">
+            <input id="search-bar" name="query" placeholder="Search public cards by tag" required>
+            <input type="submit" value="Search" />
+        </form>
+    </div>
 </div>
 
 <div class="decks">
