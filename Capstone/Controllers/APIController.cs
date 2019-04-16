@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Capstone.Models;
 using Capstone.Models.DALs;
 using Capstone.Models.View_Models;
+using Capstone.Models.View_Models.API;
 using Capstone.Providers.Auth;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -152,6 +153,15 @@ namespace Capstone.Controllers
             {
                 return BadRequest();
             }
+        }
+
+        [HttpPost]
+        public void AddTags(TagAPIViewModel newTags)
+        {
+                foreach (Tag newTag in newTags.Tags)
+                {
+                    tagSqlDAL.AddTag(newTag);
+                }
         }
     }
 }

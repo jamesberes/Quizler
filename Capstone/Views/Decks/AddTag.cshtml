@@ -15,11 +15,12 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" class="form-control tag" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input asp-for="CardId" type="hidden" class="form-control" />
+            <div class="hidden-input form-group">
+                <input asp-for="CardId" id="card-id" type="hidden" class="form-control" />
+                <input asp-for="DeckId" id="deck-id" type="hidden" class="form-control" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
@@ -31,6 +32,8 @@
 <div>
     <a asp-action="ViewDeck" asp-route-deckId="@Model.DeckId">Cancel</a>
 </div>
+
+<script src="~/js/Decks/AddTag.js"></script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
