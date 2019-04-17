@@ -1,7 +1,13 @@
 ﻿@model Users
 @{
+    if (Model.IsAdmin)
+    {
+        Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    }
+
     ViewData["Title"] = "Index";
 }
+
 
 <h2>My Account</h2>
 

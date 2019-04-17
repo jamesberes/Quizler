@@ -6,7 +6,6 @@
     ViewData["Title"] = Model.Deck.Name + noDeck;
 }
 
-<link href="~/css/Decks/NotOwnerDeck.css" rel="stylesheet" />
 
 <div class="deck-title">
     <h1>@Model.Deck.Name @noDeck by @Model.DeckOwnerName</h1>
@@ -18,41 +17,45 @@
 
 <hr />
 
-<div class="cards">
-    @foreach (var card in Model.Deck.Cards)
-    {
-        <div>
-            <div class="card">
-                <input type="hidden" class="hidden-card-id" value="@card.Id" />
-                @if (String.IsNullOrEmpty(card.ImageURL))
-                {
-                    <p class="front">@card.Front</p>
-                }
-                @if (!String.IsNullOrEmpty(card.ImageURL))
-                {
-                    <img src="@card.ImageURL" />
+<div class="content-box">
 
-                }
-                <p class="back hidden">@card.Back</p>
-            </div>
-            <form asp-action="AddCardFromOtherUsersDeck" method="post">
-                <input type="submit" value="Add Card to Deck" />
-                <input type="hidden" class="submit-the-card-id" asp-for="Card.Id" />
-                <select asp-for="Card.DeckId" asp-items="Model.UserDecksSelectList"></select>
-            </form>
+    <div class="button-box">
+        <div class="deck-buttons">
+            @if (Model.Deck.Cards.Count > 0)
+            {
+                <a asp-controller="Study" asp-action="Index" asp-route-deckId="@Model.Deck.Id">Start Study Session</a>
+            }
+            <a asp-action="CommunityDecks">Back to Community Decks</a>
         </div>
-    }
-</div>
 
-<hr />
+    </div>
 
-<div class="deck-buttons">
-    @if (Model.Deck.Cards.Count > 0)
-    {
-        <a asp-controller="Study" asp-action="Index" asp-route-deckId="@Model.Deck.Id">Start Study Session</a>
-    }
-    <a asp-action="MyDecks" asp-route-userId="@(Model.Deck.UserId)">Back to My Decks</a>
+    <div class="cards">
+        @foreach (var card in Model.Deck.Cards)
+        {
+            <div>
+                <div class="card">
+                    <input type="hidden" class="hidden-card-id" value="@card.Id" />
+                    @if (String.IsNullOrEmpty(card.ImageURL))
+                    {
+                        <p class="front">@card.Front</p>
+                    }
+                    @if (!String.IsNullOrEmpty(card.ImageURL))
+                    {
+                        <img src="@card.ImageURL" />
+
+                    }
+                    <p class="back hidden">@card.Back</p>
+                </div>
+                <form asp-action="AddCardFromOtherUsersDeck" method="post">
+                    <input type="submit" value="Add to Deck" />
+                    <input type="hidden" class="submit-the-card-id" asp-for="Card.Id" />
+                    <select asp-for="Card.DeckId" asp-items="Model.UserDecksSelectList"></select>
+                </form>
+            </div>
+        }
+    </div>
 </div>
 
 <script src="~/js/Decks/NotOwnersDeck.js"></script>
-
+<link href="~/css/Decks/NotOwnerDeck.css" rel="stylesheet" />

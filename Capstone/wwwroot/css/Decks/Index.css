@@ -1,26 +1,36 @@
 ﻿h1, h2, p {
     text-align: center;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 }
 
 #main-actions {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     align-items: baseline;
-}
-
-#main-actions a {
-    margin-right: 50px;
-}
-
-#main-actions .search-bar form{
-    margin: 0 auto;
+    position: sticky;
+    top: 50px;
+    background-color: rgba(255, 255, 255, .9);
+    z-index: 100;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 }
 
 #search-bar {
+    margin-top: 12px;
     width: 25vw;
 }
-
 
 .decks {
     display: flex;
@@ -69,7 +79,6 @@ div.deck {
         box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
     }
 
-
     div.deck h1 {
         padding-top: 20%;
         padding-bottom: 8%;
@@ -81,11 +90,11 @@ div.deck {
         text-decoration: none;
     }
 
-    div.preload {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+div.preload {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 hidden {
     display: none;
@@ -93,11 +102,6 @@ hidden {
 }
 
 .deck-buttons {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: center;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -105,9 +109,10 @@ hidden {
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none;
+    width: 100%;
 }
 
-    .deck-buttons a {
+    .deck-buttons a, #official-button {
         -moz-box-shadow: 0px 10px 14px -7px #276873;
         -webkit-box-shadow: 0px 10px 14px -7px #276873;
         box-shadow: 0px 10px 14px -7px #276873;
@@ -125,16 +130,52 @@ hidden {
         margin-bottom: 15px;
         text-decoration: none;
         text-shadow: 0px 1px 0px #3d768a;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        user-select: none;
     }
 
-        .deck-buttons a:hover {
+        .deck-buttons a:hover, #official-button:hover {
             background-color: #408c99;
         }
 
-        .deck-buttons a:active {
+        .deck-buttons a:active, #official-button:active {
             position: relative;
             top: 1px;
         }
 
 @media only screen and (max-width: 1024px) {
+}
+
+@media only screen and (max-width: 500px) {
+
+    #main-actions {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    .deck-buttons a {
+        width: 100%;
+        margin: 5px 0;
+        text-align: center;
+    }
+
+    #search-bar {
+        align-self: center;
+        width: 88vw;
+        margin: 5px 10px;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+    }
 }
