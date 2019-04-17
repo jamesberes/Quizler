@@ -19,7 +19,7 @@ namespace Capstone.Controllers
             this.authProvider = authProvider;
         }
 
-        [AuthorizationFilter("User")]
+        [AuthorizationFilter("Admin", "User")]
         public IActionResult Index()
         {
             if (authProvider.IsAdmin())
