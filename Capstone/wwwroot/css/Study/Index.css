@@ -95,8 +95,17 @@ div#study-card {
     max-width: 95%;
 }
 
+#card-back {
+    padding: 20px;
+}
+
+#card-front {
+    padding: 20px;
+}
+
 div#score-tracker {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 12px 0;
@@ -109,6 +118,12 @@ div#score-tracker {
     margin-top: 75px;
     opacity: 1;
     visibility: visible;
+}
+
+div.score-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 div#correct-button {
@@ -238,6 +253,31 @@ div#score-count {
     100% {
         opacity: 1;
         visibility: visible;
+    }
+}
+
+.slide {
+    animation: slide 0.4s ease-in-out;
+}
+
+@keyframes slide {
+    0% {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    50% {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(-35vw);
+    }
+    51% {
+        transform: translateX(35vw);
+    }
+    100% {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
     }
 }
 
