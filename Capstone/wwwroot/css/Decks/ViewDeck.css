@@ -232,4 +232,8 @@ div.button-box {
         width: 100%;
         text-align: center;
     }
+
+    #search-bar {
+        width: 100%;
+    }
 }
