@@ -166,5 +166,11 @@ namespace Capstone.Controllers
         {
             tagSqlDAL.AddTagList(newTags.Tags);
         }
+
+        [HttpPost]
+        public void AddCardsToDeck(List<Card> cards)
+        {
+            cardSqlDAL.AddCardListToDeck(cards);
+        }
     }
 }
