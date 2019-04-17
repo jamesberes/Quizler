@@ -14,37 +14,36 @@ div.button-box {
 }
 
 input[type=submit] {
-    -moz-box-shadow: 0px 10px 14px -7px #276873;
-    -webkit-box-shadow: 0px 10px 14px -7px #276873;
-    box-shadow: 0px 10px 14px -7px #276873;
-    background-color: #599bb3;
+    height: 30px;
+    background-color: #ace2a5;
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
     border-radius: 8px;
     display: inline-block;
     cursor: pointer;
-    color: #ffffff;
+    color: black;
     font-family: Arial;
-    font-size: 15px;
-    font-weight: bold;
-    padding: 13px 32px;
     text-decoration: none;
-    text-shadow: 0px 1px 0px #3d768a;
-    margin-bottom: 10px;
+    /*text-shadow: 0px 1px 0px #000000;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
 }
+
+    input[type=submit]:hover {
+        background-color: #93c98d;
+    }
+
+    input[type=submit]:active {
+        position: relative;
+        top: 1px;
+    }
 
 h1, p {
     text-align: center;
 }
 
-input[type=submit]:hover {
-    background-color: #408c99;
-}
-
-input[type=submit]:active {
-    position: relative;
-    top: 1px;
-}
 
 .card-selector {
     width: 30vw;
@@ -108,16 +107,22 @@ div.card {
 
 form {
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+    flex-direction: row-reverse;
+    justify-content: center;
+}
+
+    form input[type=submit] {
+        margin-left: 3px;
+    }
+
+select {
+    border-radius: 3px;
 }
 
 .hidden {
     display: none;
     opacity: 0;
 }
-
 
 .deck-buttons {
     display: flex;

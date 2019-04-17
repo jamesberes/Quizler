@@ -48,7 +48,7 @@
                     <p class="back hidden">@card.Back</p>
                 </div>
                 <form asp-action="AddCardFromOtherUsersDeck" method="post">
-                    <input type="submit" value="Add Card to Deck" />
+                    <input type="submit" value="Add to Deck" />
                     <input type="hidden" class="submit-the-card-id" asp-for="Card.Id" />
                     <select asp-for="Card.DeckId" asp-items="Model.UserDecksSelectList"></select>
                 </form>
