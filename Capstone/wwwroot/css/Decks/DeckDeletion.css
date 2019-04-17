@@ -20,6 +20,9 @@ h4 {
 
 .info-box {
     border: 1px solid black;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
     margin-bottom: 25px;
     width: 40vw;
     background-color: lightgray;
@@ -38,7 +41,6 @@ form {
     justify-content: center;
     align-items: baseline;
 }
-
 
 input[type=submit] {
     -moz-box-shadow: inset 0px 1px 0px 0px #f29c93;

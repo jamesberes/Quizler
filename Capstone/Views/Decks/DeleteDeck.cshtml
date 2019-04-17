@@ -44,7 +44,7 @@
 
     <div class="info-box">
         <h4>@Html.DisplayNameFor(model => model.DateCreated)</h4>
-        <p>@Html.DisplayFor(model => model.DateCreated)</p>
+        <p>@Model.DateCreated.ToShortDateString()</p>
     </div>
 
 </div>
