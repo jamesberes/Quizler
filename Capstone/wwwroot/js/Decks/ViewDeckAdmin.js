@@ -36,22 +36,20 @@ cards.forEach(card => {
 approveButton.addEventListener('click', function () {
     fetch(`${apiUrl}MakePublic?deckId=${deckId}`, { method: "post" })
         .then(response => {
-            console.log(response);
             if (response.ok) {
-                alert("Deck has been approved!");
+                alert("Deck has been approved and is now being shared with the community!");
                 window.location.href = "/Admin/Index/"
-                //GetDeck();
             } else {
                 alert("Something went wrong...");
             }
         })
 });
+
 denyButton.addEventListener('click', function () {
     fetch(`${apiUrl}MakePrivate?deckId=${deckId}`, { method: "post" })
         .then(response => {
             if (response.ok) {
-                alert("Deck has been made Private.")
-                reviewToggleButton.innerText = "Submit Deck For Review";
+                alert("Deck has not been approved and will remain private.")
                 window.location.href = "/Admin/Index/"
             }
             else {

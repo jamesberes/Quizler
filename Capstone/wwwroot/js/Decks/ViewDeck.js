@@ -43,7 +43,7 @@ reviewToggleButton.addEventListener('click', function () {
             .then(response => {
                 console.log(response);
                 if (response.ok) {
-                    alert("Deck has been submitted for review!");
+                    alert("Once an admin approves your deck, it will be posted to the Community Decks page!");
                     reviewToggleButton.innerText = "Under Review...";
                     GetDeck();
                 } else {
@@ -54,8 +54,8 @@ reviewToggleButton.addEventListener('click', function () {
         fetch(`${apiUrl}MakePrivate?deckId=${deckId}`, { method: "post" })
             .then(response => {
                 if (response.ok) {
-                    alert("Deck has been made Private.")
-                    reviewToggleButton.innerText = "Submit Deck For Review";
+                    alert("You have stopped sharing your deck with the Quizler community")
+                    reviewToggleButton.innerText = "Share With Community";
                     GetDeck();
                 }
                 else {
