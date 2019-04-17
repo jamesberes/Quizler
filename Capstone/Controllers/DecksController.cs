@@ -122,12 +122,6 @@ namespace Capstone.Controllers
             return RedirectToAction("ViewDeck", new { deckId = cardToAdd.DeckId });
         }
 
-        [HttpGet]
-        public IActionResult UpdateCard(int cardId)
-        {
-            Card card = cardSqlDAL.GetCardById(cardId);
-            return View(card);
-        }
 
         public IActionResult AddCardFromOtherUsersDeck(OtherUsersDeckViewModel oudvm)
         {
@@ -136,6 +130,13 @@ namespace Capstone.Controllers
             cardToAdd = cardSqlDAL.AddCardToDeck(cardToAdd);
             return RedirectToAction("ViewDeck", new { deckId = cardToAdd.DeckId });
 
+        }
+
+        [HttpGet]
+        public IActionResult UpdateCard(int cardId)
+        {
+            Card card = cardSqlDAL.GetCardById(cardId);
+            return View(card);
         }
 
         [HttpPost]
