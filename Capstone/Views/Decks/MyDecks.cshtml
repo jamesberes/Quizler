@@ -4,8 +4,9 @@
 
 <h1>My Decks</h1>
 
-<hr />
+<p>Here are all of the decks <em>you</em> have created. Good luck studying!</p>
 
+<hr />
 
 <div id="main-actions">
     <div class="deck-buttons">
@@ -23,16 +24,9 @@
 }
 
 <div class="decks">
-    @*This is used for reference in regards to JavaScript*@
-    @*foreach (var item in Model)
-        {
-            <a class="deck-link" asp-action="ViewDeck" asp-route-deckID="@item.Id">
-                <div class="deck" id="@item.Id">
-                    <h1>@item.Name</h1>
-                    <p>@item.Description</p>
-                </div>
-            </a>
-        }*@
+
+        @*Handled by MyDeck.js*@
+
 </div>
 
 
