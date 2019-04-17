@@ -23,14 +23,14 @@ h1, p {
     text-align: center;
 }
 
-    input[type=submit]:hover {
-        background-color: #408c99;
-    }
+input[type=submit]:hover {
+    background-color: #408c99;
+}
 
-    input[type=submit]:active {
-        position: relative;
-        top: 1px;
-    }
+input[type=submit]:active {
+    position: relative;
+    top: 1px;
+}
 
 .card-selector {
     width: 30vw;
@@ -102,4 +102,47 @@ form {
 .hidden {
     display: none;
     opacity: 0;
-}
+}
+
+.deck-buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+    .deck-buttons a {
+        -moz-box-shadow: 0px 10px 14px -7px #276873;
+        -webkit-box-shadow: 0px 10px 14px -7px #276873;
+        box-shadow: 0px 10px 14px -7px #276873;
+        background-color: #599bb3;
+        -moz-border-radius: 8px;
+        -webkit-border-radius: 8px;
+        border-radius: 8px;
+        display: inline-block;
+        cursor: pointer;
+        color: #ffffff;
+        font-family: Arial;
+        font-size: 15px;
+        font-weight: bold;
+        padding: 13px 32px;
+        margin-bottom: 15px;
+        text-decoration: none;
+        text-shadow: 0px 1px 0px #3d768a;
+    }
+
+        .deck-buttons a:hover {
+            background-color: #408c99;
+        }
+
+        .deck-buttons a:active {
+            position: relative;
+            top: 1px;
