@@ -34,7 +34,6 @@ namespace Capstone.Controllers
                 return RedirectToAction("login", "account");
             }
             userId = currentUser.Id;
-            //List<Deck> decks = decksSqlDAL.GetDecksbyUserId(userId);
             return View();
         }
 
