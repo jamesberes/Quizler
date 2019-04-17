@@ -11,17 +11,11 @@ namespace Capstone.Controllers
     public class AdminController : Controller
     {
         private IDeckDAL decksSqlDAL;
-        private ICardDAL cardSqlDAL;
-        private ITagDAL tagSqlDAL;
-        private IUsersDAL userSqlDAL;
         private IAuthProvider authProvider;
 
-        public AdminController(IDeckDAL decksSqlDAL, ICardDAL cardSqlDAL, ITagDAL tagSqlDAL, IUsersDAL userSqlDAL, IAuthProvider authProvider)
+        public AdminController(IDeckDAL decksSqlDAL, IAuthProvider authProvider)
         {
             this.decksSqlDAL = decksSqlDAL;
-            this.cardSqlDAL = cardSqlDAL;
-            this.tagSqlDAL = tagSqlDAL;
-            this.userSqlDAL = userSqlDAL;
             this.authProvider = authProvider;
         }
 
