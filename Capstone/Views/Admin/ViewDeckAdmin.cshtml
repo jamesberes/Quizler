@@ -8,8 +8,6 @@
     ViewData["Title"] = Model.Name + noDeck;
 }
 
-<link href="~/css/Decks/ViewDeck.css" rel="stylesheet" />
-
 <div class="deck-title">
     <h1>@Model.Name @noDeck</h1>
 </div>
@@ -18,40 +16,42 @@
     <p>@Model.Description</p>
 </div>
 
-<hr />
+<div class="content-box">
 
-<div class="cards">
-    @foreach (var card in Model.Cards)
-    {
-        <div class="card">
-            @if (String.IsNullOrEmpty(card.ImageURL))
-            {
-                <p class="front">@card.Front</p>
-            }
-            @if (!String.IsNullOrEmpty(card.ImageURL))
-            {
-                <img src="@card.ImageURL" />
-
-            }
-            <p class="back hidden">@card.Back</p>
-
-            <div class="buttons">
-                <a class="hidden" asp-action="UpdateCard" asp-route-cardId="@card.Id">Update Card |&nbsp;</a>
-                <a class="hidden" asp-action="AddTag" asp-route-cardId="@card.Id">Add Tag |&nbsp;</a>
-                <a class="hidden" asp-action="DeleteCard" asp-route-cardId="@card.Id">Delete Card</a>
-            </div>
+    <div class="button-box">
+        <hr />
+        <div class="deck-buttons">
+            <a class="btn-approve">Approve</a>
+            <a class="btn-deny" id="@Model.Id">Deny</a>
+            <a asp-action="Index" asp-controller="Admin">Cancel</a>
+            <a class="hidden" title="Delete Deck?" asp-action="DeleteDeck" asp-route-deckId="@(Model.Id)"><i class="fa fa-trash" aria-hidden="true"></i></a>
         </div>
-    }
-</div>
+    </div>
 
-<hr />
+    <div class="cards">
+        @foreach (var card in Model.Cards)
+        {
+            <div class="card">
+                @if (String.IsNullOrEmpty(card.ImageURL))
+                {
+                    <p class="front">@card.Front</p>
+                }
+                @if (!String.IsNullOrEmpty(card.ImageURL))
+                {
+                    <img src="@card.ImageURL" />
 
-<div class="deck-buttons">
-    <a class="btn-approve">Approve</a>
-    <a class="btn-deny" id="@Model.Id">Deny</a>
-    <a asp-action="Index" asp-controller="Admin">Cancel</a>
-    <a class="hidden" title="Delete Deck?" asp-action="DeleteDeck" asp-route-deckId="@(Model.Id)"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                }
+                <p class="back hidden">@card.Back</p>
+
+                <div class="buttons">
+                    <a class="hidden" asp-action="UpdateCard" asp-route-cardId="@card.Id">Update Card |&nbsp;</a>
+                    <a class="hidden" asp-action="AddTag" asp-route-cardId="@card.Id">Add Tag |&nbsp;</a>
+                    <a class="hidden" asp-action="DeleteCard" asp-route-cardId="@card.Id">Delete Card</a>
+                </div>
+            </div>
+        }
+    </div>
 </div>
 
 <script src="~/js/Decks/ViewDeckAdmin.js"></script>
-
+<link href="~/css/Decks/ViewDeck.css" rel="stylesheet" />

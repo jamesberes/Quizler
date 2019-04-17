@@ -15,11 +15,12 @@ namespace Capstone.Models
         [Required(ErrorMessage = "Please enter a deck name")]
         public string Name { get; set; }
 
+        [Display(Name = "Date Created")]
         public DateTime DateCreated { get; set; }
 
         public bool PublicDeck { get; set; }
 
-        public int UserId { get; set; } //= 1;
+        public int UserId { get; set; }
 
         public bool ForReview { get; set; }
 

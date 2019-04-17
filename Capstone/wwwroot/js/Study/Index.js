@@ -34,6 +34,7 @@ let random = false;
 let lightningRound = false;
 let cardTime = 0;
 let intervalId;
+let animating;
 
 sequentialOrderButton.style.backgroundColor = '#e6e6e6';
 normalStudyModeBtn.style.backgroundColor = '#e6e6e6';
@@ -168,6 +169,20 @@ function NextCard() {
         //studyCard.classList.remove('fade-animation');
         //studyCard.classList.add('fade-animation');
 
+        if (studyCard.classList.contains('slide')) {
+            studyCard.classList.remove('card');
+        }
+        
+        studyCard.classList.add('slide');
+
+        studyCard.addEventListener('animationstart', () => {
+            animating = true;
+        });
+
+        studyCard.addEventListener('animationend', () => {
+            studyCard.classList.remove('slide');
+            animating = false;
+        });
     }
 
     if (unansweredQuestions.length > 0) {
@@ -235,20 +250,24 @@ function CompleteStudySession() {
 studyCard.addEventListener('click', FlipCard);
 
 correctButton.addEventListener('click', function () {
-    ComputeScore(true);
-    NextCard();
-    clearInterval(intervalId);
-    if (lightningRound && cardTime > 0) {
-        startTimer();
+    if (!animating) {
+        ComputeScore(true);
+        NextCard();
+        clearInterval(intervalId);
+        if (lightningRound && cardTime > 0) {
+            startTimer();
+        }
     }
 });
 
 wrongButton.addEventListener('click', function () {
-    ComputeScore(false);
-    NextCard();
-    clearInterval(intervalId);
-    if (lightningRound && cardTime > 0) {
-        startTimer();
+    if (!animating) {
+        ComputeScore(false);
+        NextCard();
+        clearInterval(intervalId);
+        if (lightningRound && cardTime > 0) {
+            startTimer();
+        }
     }
 });
 

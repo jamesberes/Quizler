@@ -14,15 +14,15 @@ searchBar.addEventListener('input', e => {
     console.log(searchTerm === '')
 
     if (searchTerm === '') {
-        searchHeader.classList.add('hidden');
+        //searchHeader.classList.add('hidden');
     }
 
     filteredResults = allResults.filter(deck => {
         if (deck.name.toLowerCase().includes(searchTerm)) {
-            searchHeader.classList.remove('hidden');
+            //searchHeader.classList.remove('hidden');
             return true;
         } else if (cardSearch(deck.cards, searchTerm)) {
-            searchHeader.classList.remove('hidden');
+            //searchHeader.classList.remove('hidden');
             return true;
         }
     });

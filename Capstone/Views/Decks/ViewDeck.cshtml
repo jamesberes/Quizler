@@ -13,7 +13,7 @@
     @*This div exists because the variable declaration was printing to the page*@
     @if (!Model.ForReview && !Model.PublicDeck)
     {
-        @(forReviewButtonText = "Submit Deck For Review");
+        @(forReviewButtonText = "Share With Community");
     }
     else if (Model.ForReview && !Model.PublicDeck)
     {
@@ -21,7 +21,7 @@
     }
     else if (Model.PublicDeck)
     {
-        @(forReviewButtonText = "Make Deck Private");
+        @(forReviewButtonText = "Stop Sharing");
     }
 </div>
 
