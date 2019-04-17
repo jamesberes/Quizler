@@ -258,7 +258,7 @@ namespace Capstone.Models.DALs
         public int GetNextCardOrder(int deckId)
         {
             // 1 by default. If there are no cards in a deck the next card would be number 1
-            int output = 1;
+            int output = 0;
 
             try
             {
