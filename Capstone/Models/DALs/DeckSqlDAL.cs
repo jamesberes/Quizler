@@ -257,7 +257,7 @@ namespace Capstone.Models.DALs
 
         public int GetNextCardOrder(int deckId)
         {
-            // 1 by default. If there are no cards in a deck the next card would be number 1
+            // 0 by default, if there are not cards in the deck Convert.ToInt32 will be 0
             int output = 0;
 
             try
