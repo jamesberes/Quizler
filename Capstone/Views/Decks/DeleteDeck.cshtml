@@ -8,38 +8,50 @@
     ViewData["Title"] = "Delete " + Model.Name + noDeck + "?";
 }
 
-<h2>Are You Sure You Want To Delete @Model.Name @noDeck?</h2>
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DateCreated)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.PublicDeck)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PublicDeck)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-    </dl>
+@{
+    <div class="deletion-confirmation">
+        @if (Model.PublicDeck || Model.isAdminDeck)
+        {
+            <h3>@Model.Name @noDeck is currently being shared with the Quizler Community.</h3>
+            <h3>If you delete this deck, it will no longer be available to other Quizler users.</h3>
 
-    <form asp-action="DeleteDeck" method="post" asp-route-deckId="@Model.Id" asp-route-routedUserId="@Model.UserId">
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="ViewDeck" asp-route-deckId="@Model.Id">Cancel</a>
-    </form>
+            <p><em> Are you sure you want to delete @Model.Name @noDeck?</em></p>
+        }
+        else
+        {
+            <h2><em>Are You Sure You Want To Delete @Model.Name @noDeck?</em></h2>
+        }
+    </div>
+}
+
+
+<div class="deck-info">
+
+    <div class="info-box">
+        <h4>@Html.DisplayNameFor(model => model.Name)</h4>
+        <p>@Html.DisplayFor(model => model.Name)</p>
+    </div>
+
+    <div class="info-box">
+        <h4>@Html.DisplayNameFor(model => model.Description)</h4>
+        <p>@Html.DisplayFor(model => model.Description)</p>
+    </div>
+
+    <div class="info-box">
+        <h4>Number of Cards in Deck</h4>
+        <p>@Model.Cards.Count</p>
+    </div>
+
+    <div class="info-box">
+        <h4>@Html.DisplayNameFor(model => model.DateCreated)</h4>
+        <p>@Html.DisplayFor(model => model.DateCreated)</p>
+    </div>
+
 </div>
+
+<form asp-action="DeleteDeck" method="post" asp-route-deckId="@Model.Id" asp-route-routedUserId="@Model.UserId">
+    <input type="submit" value="Delete" class="btn btn-default" />
+    <a asp-action="ViewDeck" asp-route-deckId="@Model.Id">Cancel</a>
+</form>
+
+<link href="~/css/Decks/DeckDeletion.css" type="text/css" rel="stylesheet" />
