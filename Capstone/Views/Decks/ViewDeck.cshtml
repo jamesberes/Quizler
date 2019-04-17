@@ -75,18 +75,6 @@
 
 </div>
 
-@*<div class="btn-group deck-buttons">
-        @if (Model.Cards.Count > 0)
-        {
-            <a asp-controller="Study" asp-action="Index" asp-route-deckId="@Model.Id">Start Study Session</a>
-        }
-        <a class="deckId-button" id="@Model.Id" asp-action="AddCard" asp-route-deckId="@Model.Id">Add a card to this deck</a>
-        <a asp-action="EditDeck" asp-route-deckId="@(Model.Id)">Edit Deck</a>
-        <a class="btn-toggle-review">@forReviewButtonText</a>
-        <a asp-action="MyDecks" asp-route-userId="@(Model.UserId)">Back to Decks</a>
-        <a title="Delete Deck?" asp-action="DeleteDeck" asp-route-deckId="@(Model.Id)"><i class="fa fa-trash" aria-hidden="true"></i></a>
-    </div>*@
-
 <script src="~/js/Decks/ViewDeck.js"></script>
 <link href="~/css/Decks/ViewDeck.css" rel="stylesheet" />
 
