@@ -4,20 +4,18 @@
     ViewData["Title"] = "Community Decks";
 }
 
-<link href="~/css/Decks/Index.css" type="text/css" rel="stylesheet" />
-
 <h2>Community Decks</h2>
 
 <p>Here is a selection of our <em><strong>Official</strong></em> Quizler created decks as well as the decks created and shared by the Quizler community!</p>
 <hr />
 
-<div class="deck-buttons">
+<div id="main-actions">
     <a id="official-button">View Official Decks Only</a>
 
-    <div class="search-bar">
+    <div id="search-bar">
         <form asp-action="Search" method="get">
-            <input id="search-bar" name="query" placeholder="Search public cards by tag" required>
-            <input type="submit" value="Search" />
+            <input class="input-lg" name="query" placeholder="Search public cards by tag" required> <!--TODO: Add same search functionality as My Decks-->
+            @*<input type="submit" value="Search" />*@
         </form>
     </div>
 </div>
@@ -41,3 +39,4 @@
 
 <script src="~/js/LazyLoad.js"></script>
 <script src="~/js/Decks/CommunityDecks.js"></script>
+<link href="~/css/Decks/Index.css" type="text/css" rel="stylesheet" />
