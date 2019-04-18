@@ -71,6 +71,7 @@ div.card {
     align-items: center;
     cursor: pointer;
     margin: 0;
+    padding: 15px;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -79,7 +80,22 @@ div.card {
     -o-user-select: none;
     user-select: none;
     margin-bottom: 6px;
+    overflow: hidden;
 }
+
+div.card-info {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+    div.card-info::-webkit-scrollbar {
+        width: 2px;
+    }
+
+    div.card-info::-webkit-scrollbar-thumb {
+        background-color: darkgrey;
+        outline: 1px solid slategrey;
+    }
 
     div.card:hover {
         transform: scale(1.015);
