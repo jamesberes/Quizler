@@ -48,7 +48,6 @@ div.card {
     height: 20vh;
     width: 30%;
     min-width: 215px;
-    background-color: lightgray;
     border-radius: 16px;
     display: flex;
     flex-direction: column;
@@ -66,7 +65,22 @@ div.card {
     user-select: none;
     margin-bottom: 20px;
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    overflow: hidden;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+div.card-info {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+div.card-info::-webkit-scrollbar {
+    width: 2px;
+}
+
+div.card-info::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
 }
 
 div.card:hover {
@@ -74,16 +88,14 @@ div.card:hover {
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
 }
 
-    div.card p {
-        font-size: 1.7em;
-        text-align: center;
-        text-overflow: ellipsis;
-    }
+div.card p {
+    font-size: 1.7em;
+    text-align: center;
+}
 
 div.card p.back {
     font-size: 1.3em;
     margin: auto;
-    padding: 10px;
 }
 
 div.card img {
@@ -218,7 +230,7 @@ div.buttons .button {
     font-size: 20px;
     transform: scale(0.5);
     padding: 13px 32px;
-    margin: 0 -5%;
+    margin: 0 -12%;
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
     box-shadow: none;
