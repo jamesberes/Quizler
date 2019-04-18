@@ -26,7 +26,6 @@ div.content {
     top: 50%;
     width: 33%;
     text-align: center;
-    -webkit-animation: fadein 2s;
 }
 
 @media screen and (max-width: 500px) {
@@ -76,7 +75,6 @@ div.content a:hover {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    -webkit-animation: fadein 2s;
 }
 
 @keyframes fadein {
