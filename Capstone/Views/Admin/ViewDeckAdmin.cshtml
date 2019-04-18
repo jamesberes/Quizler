@@ -31,26 +31,24 @@
     <div class="cards">
         @foreach (var card in Model.Cards)
         {
-            <div class="card">
-                @if (String.IsNullOrEmpty(card.ImageURL))
-                {
-                    <p class="front">@card.Front</p>
-                }
-                @if (!String.IsNullOrEmpty(card.ImageURL))
-                {
-                    <img src="@card.ImageURL" />
+            <div class="card" style="background-color: @Model.DeckColor;">
+                <div class="card-info">
+                    @if (String.IsNullOrEmpty(card.ImageURL))
+                    {
+                        <p class="front" style="color: @Model.TextColor;">@card.Front</p>
+                    }
+                    @if (!String.IsNullOrEmpty(card.ImageURL))
+                    {
+                        <img src="@card.ImageURL" />
 
-                }
-                <p class="back hidden">@card.Back</p>
-
-                <div class="buttons">
-                    <a class="hidden button" asp-action="UpdateCard" asp-route-cardId="@card.Id">Update Card</a>
-                    <a class="hidden button" asp-action="AddTag" asp-route-cardId="@card.Id">Add Tag</a>
-                    <a class="hidden button" asp-action="DeleteCard" asp-route-cardId="@card.Id">Delete Card</a>
+                    }
+                    <p class="back hidden" style="color: @Model.TextColor;">@card.Back</p>
                 </div>
             </div>
         }
     </div>
+
+
 </div>
 
 <script src="~/js/Decks/ViewDeckAdmin.js"></script>
