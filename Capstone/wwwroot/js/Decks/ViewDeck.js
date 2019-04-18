@@ -31,8 +31,6 @@ cards.forEach(card => {
     card.addEventListener('click', event => {
         let clickedCard = event.path[1];
 
-        console.log(event)
-
         if (event.target.className == 'card') {
             clickedCard = event.target.children[0];
         }

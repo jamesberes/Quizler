@@ -97,7 +97,7 @@ div.card p {
 
 div.card p.back {
     font-size: 1.3em;
-    margin: auto;
+    /*margin: auto;*/
 }
 
 div.card-info img {
