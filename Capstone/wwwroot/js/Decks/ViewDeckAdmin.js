@@ -19,17 +19,16 @@ function GetDeck() {
 GetDeck();
 
 cards.forEach(card => {
+
     card.addEventListener('click', event => {
         let clickedCard = event.path[1];
+
         if (event.target.className == 'card') {
-            clickedCard = event.target;
+            clickedCard = event.target.children[0];
         }
 
         clickedCard.children[0].classList.toggle('hidden');
         clickedCard.children[1].classList.toggle('hidden');
-        //clickedCard.children[2].children[0].classList.toggle('hidden');
-        //clickedCard.children[2].children[1].classList.toggle('hidden');
-        //clickedCard.children[2].children[2].classList.toggle('hidden');
     });
 });
 
