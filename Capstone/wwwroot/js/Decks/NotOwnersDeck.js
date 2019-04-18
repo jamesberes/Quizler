@@ -2,7 +2,7 @@
 let hiddenInputs = document.querySelectorAll(".submit-the-card-id");
 
 hiddenInputs.forEach(input => {
-    input.value = input.parentElement.parentElement.children[0].children[0].value;
+    input.value = input.parentElement.children[1].value;
 })
 
 
