@@ -134,6 +134,7 @@ namespace Capstone.Controllers
         {
             Card cardToAdd = cardSqlDAL.GetCardById(svm.Card.Id);
             cardToAdd.DeckId = svm.Card.DeckId;
+            cardToAdd.CardOrder = decksSqlDAL.GetNextCardOrder(cardToAdd.DeckId);
             cardToAdd = cardSqlDAL.AddCardToDeck(cardToAdd);
             return RedirectToAction("ViewDeck", new { deckId = cardToAdd.DeckId });
         }
@@ -145,6 +146,7 @@ namespace Capstone.Controllers
             {
                 Card cardToAdd = cardSqlDAL.GetCardById(oudvm.Card.Id);
                 cardToAdd.DeckId = oudvm.Card.DeckId;
+                cardToAdd.CardOrder = decksSqlDAL.GetNextCardOrder(cardToAdd.DeckId);
                 cardToAdd = cardSqlDAL.AddCardToDeck(cardToAdd);
                 return RedirectToAction("ViewDeck", new { deckId = cardToAdd.DeckId });
             }
@@ -152,7 +154,6 @@ namespace Capstone.Controllers
             {
                 return NotFound();
             }
-
         }
 
         [HttpGet]
