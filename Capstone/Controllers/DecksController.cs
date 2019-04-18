@@ -97,21 +97,37 @@ namespace Capstone.Controllers
         [HttpGet]
         public IActionResult AddCard(int deckID)
         {
-            Card card = new Card();
-            card.DeckId = deckID;
-            card.CardOrder = decksSqlDAL.GetNextCardOrder(deckID);
-            return View(card);
+            if (authProvider.IsLoggedIn && IsCurrentUserTheOwner(deckID))
+            {
+                Card card = new Card();
+                card.DeckId = deckID;
+                card.CardOrder = decksSqlDAL.GetNextCardOrder(deckID);
+                return View(card);
+            }
+            else
+            {
+                return NotFound();
+            }
+            
         }
 
         [HttpPost]
         public IActionResult AddCard(Card newCard)
         {
-            if (String.IsNullOrEmpty(newCard.Front) && !String.IsNullOrEmpty(newCard.ImageURL))
+            if (authProvider.IsLoggedIn && IsCurrentUserTheOwner(newCard.DeckId))
             {
-                newCard.Front = "";
+                if (String.IsNullOrEmpty(newCard.Front) && !String.IsNullOrEmpty(newCard.ImageURL))
+                {
+                    newCard.Front = "";
+                }
+                cardSqlDAL.AddCardToDeck(newCard);
+                return RedirectToAction("ViewDeck", new { deckId = newCard.DeckId });
             }
-            cardSqlDAL.AddCardToDeck(newCard);
-            return RedirectToAction("ViewDeck", new { deckId = newCard.DeckId });
+            else
+            {
+                return NotFound();
+            }
+            
         }
 
         public IActionResult AddCardFromSearch(SearchViewModel svm)
@@ -126,12 +142,18 @@ namespace Capstone.Controllers
 
         public IActionResult AddCardFromOtherUsersDeck(OtherUsersDeckViewModel oudvm)
         {
-            Card cardToAdd = cardSqlDAL.GetCardById(oudvm.Card.Id);
-            cardToAdd.DeckId = oudvm.Card.DeckId;
-            cardToAdd.CardOrder = decksSqlDAL.GetNextCardOrder(cardToAdd.DeckId);
-            cardToAdd = cardSqlDAL.AddCardToDeck(cardToAdd);
-            return RedirectToAction("ViewDeck", new { deckId = cardToAdd.DeckId });
-
+            if (authProvider.IsLoggedIn)
+            {
+                Card cardToAdd = cardSqlDAL.GetCardById(oudvm.Card.Id);
+                cardToAdd.DeckId = oudvm.Card.DeckId;
+                cardToAdd.CardOrder = decksSqlDAL.GetNextCardOrder(cardToAdd.DeckId);
+                cardToAdd = cardSqlDAL.AddCardToDeck(cardToAdd);
+                return RedirectToAction("ViewDeck", new { deckId = cardToAdd.DeckId });
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         [HttpGet]
