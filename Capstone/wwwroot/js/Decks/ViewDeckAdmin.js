@@ -27,9 +27,9 @@ cards.forEach(card => {
 
         clickedCard.children[0].classList.toggle('hidden');
         clickedCard.children[1].classList.toggle('hidden');
-        clickedCard.children[2].children[0].classList.toggle('hidden');
-        clickedCard.children[2].children[1].classList.toggle('hidden');
-        clickedCard.children[2].children[2].classList.toggle('hidden');
+        //clickedCard.children[2].children[0].classList.toggle('hidden');
+        //clickedCard.children[2].children[1].classList.toggle('hidden');
+        //clickedCard.children[2].children[2].classList.toggle('hidden');
     });
 });
 
