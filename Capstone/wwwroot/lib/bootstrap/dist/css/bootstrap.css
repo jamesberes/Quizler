@@ -4288,7 +4288,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     line-height: 20px;
     padding-left: 100px;
     font-weight: bold;
-    text-shadow: 1px 2px 1px rgb(0, 183, 180);
+    text-shadow: 1px 2px 1px rgb(0, 183, 180); /*todo*/
 }
 .navbar-brand:hover,
 .navbar-brand:focus {
