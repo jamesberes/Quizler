@@ -3,6 +3,8 @@
     padding: 0;
     width: 100%;
     margin: 0;
+    animation: fadein;
+    animation-duration: 2s;
 }
 
 div.container {
