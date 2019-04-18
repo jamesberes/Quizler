@@ -48,7 +48,6 @@ denyButton.addEventListener('click', function () {
     fetch(`${apiUrl}MakePrivate?deckId=${deckId}`, { method: "post" })
         .then(response => {
             if (response.ok) {
-                alert("Deck has not been approved and will remain private.")
                 window.location.href = "/Admin/Index/"
             }
             else {
