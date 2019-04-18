@@ -33,26 +33,27 @@
     <div class="cards">
         @foreach (var card in Model.Deck.Cards)
         {
-            <div>
-                <div class="card" style="background-color: @Model.Deck.DeckColor">
-                    <input type="hidden" class="hidden-card-id" value="@card.Id" />
+        <div>
+            <div class="card" style="background-color: @Model.Deck.DeckColor;">
+                <div class="card-info">
                     @if (String.IsNullOrEmpty(card.ImageURL))
                     {
-                        <p class="front" style="color: @Model.Deck.TextColor">@card.Front</p>
+                        <p class="front" style="color: @Model.Deck.TextColor;">@card.Front</p>
                     }
                     @if (!String.IsNullOrEmpty(card.ImageURL))
                     {
                         <img src="@card.ImageURL" />
 
                     }
-                    <p class="back hidden" style="color: @Model.Deck.TextColor">@card.Back</p>
+                    <p class="back hidden" style="color: @Model.Deck.TextColor;">@card.Back</p>
                 </div>
-                <form asp-action="AddCardFromOtherUsersDeck" method="post">
-                    <input type="submit" value="Add to Deck" />
-                    <input type="hidden" class="submit-the-card-id" asp-for="Card.Id" />
-                    <select asp-for="Card.DeckId" asp-items="Model.UserDecksSelectList"></select>
-                </form>
             </div>
+            <form asp-action="AddCardFromOtherUsersDeck" method="post">
+                <input type="submit" value="Add to Deck" />
+                <input type="hidden" class="submit-the-card-id" asp-for="Card.Id" />
+                <select asp-for="Card.DeckId" asp-items="Model.UserDecksSelectList"></select>
+            </form>
+        </div>
         }
     </div>
 </div>

@@ -4,8 +4,6 @@ const apiUrl = `http://localhost:${location.port}/API/`;
 const deckId = document.querySelector('.deckId-button').id;
 let deck;
 
-let cardFlipped = false;
-
 function GetDeck() {
     fetch(`${apiUrl}GetDeck?Id=${deckId}`)
         .then(response => {
@@ -32,39 +30,14 @@ cards.forEach(card => {
 
     card.addEventListener('click', event => {
         let clickedCard = event.path[1];
+
         if (event.target.className == 'card') {
-            clickedCard = event.target;
+            clickedCard = event.target.children[0];
         }
 
-        if (cardFlipped) {
-            cards.forEach(c => {
-                c.children[1].classList.add('hidden');
-                c.children[2].children[0].classList.add('hidden');
-                c.children[2].children[1].classList.add('hidden');
-                c.children[2].children[2].classList.add('hidden');
-
-                c.style.height = '20vh';
-                c.style.width = '30%';
-            });
-
-            cardFlipped = false;
-        }
-
+        clickedCard.children[0].classList.toggle('hidden');
         clickedCard.children[1].classList.toggle('hidden');
-        clickedCard.children[2].children[0].classList.toggle('hidden');
-        clickedCard.children[2].children[1].classList.toggle('hidden');
-        clickedCard.children[2].children[2].classList.toggle('hidden');
-
-
-        if (clickedCard.style.height == 'auto') {
-            clickedCard.style.height = '20vh';
-            clickedCard.style.width = '30%';
-        } else {
-            clickedCard.style.height = 'auto';
-            clickedCard.style.width = '100%';
-        }
-
-        cardFlipped = true;
+        clickedCard.children[2].classList.toggle('hidden');
     });
 });
 
