@@ -8,15 +8,13 @@ hiddenInputs.forEach(input => {
 
 cards.forEach(card => {
     card.addEventListener('click', event => {
-        console.log(event)
+
         let clickedCard = event.path[0];
         if (event.target.className == 'front' || event.target.className == 'back') {
             clickedCard = event.path[2];
         } else if (event.target.className == 'card-info') {
             clickedCard = event.path[1];
         }
-
-        console.log(clickedCard.children);
 
         clickedCard.children[0].children[0].classList.toggle('hidden');
         clickedCard.children[0].children[1].classList.toggle('hidden');
