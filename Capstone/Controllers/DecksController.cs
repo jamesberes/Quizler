@@ -80,7 +80,15 @@ namespace Capstone.Controllers
             Deck deck = decksSqlDAL.GetDeckById(deckId);
             if (authProvider.GetCurrentUser() == null)
             {
-                return View("AnonViewDeck", deck);
+                if (IsDeckPublic(deckId))
+                {
+                    return View("AnonViewDeck", deck);
+                }
+                else
+                {
+                    return NotFound();
+                }
+                
             }
             int userId = authProvider.GetCurrentUser().Id;
             if (IsCurrentUserTheOwner(deckId))
