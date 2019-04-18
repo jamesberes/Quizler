@@ -26,6 +26,13 @@ div.container {
     text-align: center;
 }
 
+@media screen and (max-width: 500px) {
+    .register-container {
+        width: 58%;
+        left: 20%;
+    }
+}
+
 h2 {
     margin-bottom: 20%;
     /*color: rgb(1, 200, 199);*/

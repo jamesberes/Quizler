@@ -29,6 +29,13 @@ div.content {
     -webkit-animation: fadein 2s;
 }
 
+@media screen and (max-width: 500px) {
+    div.content{
+        width: 66%;
+        left: 20%;
+    }
+}
+
 div.content p {
     font-size: larger;
     font-weight: bold;
