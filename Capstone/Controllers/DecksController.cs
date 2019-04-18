@@ -45,9 +45,19 @@ namespace Capstone.Controllers
         [HttpGet]
         public IActionResult CreateDeck()
         {
-            Deck deck = new Deck();
+            if (authProvider.IsLoggedIn)
+            {
+            Deck deck = new Deck() {
+                DeckColor = "#ecf0f1",
+                TextColor = "#000000"
+            };
             deck.UserId = authProvider.GetCurrentUser().Id;
             return View(deck);
+            }
+            else
+            {
+                return RedirectToAction("login", "account");
+            }
         }
 
         [HttpPost]

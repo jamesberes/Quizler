@@ -11,8 +11,6 @@ LazyLoad(url, decksDiv);
 searchBar.addEventListener('input', e => {
     let searchTerm = searchBar.value.toLowerCase();
 
-    console.log(searchTerm === '')
-
     if (searchTerm === '') {
         //searchHeader.classList.add('hidden');
     }
@@ -60,6 +58,8 @@ function RedrawScreen() {
         let deckDiv = document.createElement('div');
         deckDiv.classList.add('deck');
         deckDiv.id = `${item.id}`;
+        deckDiv.style.backgroundColor = item.deckColor;
+        deckDiv.style.color = item.textColor;
 
         let h1 = document.createElement('h1');
         h1.innerText = item.name;
