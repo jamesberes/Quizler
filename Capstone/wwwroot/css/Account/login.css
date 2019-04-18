@@ -3,6 +3,8 @@
     padding: 0;
     width: 100%;
     margin: 0;
+    animation: fadein;
+    animation-duration: 2s;
 }
 
 div.container {
@@ -45,7 +47,7 @@ h2 {
 .bg {
     /* The image used */
     /*background-image: url("https://i.imgur.com/jmpBf42.jpg");*/
-    background-image: url("../../images/splash.jpg");
+    background-image: url("../../images/login.jpg");
     /* Full height */
     height: 100%;
     width: 100%;
@@ -54,4 +56,14 @@ h2 {
     background-repeat: no-repeat;
     background-size: cover;
     -webkit-animation: fadein 2s;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
