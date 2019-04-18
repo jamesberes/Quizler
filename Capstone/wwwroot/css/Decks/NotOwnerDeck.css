@@ -49,10 +49,6 @@ h1, p {
     height: 15vw;
 }
 
-.cards div:nth-child(1n+1) {
-    padding-bottom: 20px;
-}
-
 div.cards {
     width: 100%;
     display: flex;
@@ -86,6 +82,8 @@ div.card {
 div.card-info {
     overflow-y: scroll;
     overflow-x: hidden;
+    display: flex;
+    padding: 0;
 }
 
     div.card-info::-webkit-scrollbar {
@@ -110,20 +108,16 @@ div.card-info {
             font-size: 1.3vw;
         }
 
-    div.card a {
-        justify-self: flex-end;
-    }
+div.card-info img {
+    height: calc(20vh - 35px);
 
-    div.card img {
-        max-width: 100%;
-        max-height: 100%;
-        padding: 15px;
-    }
+}
 
 form {
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
+    margin-bottom: 5vh;
 }
 
     form input[type=submit] {
