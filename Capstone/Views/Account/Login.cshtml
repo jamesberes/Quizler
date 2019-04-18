@@ -4,20 +4,51 @@
     ViewData["Title"] = "Login";
 }
 
-<h2>Login</h2>
+<style>
+    .body-content{
+        background-color: antiquewhite;
+    }
 
-<form asp-controller="account" asp-action="login" method="post">
+    .login-container {
+        -moz-box-shadow: 0px 10px 14px -7px #276873;
+        -webkit-box-shadow: 0px 10px 14px -7px #276873;
+        box-shadow: 0px 10px 14px -7px #276873;
+        background-color: rgba(0, 255, 144, 0.5);
+        border-color: aqua;
+        border-radius: 10px;
+        position: absolute;
+        left: 33%;
+        top: 20%;
+        width: 33%;
+        text-align: center;
+    }
+    h2 {
+        margin-bottom: 20%;
+        /*color: rgb(1, 200, 199);*/
+    }
 
-    <div class="form-group">
-        <label asp-for="Email"></label>
-        <input type="email" asp-for="Email" />
-        <span asp-validation-for="Email"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Password"></label>
-        <input type="password" asp-for="Password" />
-        <span asp-validation-for="Password"></span>
-    </div>
+    .submit-login{
+        margin-bottom: 20%;
+    }
 
-    <input type="submit" value="Login" class="btn btn-default" />
-</form>
+</style>
+
+<div class="login-container">
+    <h2>Login</h2>
+
+    <form asp-controller="account" asp-action="login" method="post">
+
+        <div class="form-group">
+            <label asp-for="Email"></label>
+            <input type="email" asp-for="Email" />
+            <span asp-validation-for="Email"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Password"></label>
+            <input type="password" asp-for="Password" />
+            <span asp-validation-for="Password"></span>
+        </div>
+
+        <input class="submit-login" type="submit" value="Login" class="btn btn-default" />
+    </form>
+</div>
