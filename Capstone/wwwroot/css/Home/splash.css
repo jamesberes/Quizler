@@ -24,7 +24,7 @@ div.content {
     top: 50%;
     width: 33%;
     text-align: center;
-    -webkit-animation: fadein 4s;
+    -webkit-animation: fadein 2s;
 }
 
 div.content p {
