@@ -37,7 +37,6 @@ approveButton.addEventListener('click', function () {
     fetch(`${apiUrl}MakePublic?deckId=${deckId}`, { method: "post" })
         .then(response => {
             if (response.ok) {
-                alert("Deck has been approved and is now being shared with the community!");
                 window.location.href = "/Admin/Index/"
             } else {
                 alert("Something went wrong...");
