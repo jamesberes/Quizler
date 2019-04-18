@@ -97,14 +97,10 @@ div.buttons {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    padding-bottom: 2.5%;
+    /*background-color: rgba(255,255,255,0.7);
+    border-radius: 6px;*/
 }
 
-div.buttons {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-}
 
 .hidden {
     display: none;
@@ -126,7 +122,7 @@ div.buttons {
     user-select: none;
 }
 
-.deck-buttons a {
+.button {
     -moz-box-shadow: 0px 10px 14px -7px #276873;
     -webkit-box-shadow: 0px 10px 14px -7px #276873;
     box-shadow: 0px 10px 14px -7px #276873;
@@ -146,41 +142,41 @@ div.buttons {
     text-shadow: 0px 1px 0px #3d768a;
 }
 
-.deck-buttons a:hover {
+.button:hover {
     background-color: #408c99;
 }
 
-.deck-buttons a:active {
+.button:active {
     position: relative;
     top: 1px;
 }
 
-    .deck-buttons a:last-child {
-        -moz-box-shadow: inset 0px 1px 0px 0px #f29c93;
-        -webkit-box-shadow: inset 0px 1px 0px 0px #f29c93;
-        box-shadow: inset 0px 1px 0px 0px #f29c93;
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #fe1a00), color-stop(1, #ce0100));
-        background: -moz-linear-gradient(top, #fe1a00 5%, #ce0100 100%);
-        background: -webkit-linear-gradient(top, #fe1a00 5%, #ce0100 100%);
-        background: -o-linear-gradient(top, #fe1a00 5%, #ce0100 100%);
-        background: -ms-linear-gradient(top, #fe1a00 5%, #ce0100 100%);
-        background: linear-gradient(to bottom, #fe1a00 5%, #ce0100 100%);
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fe1a00', endColorstr='#ce0100',GradientType=0);
-        background-color: #fe1a00;
-        -moz-border-radius: 6px;
-        -webkit-border-radius: 6px;
-        border-radius: 6px;
-        border: 1px solid #d83526;
-        display: inline-block;
-        cursor: pointer;
-        color: #ffffff;
-        font-family: Arial;
-        font-size: 15px;
-        font-weight: bold;
-        padding: 6px 10px;
-        text-decoration: none;
-        text-shadow: 0px 1px 0px #b23e35;
-    }
+.deck-buttons a:last-child {
+    -moz-box-shadow: inset 0px 1px 0px 0px #f29c93;
+    -webkit-box-shadow: inset 0px 1px 0px 0px #f29c93;
+    box-shadow: inset 0px 1px 0px 0px #f29c93;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #fe1a00), color-stop(1, #ce0100));
+    background: -moz-linear-gradient(top, #fe1a00 5%, #ce0100 100%);
+    background: -webkit-linear-gradient(top, #fe1a00 5%, #ce0100 100%);
+    background: -o-linear-gradient(top, #fe1a00 5%, #ce0100 100%);
+    background: -ms-linear-gradient(top, #fe1a00 5%, #ce0100 100%);
+    background: linear-gradient(to bottom, #fe1a00 5%, #ce0100 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fe1a00', endColorstr='#ce0100',GradientType=0);
+    background-color: #fe1a00;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    border: 1px solid #d83526;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 6px 10px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #b23e35;
+}
 
     .deck-buttons a:last-child:hover {
         background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ce0100), color-stop(1, #fe1a00));
@@ -217,6 +213,18 @@ div.button-box {
 
 }
 
+div.buttons .button {
+    font-size: 20px;
+    transform: scale(0.5);
+    padding: 13px 32px;
+    margin: 0 -5%;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background-color: whitesmoke;
+    color: #000;
+}
+
 @media only screen and (max-width: 500px) {
 
     .content-box{
@@ -232,7 +240,7 @@ div.button-box {
         width: 100%;
     }
 
-    div.deck-buttons a {
+    .button {
         width: 100%;
         text-align: center;
     }

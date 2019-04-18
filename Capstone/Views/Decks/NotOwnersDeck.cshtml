@@ -34,18 +34,18 @@
         @foreach (var card in Model.Deck.Cards)
         {
             <div>
-                <div class="card">
+                <div class="card" style="background-color: @Model.Deck.DeckColor">
                     <input type="hidden" class="hidden-card-id" value="@card.Id" />
                     @if (String.IsNullOrEmpty(card.ImageURL))
                     {
-                        <p class="front">@card.Front</p>
+                        <p class="front" style="color: @Model.Deck.TextColor">@card.Front</p>
                     }
                     @if (!String.IsNullOrEmpty(card.ImageURL))
                     {
                         <img src="@card.ImageURL" />
 
                     }
-                    <p class="back hidden">@card.Back</p>
+                    <p class="back hidden" style="color: @Model.Deck.TextColor">@card.Back</p>
                 </div>
                 <form asp-action="AddCardFromOtherUsersDeck" method="post">
                     <input type="submit" value="Add to Deck" />

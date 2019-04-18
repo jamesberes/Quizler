@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using Capstone.Providers.Auth;
@@ -31,5 +32,9 @@ namespace Capstone.Models
         public List<Card> Cards { get; set; }
 
         public bool isAdminDeck { get; set; }
+
+        public string DeckColor { get; set; }
+
+        public string TextColor { get; set; }
     }
 }

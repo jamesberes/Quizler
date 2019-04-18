@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,11 +13,11 @@ namespace Capstone.Models.DALs
         private string connectionString;
         private ICardDAL cardSqlDAL;
 
-        private const string sql_CreateDeck = @"INSERT INTO decks (name, users_id, description) VALUES (@name, @user, @description); SELECT CAST(SCOPE_IDENTITY() as int);";
+        private const string sql_CreateDeck = @"INSERT INTO decks (name, users_id, description, color, text_color) VALUES (@name, @user, @description, @color, @text_color); SELECT CAST(SCOPE_IDENTITY() as int);";
         private const string sql_GetDeckById = @"SELECT * FROM decks WHERE id = @id";
         //private const string sql_GetRandomDeck = "";
         private const string sql_GetDecksbyUserId = @"SELECT * FROM decks WHERE users_id = @userId";
-        private const string sql_UpdateDeck = @"UPDATE decks SET name = @name, description = @description WHERE id = @id";
+        private const string sql_UpdateDeck = @"UPDATE decks SET name = @name, description = @description, color = @color, text_color = @text_color WHERE id = @id";
         private const string sql_GetHighestOrderNumber = "SELECT TOP 1 cards.card_order FROM decks JOIN cards on decks.id = cards.deck_id WHERE decks.id = @id ORDER BY cards.card_order DESC";
         private const string sql_DeleteDeck = "DELETE t FROM tags t JOIN cards c ON t.card_id=c.id WHERE deck_id = @deckId; DELETE FROM cards WHERE deck_id = @deckId; DELETE FROM decks WHERE id = @deckId;";
         private const string sql_GetUserNameFromDeckId = "select display_name from users join decks on users.id = decks.users_id where decks.id = @deckId;";
@@ -50,6 +51,8 @@ namespace Capstone.Models.DALs
                     cmd.Parameters.AddWithValue("@name", newDeck.Name);
                     cmd.Parameters.AddWithValue("@user", newDeck.UserId);
                     cmd.Parameters.AddWithValue("@description", newDeck.Description);
+                    cmd.Parameters.AddWithValue("@color", newDeck.DeckColor);
+                    cmd.Parameters.AddWithValue("@text_color", newDeck.TextColor);
 
                     newDeck.Id = (int)cmd.ExecuteScalar();
 
@@ -90,7 +93,9 @@ namespace Capstone.Models.DALs
                             PublicDeck = Convert.ToBoolean(reader["is_public"]),
                             UserId = Convert.ToInt32(reader["users_id"]),
                             ForReview = Convert.ToBoolean(reader["for_review"]),
-                            Description = Convert.ToString(reader["description"])
+                            Description = Convert.ToString(reader["description"]),
+                            DeckColor = Convert.ToString(reader["color"]),
+                            TextColor = Convert.ToString(reader["text_color"])
                         };
 
                         result = deck;
@@ -128,7 +133,9 @@ namespace Capstone.Models.DALs
                             PublicDeck = Convert.ToBoolean(reader["is_public"]),
                             UserId = Convert.ToInt32(reader["users_id"]),
                             ForReview = Convert.ToBoolean(reader["for_review"]),
-                            Description = Convert.ToString(reader["description"])
+                            Description = Convert.ToString(reader["description"]),
+                            DeckColor = Convert.ToString(reader["color"]),
+                            TextColor = Convert.ToString(reader["text_color"])
                         };
                         deck.Cards = cardSqlDAL.GetCardsByDeckId(deck.Id);
                         result.Add(deck);
@@ -166,8 +173,12 @@ namespace Capstone.Models.DALs
                             UserId = Convert.ToInt32(reader["users_id"]),
                             ForReview = Convert.ToBoolean(reader["for_review"]),
                             Description = Convert.ToString(reader["description"]),
-                            isAdminDeck = Convert.ToBoolean(reader["is_admin"])
+                            isAdminDeck = Convert.ToBoolean(reader["is_admin"]),
+                            DeckColor = Convert.ToString(reader["color"]),
+                            TextColor = Convert.ToString(reader["text_color"])
                         };
+                        deck.Cards = cardSqlDAL.GetCardsByDeckId(deck.Id);
+
                         result.Add(deck);
                     }
                 }
@@ -203,7 +214,9 @@ namespace Capstone.Models.DALs
                             PublicDeck = Convert.ToBoolean(reader["is_public"]),
                             UserId = Convert.ToInt32(reader["users_id"]),
                             ForReview = Convert.ToBoolean(reader["for_review"]),
-                            Description = Convert.ToString(reader["description"])
+                            Description = Convert.ToString(reader["description"]),
+                            DeckColor = Convert.ToString(reader["color"]),
+                            TextColor = Convert.ToString(reader["text_color"])
                         };
 
                         deck.Cards = cardSqlDAL.GetCardsByDeckId(deck.Id);
@@ -234,6 +247,8 @@ namespace Capstone.Models.DALs
                     cmd.Parameters.AddWithValue("@id", updatedDeck.Id);
                     cmd.Parameters.AddWithValue("@name", updatedDeck.Name);
                     cmd.Parameters.AddWithValue("@description", updatedDeck.Description);
+                    cmd.Parameters.AddWithValue("@color", updatedDeck.DeckColor);
+                    cmd.Parameters.AddWithValue("@text_color", updatedDeck.TextColor);
 
                     int numRowsChanged = cmd.ExecuteNonQuery();
                     if (numRowsChanged > 0)
@@ -404,7 +419,9 @@ namespace Capstone.Models.DALs
                             PublicDeck = Convert.ToBoolean(reader["is_public"]),
                             UserId = Convert.ToInt32(reader["users_id"]),
                             ForReview = Convert.ToBoolean(reader["for_review"]),
-                            Description = Convert.ToString(reader["description"])
+                            Description = Convert.ToString(reader["description"]),
+                            DeckColor = Convert.ToString(reader["color"]),
+                            TextColor = Convert.ToString(reader["text_color"])
                         };
                         deck.Cards = cardSqlDAL.GetCardsByDeckId(deck.Id);
                         result.Add(deck);
@@ -441,8 +458,11 @@ namespace Capstone.Models.DALs
                             PublicDeck = Convert.ToBoolean(reader["is_public"]),
                             UserId = Convert.ToInt32(reader["users_id"]),
                             ForReview = Convert.ToBoolean(reader["for_review"]),
-                            Description = Convert.ToString(reader["description"])
+                            Description = Convert.ToString(reader["description"]),
+                            DeckColor = Convert.ToString(reader["color"]),
+                            TextColor = Convert.ToString(reader["text_color"])
                         };
+                        deck.Cards = cardSqlDAL.GetCardsByDeckId(deck.Id);
 
                         result.Add(deck);
                     }
@@ -571,7 +591,9 @@ namespace Capstone.Models.DALs
                             PublicDeck = Convert.ToBoolean(reader["is_public"]),
                             UserId = Convert.ToInt32(reader["users_id"]),
                             ForReview = Convert.ToBoolean(reader["for_review"]),
-                            Description = Convert.ToString(reader["description"])
+                            Description = Convert.ToString(reader["description"]),
+                            DeckColor = Convert.ToString(reader["color"]),
+                            TextColor = Convert.ToString(reader["text_color"])
                         };
 
                         deck.Cards = cardSqlDAL.GetCardsByDeckId(deck.Id);

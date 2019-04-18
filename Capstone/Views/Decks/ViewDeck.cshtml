@@ -40,34 +40,34 @@
         <div class="btn-group deck-buttons">
             @if (Model.Cards.Count > 0)
             {
-                <a asp-controller="Study" asp-action="Index" asp-route-deckId="@Model.Id">Start Study Session</a>
+                <a class="button" asp-controller="Study" asp-action="Index" asp-route-deckId="@Model.Id">Start Study Session</a>
             }
-            <a class="deckId-button" id="@Model.Id" asp-action="AddCard" asp-route-deckId="@Model.Id">Add a card to this deck</a>
-            <a asp-action="EditDeck" asp-route-deckId="@(Model.Id)">Edit Deck</a>
-            <a class="btn-toggle-review">@forReviewButtonText</a>
-            <a asp-action="MyDecks" asp-route-userId="@(Model.UserId)">Back to Decks</a>
-            <a title="Delete Deck?" asp-action="DeleteDeck" asp-route-deckId="@(Model.Id)"><i class="fa fa-trash" aria-hidden="true"></i></a>
+            <a class="deckId-button button" id="@Model.Id" asp-action="AddCard" asp-route-deckId="@Model.Id">Add a card to this deck</a>
+            <a asp-action="EditDeck" class="button" asp-route-deckId="@(Model.Id)">Edit Deck</a>
+            <a class="btn-toggle-review button">@forReviewButtonText</a>
+            <a asp-action="MyDecks" class="button" asp-route-userId="@(Model.UserId)">Back to Decks</a>
+            <a title="Delete Deck? button" asp-action="DeleteDeck" asp-route-deckId="@(Model.Id)"><i class="fa fa-trash" aria-hidden="true"></i></a>
         </div>
     </div>
 
     <div class="cards">
         @foreach (var card in Model.Cards)
         {
-            <div class="card">
+            <div class="card" style="background-color: @Model.DeckColor;">
                 @if (String.IsNullOrEmpty(card.ImageURL))
                 {
-                    <p class="front">@card.Front</p>
+                    <p class="front" style="color: @Model.TextColor;">@card.Front</p>
                 }
                 @if (!String.IsNullOrEmpty(card.ImageURL))
                 {
                     <img src="@card.ImageURL" />
 
                 }
-                <p class="back hidden">@card.Back</p>
+                <p class="back hidden" style="color: @Model.TextColor;">@card.Back</p>
                 <div class="buttons">
-                    <a class="hidden" asp-action="UpdateCard" asp-route-cardId="@card.Id">Update Card |&nbsp;</a>
-                    <a class="hidden" asp-action="AddTag" asp-route-cardId="@card.Id">Add Tag |&nbsp;</a>
-                    <a class="hidden" asp-action="DeleteCard" asp-route-cardId="@card.Id">Delete Card</a>
+                    <a class="hidden button" asp-action="UpdateCard" asp-route-cardId="@card.Id">Update Card</a>
+                    <a class="hidden button" asp-action="AddTag" asp-route-cardId="@card.Id">Add Tag</a>
+                    <a class="hidden button" asp-action="DeleteCard" asp-route-cardId="@card.Id">Delete Card</a>
                 </div>
             </div>
         }
