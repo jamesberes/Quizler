@@ -23,26 +23,25 @@
 <div class="cards">
     @foreach (var card in Model.Cards)
     {
-        <div class="card">
-            @if (String.IsNullOrEmpty(card.ImageURL))
-            {
-                <p class="front">@card.Front</p>
-            }
-            @if (!String.IsNullOrEmpty(card.ImageURL))
-            {
-                <img src="@card.ImageURL" />
+        <div class="card" style="background-color: @Model.DeckColor;">
+            <div class="card-info">
+                @if (String.IsNullOrEmpty(card.ImageURL))
+                {
+                    <p class="front" style="color: @Model.TextColor;">@card.Front</p>
+                }
+                @if (!String.IsNullOrEmpty(card.ImageURL))
+                {
+                    <img src="@card.ImageURL" />
 
-            }
-            <p class="back hidden">@card.Back</p>
+                }
+                <p class="back hidden" style="color: @Model.TextColor;">@card.Back</p>
+
+            </div>
         </div>
     }
 </div>
 
 <hr />
-
-<div class="hidden"> @*This div exists because the variable declaration was printing to the page*@
-    
-</div>
 
 <div class="deck-buttons">  
     <a class="btn-login" asp-controller="Account" asp-action="Login" id="@(Model.Id)">Log in to interact!</a>
