@@ -11,19 +11,19 @@ Developed in an agile environment, we used C# within an `ASP.NET` MVC applicatio
 Contributors: [Josiah Sayers](https://josiahsayers.com), [Patrick Williams](https://patrickleewilliams.com), [James Beres](https://github.com/jamesberes)
 
 ### Front Page
-<img src="Screenshots/splash.jpg">
+<img src="screenshots/splash.jpg">
 
 ### Registration
-<img src="Screenshots/register.jpg">
+<img src="screenshots/register.jpg">
 
 ### My Decks Page
-<img src="Screenshots/mydecks.jpg">
+<img src="screenshots/mydecks.jpg">
 
 ### A Specific Deck
-<img src="Screenshots/cssdeck.jpg">
+<img src="screenshots/cssdeck.jpg">
 
 ### Add a community user's card to your own deck
-<img src="Screenshots/addtodeck.jpg">
+<img src="screenshots/addtodeck.jpg">
 
 ### Study Session Options
 <img src="screenshots/studysession.jpg">
