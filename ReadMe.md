@@ -1,3 +1,4 @@
+
 # FlashCards Application
 
 As a fully functional studying application, Quizler allows users to create decks of flashcards, fill those decks with flashcards, and add tags to their own cards allowing the user (and others) to search for the respective cards & decks. Users can submit their decks for public use to the overall community of users therefore allowing others the ability to add cards they deem viable to their own decks. 
