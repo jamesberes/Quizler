@@ -8,7 +8,7 @@ In addition to text-based cards, users also have the option of customizing deck 
 
 Developed in an agile environment, we used C# within an `ASP.NET` MVC application with an MSSQL server backend, and styled the frontend with HTML, CSS and JavaScript. The application uses an MVC API Controller for dynamic features such as live search. 
 
-Contributors: [Josiah Sayers](https://josiahsayers.com), [Patrick Williams](https://patrickleewilliams.com), [James Beres](https://github.com/jamesberes)
+Contributors: [James Beres](https://github.com/jamesberes), [Josiah Sayers](https://josiahsayers.com), [Patrick Williams](https://patrickleewilliams.com)
 
 ### Front Page
 <img src="screenshots/Splash.jpg">
